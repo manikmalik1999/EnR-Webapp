@@ -1,0 +1,6 @@
+{
+    "env": {
+                "JWT_KEY": "secret",
+                "EARLPassword": "1234567890"
+           }
+}
