@@ -43,28 +43,15 @@ export default function LandingPage(props) {
         }}
         {...rest}
       />
-      <Parallax filter image={require("assets/img/landing-bg.jpg")}>
+      <Parallax filter image={require("assets/img/Landing-bg1.jpg")}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>Your Shopping Starts With Us.</h1>
               <h4>
-                Every landing page needs a small description after the big bold
-                title, that{"'"}s why we added this text here. Add here all the
-                information that can make you or your product create the first
-                impression.
+                EnR brings to you a state of the art solution for all your shopping needs
               </h4>
               <br />
-              <Button
-                color="danger"
-                size="lg"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fas fa-play" />
-                Watch video
-              </Button>
             </GridItem>
           </GridContainer>
         </div>

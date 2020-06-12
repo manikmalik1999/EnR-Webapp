@@ -1,6 +1,7 @@
 {
     "env": {
                 "JWT_KEY": "secret",
-                "EARLPassword": "1234567890"
+                "EMAIL_ID": "manikmalik123abc@gmail.com",
+                "EMAIL_PASS": "9056282462"
            }
 }

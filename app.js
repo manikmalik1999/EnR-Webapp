@@ -11,9 +11,15 @@ const orderRoutes = require("./api/routes/orders");
 const userRoutes = require("./api/routes/users");
 // const projectRoutes = require("./api/routes/projects");
 const mentorRoutes = require("./api/routes/mentors");
-mongoose.connect('mongodb+srv://malikmanik41:'+ process.env.EARLPassword + '@cluster0-koktt.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true,  useUnifiedTopology: true } );
+mongoose.connect('mongodb+srv://malikmanik:4xkJc1XRpCdjSzOm@cluster0-wqaaz.gcp.mongodb.net/test?retryWrites=true&w=majority', 
+{ useNewUrlParser: true,  
+  useUnifiedTopology: true 
+} ).then(()=> console.log("DB connection Established"))
+.catch(err => console.log("DB connection error"+ err));
+
 mongoose.set('useCreateIndex', true);
 mongoose.Promise = global.Promise;
+
 
 app.use(express.static('public'));
 app.use(morgan("dev"));
