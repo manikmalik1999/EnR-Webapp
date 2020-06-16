@@ -5,7 +5,7 @@ add environment variables in the JSON format
 {
   "env": {
              "Variable Name": "Variable value",
-             "Variable_name" "Variable_value"
+             "Variable_name": "Variable_value"
          }
 }
 
