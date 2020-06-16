@@ -121,7 +121,6 @@ router.patch("/:productId",checkAuth, (req, res, next) => {
     .exec()
     .then(result => {
       console.log(result);
-      console.log("Enter");
       res.status(200).json({
         message: 'product updated',
         request: {

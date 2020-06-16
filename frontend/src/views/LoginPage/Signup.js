@@ -38,10 +38,9 @@ export default function SignUp(props) {
  
 
   function handleSignup(e){
-    console.log(email);
     axios({
         method: 'post',
-        url: "http://localhost:5000/users/login",
+        url: "http://localhost:5000/users/signup",
         headers: {}, 
         data: {
             email: email,
@@ -49,9 +48,10 @@ export default function SignUp(props) {
         }
       }).then(res =>{
             alert(res.data.message);
-           const token = res.data.token;
-           sessionStorage.setItem('TokenKey', token);
-           window.location.href = "/";
+        //    const token = res.data.token;
+        //     console.log(token);
+        //    sessionStorage.setItem('TokenKey', token);
+        //    window.location.href = "/index";
         })
 }
 
@@ -79,7 +79,7 @@ export default function SignUp(props) {
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Log In</h4>
+                    <h4>SIGN UP</h4>
                     <div className={classes.socialLine}>
                       <Button
                         justIcon
@@ -184,17 +184,10 @@ export default function SignUp(props) {
                     /> */}
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <div>
                     <Button simple color="primary" size="lg" onClick={handleSignup}>
                       Get started
                     </Button>
-                    </div>
                   </CardFooter>
-                  <CardFooter className={classes.cardFooter}>
-                    <div>
-                    <a href="/forgotpass">Forgot Password?</a> 
-                    </div>
-                   </CardFooter>
                 </form>
               </Card>
             </GridItem>

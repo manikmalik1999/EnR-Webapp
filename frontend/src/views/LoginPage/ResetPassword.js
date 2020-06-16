@@ -26,45 +26,37 @@ import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
-export default function SignUp(props) {
-  const [email , setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function ResetPass(props) {
+
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function() {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
- 
+  const token= props.match.params.token;
+  const [password, setPassword] = useState("");
 
-  function handleSignup(e){
-    console.log(email);
+  function handleSubmit(e){
+    
     axios({
         method: 'post',
-        url: "http://localhost:5000/users/login",
+        url: "http://localhost:5000/users/resetPass/",
         headers: {}, 
         data: {
-            email: email,
+            token: token,
             password: password
         }
       }).then(res =>{
             alert(res.data.message);
-           const token = res.data.token;
-           sessionStorage.setItem('TokenKey', token);
-           window.location.href = "/";
+           window.location.href = "/login-page";
         })
 }
 
 
   return (
     <div>
-      <Header
-        absolute
-        color="transparent"
-        brand="Material Kit React"
-        rightLinks={<HeaderLinks />}
-        {...rest}
-      />
+     
       <div
         className={classes.pageHeader}
         style={{
@@ -78,60 +70,16 @@ export default function SignUp(props) {
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
-                  <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Log In</h4>
-                    <div className={classes.socialLine}>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className={"fab fa-twitter"} />
-                      </Button>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className={"fab fa-facebook"} />
-                      </Button>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className={"fab fa-google-plus-g"} />
-                      </Button>
-                    </div>
+                  <CardHeader color="info" className={classes.cardHeader}>
+                    <h4>Change Password</h4>
                   </CardHeader>
-                  <p className={classes.divider}>Or Be Classical</p>
                   <CardBody>
-                    <TextField
-                      label="Email..."
-                      id="email"
-                      type="email"
-                      fullWidth
-                      style={{paddingBottom:'10%'}}
-                      endadornment= {
-                        <InputAdornment position="end">
-                          <Email className={classes.inputIconsColor} />
-                        </InputAdornment>
-                      }
-                      value ={email}
-                      onChange={e =>{setEmail(e.target.value)}}  
-                    />
                 <TextField
-                      label="Password"
+                      label="New password"
                       id="pass"
                       type="password"
                       fullWidth
-                      style={{paddingBottom:'10%'}}
+                      style={{paddingBottom:'5%'}}
                       endadornment= {
                         <InputAdornment position="end">
                            <Icon className={classes.inputIconsColor}>
@@ -184,17 +132,10 @@ export default function SignUp(props) {
                     /> */}
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <div>
-                    <Button simple color="primary" size="lg" onClick={handleSignup}>
-                      Get started
+                    <Button simple color="primary" size="lg" onClick={handleSubmit}>
+                     Change Password
                     </Button>
-                    </div>
                   </CardFooter>
-                  <CardFooter className={classes.cardFooter}>
-                    <div>
-                    <a href="/forgotpass">Forgot Password?</a> 
-                    </div>
-                   </CardFooter>
                 </form>
               </Card>
             </GridItem>
