@@ -90,7 +90,7 @@ router.post("/", checkAuth, (req, res, next) => {
 //           product: doc,
 //           request: {
 //             type: 'GET',
-//             url: 'http://localhost:3000/products'
+//             url: 'https://limitless-lowlands-36879.herokuapp.com/products'
 //           }
 //         });
         

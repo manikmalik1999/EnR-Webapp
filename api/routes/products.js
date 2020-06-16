@@ -20,7 +20,7 @@ router.get("/", (req, res, next) => {
             dataSheet: doc.dataSheet,
             request: {
               type: 'GET',
-              url: 'http://localhost:3000/products/'+ doc._id
+              url: 'https://limitless-lowlands-36879.herokuapp.com/products/'+ doc._id
             }
           }
         })
@@ -65,7 +65,7 @@ router.post("/", checkAuth, (req, res, next) => {
 
           request: {
             type: 'GET',
-            url:  'http://localhost:3000/products/'+ result._id
+            url:  'https://limitless-lowlands-36879.herokuapp.com/products/'+ result._id
           }
         }
       });
@@ -90,7 +90,7 @@ router.get("/:productId", (req, res, next) => {
           product: doc,
           request: {
             type: 'GET',
-            url: 'http://localhost:3000/products'
+            url: 'https://limitless-lowlands-36879.herokuapp.com/products'
           }
         });
         
@@ -125,7 +125,7 @@ router.patch("/:productId",checkAuth, (req, res, next) => {
         message: 'product updated',
         request: {
           type: 'GET',
-          url: "http://localhost:3000/products/"+ id,
+          url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ id,
         }
       });
     })
@@ -149,7 +149,7 @@ router.delete("/:productId",checkAuth, (req, res, next) => {
         message: 'product deleted',
         request:{
           type: 'POST',
-          url: 'http://localhost:3000/products',
+          url: 'https://limitless-lowlands-36879.herokuapp.com/products',
           body: {name: 'String', quantity: 'Number'}
         }
       }

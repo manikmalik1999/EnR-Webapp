@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
               mobileno: doc.mobileno,
           request: {
               type:'GET',
-              url: "http://localhost:3000/orders/"+ doc._id
+              url: "https://limitless-lowlands-36879.herokuapp.com/orders/"+ doc._id
           }
         }
         }),
@@ -88,7 +88,7 @@ router.get('/:orderId', (req, res, next) => {
           order: order,
           request: {
               type: 'GET',
-              url: "http://localhost:3000/orders"
+              url: "https://limitless-lowlands-36879.herokuapp.com/orders"
           }
       })
       .catch(err=>{
@@ -107,7 +107,7 @@ router.delete('/:orderId', checkAuth,(req, res, next) => {
             message: "Order Deleted",
             request: {
                 type: "POST",
-                url: "http://localhost:3000/orders",
+                url: "https://limitless-lowlands-36879.herokuapp.com/orders",
                 body: {productId: 'ID', quantity:'Number'} 
             }
         })

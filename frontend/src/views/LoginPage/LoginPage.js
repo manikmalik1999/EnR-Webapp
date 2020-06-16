@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { GoogleLogin } from 'react-google-login';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
+
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
+import LockIcon from '@material-ui/icons/Lock';
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -35,13 +37,15 @@ export default function SignUp(props) {
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
- 
-
+  const responseGoogle =(response)=>{
+      console.log(response);
+      window.location.href = "/";
+  }
   function handleSignup(e){
     console.log(email);
     axios({
         method: 'post',
-        url: "http://localhost:5000/users/login",
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/login",
         headers: {}, 
         data: {
             email: email,
@@ -58,13 +62,7 @@ export default function SignUp(props) {
 
   return (
     <div>
-      <Header
-        absolute
-        color="transparent"
-        brand="Material Kit React"
-        rightLinks={<HeaderLinks />}
-        {...rest}
-      />
+
       <div
         className={classes.pageHeader}
         style={{
@@ -81,7 +79,24 @@ export default function SignUp(props) {
                   <CardHeader color="primary" className={classes.cardHeader}>
                     <h4>Log In</h4>
                     <div className={classes.socialLine}>
-                      <Button
+                    <GoogleLogin
+                          clientId="744225883265-ru7qj83bl7bqsfcarhbp6c6qqqo71e64.apps.googleusercontent.com"
+                          buttonText="Login"
+                          render={renderProps => (
+                            <Button
+                            justIcon
+                            color="transparent"
+                            onClick={renderProps.onClick}
+                              >
+                            <i className={"fab fa-google-plus-g"} />
+                          </Button>
+                          )}
+                          onSuccess={responseGoogle}
+                          onFailure={responseGoogle}
+                          cookiePolicy={'single_host_origin'}
+                        />
+
+                      {/* <Button
                         justIcon
                         href="#pablo"
                         target="_blank"
@@ -89,7 +104,7 @@ export default function SignUp(props) {
                         onClick={e => e.preventDefault()}
                       >
                         <i className={"fab fa-twitter"} />
-                      </Button>
+                      </Button> */}
                       <Button
                         justIcon
                         href="#pablo"
@@ -99,15 +114,7 @@ export default function SignUp(props) {
                       >
                         <i className={"fab fa-facebook"} />
                       </Button>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className={"fab fa-google-plus-g"} />
-                      </Button>
+
                     </div>
                   </CardHeader>
                   <p className={classes.divider}>Or Be Classical</p>
@@ -118,11 +125,14 @@ export default function SignUp(props) {
                       type="email"
                       fullWidth
                       style={{paddingBottom:'10%'}}
-                      endadornment= {
-                        <InputAdornment position="end">
-                          <Email className={classes.inputIconsColor} />
-                        </InputAdornment>
-                      }
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Email  style={{color:"purple"}} />
+                          </InputAdornment>
+                        )
+                      }}
+                    
                       value ={email}
                       onChange={e =>{setEmail(e.target.value)}}  
                     />
@@ -132,13 +142,13 @@ export default function SignUp(props) {
                       type="password"
                       fullWidth
                       style={{paddingBottom:'10%'}}
-                      endadornment= {
-                        <InputAdornment position="end">
-                           <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
-                        </InputAdornment>
-                      }
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <LockIcon style={{color:"purple"}}/>
+                          </InputAdornment>
+                        )
+                      }}
                       value ={password}
                       onChange={e =>{setPassword(e.target.value)}}  
                     />

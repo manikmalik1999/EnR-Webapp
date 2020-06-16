@@ -39,7 +39,7 @@ router.post('/signup', (req, res, next)=>{
                 subject: 'Account Activation Link',
                 html: `
                     <h2>Please click on the given link to activate account.</h2>
-                    <a href="http://localhost:3000/evef/${token}">Activate Account</a>
+                    <a href="https://limitless-lowlands-36879.herokuapp.com/evef/${token}">Activate Account</a>
                 `
               };
               transporter.sendMail(mailOptions, (error, info)=>{
@@ -134,7 +134,7 @@ router.post('/forgotpass',(req,res,next)=>{
                 html: `
                     <h2>Please click on the given link to reset password</h2>
                     <p>If you havent requested for the password reset it is adviced you change your password immediately</p>
-                    <a href="http://localhost:3000/resetpass/${token}">Reset My password</a>
+                    <a href="https://limitless-lowlands-36879.herokuapp.com/resetpass/${token}">Reset My password</a>
                 `
               };
               transporter.sendMail(mailOptions, (error, info)=>{

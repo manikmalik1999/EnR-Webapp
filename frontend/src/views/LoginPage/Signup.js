@@ -7,6 +7,7 @@ import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
+import LockIcon from '@material-ui/icons/Lock';
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -40,7 +41,7 @@ export default function SignUp(props) {
   function handleSignup(e){
     axios({
         method: 'post',
-        url: "http://localhost:5000/users/signup",
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/signup",
         headers: {}, 
         data: {
             email: email,
@@ -58,13 +59,7 @@ export default function SignUp(props) {
 
   return (
     <div>
-      <Header
-        absolute
-        color="transparent"
-        brand="Material Kit React"
-        rightLinks={<HeaderLinks />}
-        {...rest}
-      />
+   
       <div
         className={classes.pageHeader}
         style={{
@@ -80,7 +75,7 @@ export default function SignUp(props) {
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
                     <h4>SIGN UP</h4>
-                    <div className={classes.socialLine}>
+                    {/* <div className={classes.socialLine}>
                       <Button
                         justIcon
                         href="#pablo"
@@ -108,21 +103,24 @@ export default function SignUp(props) {
                       >
                         <i className={"fab fa-google-plus-g"} />
                       </Button>
-                    </div>
+                    </div> */}
                   </CardHeader>
                   <p className={classes.divider}>Or Be Classical</p>
                   <CardBody>
-                    <TextField
+                  <TextField
                       label="Email..."
                       id="email"
                       type="email"
                       fullWidth
                       style={{paddingBottom:'10%'}}
-                      endadornment= {
-                        <InputAdornment position="end">
-                          <Email className={classes.inputIconsColor} />
-                        </InputAdornment>
-                      }
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Email  style={{color:"purple"}} />
+                          </InputAdornment>
+                        )
+                      }}
+                    
                       value ={email}
                       onChange={e =>{setEmail(e.target.value)}}  
                     />
@@ -132,13 +130,13 @@ export default function SignUp(props) {
                       type="password"
                       fullWidth
                       style={{paddingBottom:'10%'}}
-                      endadornment= {
-                        <InputAdornment position="end">
-                           <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
-                        </InputAdornment>
-                      }
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <LockIcon style={{color:"purple"}}/>
+                          </InputAdornment>
+                        )
+                      }}
                       value ={password}
                       onChange={e =>{setPassword(e.target.value)}}  
                     />
