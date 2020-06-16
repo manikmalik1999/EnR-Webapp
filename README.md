@@ -1,12 +1,11 @@
 # EnR-Webapp
 
 To access the evironment variables you need to make a nodemon.json file in your local system
-add environment variables in the format 
+add environment variables in the JSON format 
 {
   "env": {
              "Variable Name": "Variable value",
              "Variable_name" "Variable_value"
-              
          }
 }
 
