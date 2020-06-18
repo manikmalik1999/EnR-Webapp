@@ -18,10 +18,13 @@
     "react-datetime": "2.16.3",
     "react-dom": "16.13.1",
     "react-google-login": "^5.1.20",
+    "react-redux": "^7.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "3.4.1",
     "react-slick": "0.26.1",
-    "react-swipeable-views": "0.13.9"
+    "react-swipeable-views": "0.13.9",
+    "reactstrap": "^8.4.1",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/cli": "7.10.1",
