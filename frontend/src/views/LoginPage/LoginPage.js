@@ -37,15 +37,18 @@ export default function SignUp(props) {
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
-  const responseGoogle =(response)=>{
+  const responseGooglesuccess =(response)=>{
       console.log(response);
       window.location.href = "/";
   }
+  const responseGooglefaliure =(response)=>{
+   alert("Google Login not working")
+}
   function handleSignup(e){
     console.log(email);
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.com/users/login/",
+        url: "http://localhost:5000/users/login/",
         headers: {}, 
         data: {
             email: email,
@@ -91,8 +94,8 @@ export default function SignUp(props) {
                             <i className={"fab fa-google-plus-g"} />
                           </Button>
                           )}
-                          onSuccess={responseGoogle}
-                          onFailure={responseGoogle}
+                          onSuccess={responseGooglesuccess}
+                          onFailure={responseGooglefaliure}
                           cookiePolicy={'single_host_origin'}
                         />
 

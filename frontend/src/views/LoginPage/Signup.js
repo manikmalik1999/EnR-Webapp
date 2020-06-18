@@ -41,7 +41,7 @@ export default function SignUp(props) {
   function handleSignup(e){
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.com/users/signup",
+        url: "http://localhost:5000/users/signup",
         headers: {}, 
         data: {
             email: email,
@@ -49,6 +49,7 @@ export default function SignUp(props) {
         }
       }).then(res =>{
             alert(res.data.message);
+            console.log(process.env.DOMAIN_CLIENT);
         //    const token = res.data.token;
         //     console.log(token);
         //    sessionStorage.setItem('TokenKey', token);

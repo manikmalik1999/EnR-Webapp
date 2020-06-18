@@ -13,8 +13,9 @@ router.post('/signup', (req, res, next)=>{
     User.find({email: req.body.email })
     .exec()
     .then(user =>{
+        console.log(process.env.DOMAIN_SERVER);
         if (user.length>=1){
-            return res.status(422).json({message: "User with this e-mail ID already exists"});}
+            return res.json({message: "User with this e-mail ID already exists"}).status(422);}
         else{
 
             const token = jwt.sign({
@@ -24,22 +25,22 @@ router.post('/signup', (req, res, next)=>{
             {
                 expiresIn: '10m'
             })
- 
+
             var transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
                 auth: {
-                    user: "manikmalik123abc@gmail.com",
-                    pass: "9056282462"
+                    user: process.env.EMAIL_ID,
+                    pass: process.env.EMAIL_PASS
                 }
               });
             
             var mailOptions = {
-                from: 'manikmalik123abc@gmail.com',
+                from:  process.env.EMAIL_ID,
                 to: req.body.email,
                 subject: 'Account Activation Link',
                 html: `
                     <h2>Please click on the given link to activate account.</h2>
-                    <a href="https://limitless-lowlands-36879.herokuapp.com/evef/${token}">Activate Account</a>
+                    <a href="${process.env.DOMAIN_CLIENT}/evef/${token}">Activate Account</a>
                 `
               };
               transporter.sendMail(mailOptions, (error, info)=>{
@@ -122,19 +123,19 @@ router.post('/forgotpass',(req,res,next)=>{
             var transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
                 auth: {
-                    user: "manikmalik123abc@gmail.com",
-                    pass: "9056282462"
+                    user: process.env.EMAIL_ID,
+                    pass: process.env.EMAIL_PASS
                 }
               });
             
             var mailOptions = {
-                from: 'manikmalik123abc@gmail.com',
+                from: process.env.EMAIL_ID,
                 to: req.body.email,
                 subject: 'Reset Password',
                 html: `
                     <h2>Please click on the given link to reset password</h2>
                     <p>If you havent requested for the password reset it is adviced you change your password immediately</p>
-                    <a href="https://limitless-lowlands-36879.herokuapp.com/resetpass/${token}">Reset My password</a>
+                    <a href="${process.env.DOMAIN_CLIENT}/resetpass/${token}">Reset My password</a>
                 `
               };
               transporter.sendMail(mailOptions, (error, info)=>{

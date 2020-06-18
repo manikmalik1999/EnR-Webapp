@@ -41,7 +41,7 @@ export default function ResetPass(props) {
     
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.com/users/resetPass/",
+        url: "http://localhost:5000/users/resetPass/",
         headers: {}, 
         data: {
             token: token,

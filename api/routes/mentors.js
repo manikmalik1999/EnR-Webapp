@@ -20,7 +20,7 @@ router.get("/", (req, res, next) => {
             Specialization : doc.Specialization,
             request: {
               type: 'GET',
-              url: 'http://tranquil-fortress-57962.herokuapp.com/mentors/'+ doc._id
+              url: process.env.DOMAIN_SERVER +'/mentors/'+ doc._id
             }
           }
         })

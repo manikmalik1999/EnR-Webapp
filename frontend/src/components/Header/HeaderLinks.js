@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React,{useState} from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 // react components for routing our app without refresh
@@ -12,18 +12,24 @@ import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
 
 // @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
+import SearchIcon from '@material-ui/icons/Search';
 
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import Button from "components/CustomButtons/Button.js";
-
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment'
+import FormControl from '@material-ui/core/FormControl';
 import styles from "assets/jss/material-kit-react/components/headerLinksStyle.js";
 
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
+  const [search , setSearch] = useState("");
   const classes = useStyles();
+  const handleSearch =()=>{
+
+  }
   return (
     <List className={classes.list}>
       {/* <ListItem className={classes.listItem}>
@@ -49,6 +55,28 @@ export default function HeaderLinks(props) {
           ]}
         />
       </ListItem> */}
+        
+        <ListItem className={classes.listItem}>
+
+            <Input
+                white
+                inputRootCustomClasses={classes.inputRootCustomClasses}
+                formControlProps={{
+                  className: classes.formControl
+                }}
+                inputProps={{
+                  placeholder: "Search",
+                  inputProps: {
+                    "aria-label": "Search",
+                    className: classes.navLink
+                  }
+                }}
+            />
+              <Button justIcon round color="white">
+                  <SearchIcon className={classes.searchIcon} />
+              </Button>
+ 
+        </ListItem>
       <ListItem className={classes.listItem}>
         <Button
           href="/login-page"
@@ -57,9 +85,9 @@ export default function HeaderLinks(props) {
           className={classes.navLink}
         >
           Log In
-          {/* <CloudDownload className={classes.icons} /> Download */}
         </Button>
       </ListItem>
+
       <ListItem className={classes.listItem}>
         <Button
           href="/sign-up"
@@ -68,15 +96,17 @@ export default function HeaderLinks(props) {
           className={classes.navLink}
         >
           Sign Up
-          {/* <CloudDownload className={classes.icons} /> Download */}
+       
         </Button>
       </ListItem>
+    
+{/* 
       <ListItem className={classes.listItem}>
-        {/* <Tooltip title="Delete">
+        <Tooltip title="Delete">
           <IconButton aria-label="Delete">
             <DeleteIcon />
           </IconButton>
-        </Tooltip> */}
+        </Tooltip>
         <Tooltip
           id="instagram-twitter"
           title="Follow us on twitter"
@@ -93,6 +123,8 @@ export default function HeaderLinks(props) {
           </Button>
         </Tooltip>
       </ListItem>
+
+
       <ListItem className={classes.listItem}>
         <Tooltip
           id="instagram-facebook"
@@ -126,7 +158,7 @@ export default function HeaderLinks(props) {
             <i className={classes.socialIcons + " fab fa-instagram"} />
           </Button>
         </Tooltip>
-      </ListItem>
+      </ListItem> */}
     </List>
   );
 }

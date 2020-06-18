@@ -23,6 +23,7 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // Sections for this page
 import ProductSection from "./Sections/ProductSection.js";
+import NavBar from "components/Header/Navbar"
 // import TeamSection from "./Sections/TeamSection.js";
 // import WorkSection from "./Sections/WorkSection.js";
 
@@ -35,9 +36,9 @@ export default function LandingPage(props) {
   const { ...rest } = props;
   return (
     <div>
-
-      <Header
-        color="transparent"
+      <NavBar/>
+      {/* <Header
+        color="info"
         routes={dashboardRoutes}
         brand="EnR E-COMMERCE"
         rightLinks={<HeaderLinks/>}
@@ -47,7 +48,7 @@ export default function LandingPage(props) {
           color: "white"
         }}
         {...rest}
-      />
+      /> */}
       <Parallax filter image={require("assets/img/Landing-bg1.jpg")}>
         <div className={classes.container}>
           <GridContainer>
