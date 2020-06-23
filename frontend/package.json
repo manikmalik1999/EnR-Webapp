@@ -9,6 +9,7 @@
     "@material-ui/icons": "4.9.1",
     "axios": "^0.19.2",
     "classnames": "2.2.6",
+    "cross-fetch": "^3.0.5",
     "history": "4.10.1",
     "moment": "2.26.0",
     "node-sass": "4.14.1",
@@ -23,8 +24,10 @@
     "react-scripts": "3.4.1",
     "react-slick": "0.26.1",
     "react-swipeable-views": "0.13.9",
+    "react-thunk": "^1.0.0",
     "reactstrap": "^8.4.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/cli": "7.10.1",

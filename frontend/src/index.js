@@ -13,17 +13,15 @@ import SignUp from "views/LoginPage/Signup.js"
 import evef from "views/LoginPage/EmailVerification.js"
 import resetpass from "views/LoginPage/ResetPassword.js"
 import forgotpass from "views/LoginPage/ForgotPass.js"
-import Home from './components/components-cart/Home'
-import Cart from './components/components-cart/Cart'
-import cartReducer from 'components/components-cart/reducers/cartReducer.js';
+//import Home from './components/components-cart/Home'
+import Cart from 'views/CartPage/Cart'
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 var hist = createBrowserHistory();
-const store = createStore(cartReducer);
-
+//const k = createStore(DataFetching);
 ReactDOM.render(
-  <Provider store={store}>
   <Router history={hist}>
     <Switch>
       <Route path="/landing-page" component={Components} />
@@ -33,10 +31,9 @@ ReactDOM.render(
       <Route path="/Evef/:token" component={evef} />
       <Route path="/resetpass/:token" component={resetpass} />
       <Route path="/forgotpass" component={forgotpass} />
-      <Route path="/cartt" component={Home}/>
       <Route path="/cart" component={Cart}/>
       <Route path="/" component={LandingPage} />
     </Switch>
-  </Router></Provider>,
+  </Router>,
   document.getElementById("root")
 );

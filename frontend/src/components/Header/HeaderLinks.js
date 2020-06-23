@@ -136,7 +136,7 @@ export default function HeaderLinks(props) {
         >
           <Button
             color="transparent"
-            href="/cartt"
+            href="/cart"
             className={classes.navLink}
           >
             <i className="material-icons">shopping_cart</i>
