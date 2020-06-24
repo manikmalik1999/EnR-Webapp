@@ -31,7 +31,7 @@ export default function SearchDisplay(props) {
     const [products, setProducts] = useState([]);
  
     useEffect(() => {
-        axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+        axios.get('http://localhost:5000/products')
       .then(res =>{
         console.log(res);
         setProducts(res.data.products);
@@ -55,7 +55,7 @@ export default function SearchDisplay(props) {
                 <div key= {pro._id}  style={{margin:"2vh"}} >
                  <Grid className ="element"  container spacing={3} >
                     <Grid item xs={3}>
-                        <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        <img style={{height: "20vh", width: "auto"}} src= {"http://localhost:5000/" + pro.image} />
                     </Grid>
                     <hr/>
                     <Grid item xs style={{textAlign:"top"}}>
@@ -121,7 +121,7 @@ export default function SearchDisplay(props) {
 //     // const classes = useStyles();
 
 //     useEffect(() => {
-//         axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+//         axios.get('http://localhost:5000/products')
 //       .then(res =>{
 //         console.log(res);
 //         setProducts(res.data.products);
@@ -157,7 +157,7 @@ export default function SearchDisplay(props) {
                     
 //                 <Grid className ="element"  container spacing={3} >
 //                     <Grid item xs={3}>
-//                         <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+//                         <img style={{height: "20vh", width: "auto"}} src= {"http://localhost:5000/" + pro.image} />
 //                     </Grid>
 //                     <hr/>
 //                     <Grid item xs style={{textAlign:"top"}}>

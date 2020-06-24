@@ -4,7 +4,7 @@
                 "EMAIL_ID": "manikmalik123abc@gmail.com",
                 "EMAIL_PASS": "9056282462",
                 "EMAIL_VERIFY": "1357908642",
-                "DOMAIN_SERVER": "https://limitless-lowlands-36879.herokuapp.com",
-                "DOMAIN_CLIENT": "https://limitless-lowlands-36879.herokuapp.com"
+                "DOMAIN_SERVER": "http://localhost:5000",
+                "DOMAIN_CLIENT": "http://localhost:5000"
             }
 }

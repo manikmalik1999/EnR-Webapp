@@ -194,16 +194,18 @@ router.post('/login', (req, res, next)=>{
     .exec()
     .then(user =>{
         if(user.length<1){
-            return res.status(401).json({message: 'Authorization Failed'});}
+            return res.json({message: 'Authorization Failed', status: 401}).status(401);}
 
         bcrypt.compare(req.body.password , user[0].password, (err, result)=>{
             if (err){
                 
                 console.log(err);
-                return res.status(401).json({
-                    message: 'Authorization Failed'
-                });}
-                if(result){
+                return res.json({
+                    message: 'Authorization Failed',
+                    status: 401
+                }).status(401);}
+
+            else if(result){
                   
                     const token = jwt.sign({
                         email: user[0].email,
@@ -214,19 +216,25 @@ router.post('/login', (req, res, next)=>{
                         expiresIn: "1h"
                     }
                     );
-                    return res.status(200).json({message: "Authorization Successful", token: token})
-                }
-                console.log("entering");
-            res.status(401).json({
+                return res.json({message: "Authorization Successful", token: token}).status(200);
+            }
+            else{
+ 
+            res.json({
                 
-                message: 'Authorization Failed'
+                message: 'Authorization Failed',
+                status: 401
+            }).status(401);
+        }
             });
-            });
+        
     })
     .catch(err => {
-        console.log(err);
+        console.log("entering");
         res.status(500).json({
-          error: err
+          error: err,
+          message: err,
+          status: 401
         });
       });
 });
