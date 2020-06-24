@@ -17,6 +17,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Wishlist from './Wishlist'
 
 class Cart extends Component{
 
@@ -150,6 +151,7 @@ class Cart extends Component{
                         </div></div></div>
                         {addedItems}
                     </div> 
+                    <Wishlist />
                     <div className="e-card e-card-horizontal container-fluid">
                                     <div className="row" style={{ background: grey[100] }}>
                                     <div className="col-12 mt-3">
