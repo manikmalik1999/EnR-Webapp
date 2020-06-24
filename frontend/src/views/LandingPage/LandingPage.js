@@ -7,17 +7,9 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 
 // core components
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Header from "components/Header/Header.js";
+
 import Footer from "components/Footer/Footer.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import Button from "components/CustomButtons/Button.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
-import Parallax from "components/Parallax/Parallax.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Search from "@material-ui/icons/Search";
+import Categories from "components/Header/CategoryBar.js"
 
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
@@ -36,7 +28,8 @@ export default function LandingPage(props) {
   const { ...rest } = props;
   return (
     <div>
-      <NavBar/>
+     <NavBar/>
+     
       {/* <Header
         color="info"
         routes={dashboardRoutes}
@@ -62,11 +55,14 @@ export default function LandingPage(props) {
           </GridContainer>
         </div>
       </Parallax> */}
+      
       <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
+      <Categories />
         <div className={classes.container}>
           <ProductSection />
         </div>
       </div>
+      
       <Footer />
     </div>
   );

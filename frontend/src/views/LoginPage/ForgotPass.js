@@ -8,8 +8,7 @@ import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 // core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
+
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -35,7 +34,7 @@ export default function ForgotPass(props) {
   const classes = useStyles();
   const { ...rest } = props;
   const [email , setEmail] = useState("");
-
+  
   function handleSubmit(e){
     
     axios({

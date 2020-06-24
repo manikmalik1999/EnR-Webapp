@@ -4,7 +4,8 @@ import { GoogleLogin } from 'react-google-login';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+// import Alert from '@material-ui/lab/Alert';
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
@@ -31,18 +32,33 @@ const useStyles = makeStyles(styles);
 export default function SignUp(props) {
   const [email , setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const[googleavailable, setGoogav]= useState(true);
+  const [loginFal , setLoginFal] = useState(false);
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function() {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
-  const responseGooglesuccess =(response)=>{
-      console.log(response);
-      window.location.href = "/";
-  }
-  const responseGooglefaliure =(response)=>{
-   alert("Google Login not working")
+  // const responseGooglesuccess =(response)=>{
+  //     console.log(response);
+  //     window.location.href = "/";
+  // }
+  const ResponseGoogle =(response)=>{
+    if(googleavailable === false){
+
+   return ( <SnackbarContent
+    message={
+      <span>
+        Google Login Not available
+      </span>
+    }
+    close
+    color="danger"
+    icon="info_outline"
+  />);
+    }
+    else{return null}
 }
   function handleSignup(e){
     console.log(email);
@@ -55,20 +71,38 @@ export default function SignUp(props) {
             password: password
         }
       }).then(res =>{
-               console.log(res);
-               alert(res.data.message);
-               if((res.data.status)!= 401){
+                console.log(res);
+                if((res.data.status)!= 401){
                 const token = res.data.token;
                 sessionStorage.setItem('TokenKey', token);
                 window.location.href = "/";
                }
+               else{
+                setLoginFal(true);
+               }
         })
 }
-
+const HandleLoginFaliure=()=>{
+  if(loginFal === true){
+    return(<SnackbarContent
+      message={
+        <span>
+         login faliure
+        </span>
+      }
+      close
+      color="danger"
+      icon="info_outline"
+    />);
+  }
+  else {
+    return null;
+  }
+}
 
   return (
     <div>
-
+      
       <div
         className={classes.pageHeader}
         style={{
@@ -77,7 +111,9 @@ export default function SignUp(props) {
           backgroundPosition: "top center"
         }}
       >
+        
         <div className={classes.container}>
+        <ResponseGoogle/><HandleLoginFaliure/>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
@@ -97,8 +133,13 @@ export default function SignUp(props) {
                             <i className={"fab fa-google-plus-g"} />
                           </Button>
                           )}
-                          onSuccess={responseGooglesuccess}
-                          onFailure={responseGooglefaliure}
+                          onSuccess={(e)=>{ 
+                           window.location.href = "/";
+                          }}
+                          onFailure={(e)=>{ 
+                            setGoogav(false);
+                            ResponseGoogle(1);
+                          }}
                           cookiePolicy={'single_host_origin'}
                         />
 

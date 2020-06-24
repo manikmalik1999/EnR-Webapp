@@ -6,7 +6,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
 // core components
@@ -32,6 +32,8 @@ export default function SignUp(props) {
   const [email , setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [signupcolor, setSignupColor] = useState("warning");
+  const [message, setMessage]= useState("");
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function() {
     setCardAnimation("");
@@ -50,15 +52,37 @@ export default function SignUp(props) {
             password: password
         }
       }).then(res =>{
-            alert(res.data.message);
-            console.log(process.env.DOMAIN_CLIENT);
+            setMessage(res.data.message);
+            if((res.data.status) === 201){
+                setSignupColor("success");
+             }
+             else{
+              setSignupColor("danger");
+             }
         //    const token = res.data.token;
         //     console.log(token);
         //    sessionStorage.setItem('TokenKey', token);
         //    window.location.href = "/index";
         })
 }
+const HandleSignupResponse=()=>{
+if(message !== ""){
+  return(<SnackbarContent
+    message={
+      <span>
+       {message}
+      </span>
+    }
+    close
+    color={signupcolor}
+    icon="info_outline"
+  />);
 
+}
+else {
+  return null;
+}
+}
 
   return (
     <div>
@@ -72,6 +96,7 @@ export default function SignUp(props) {
         }}
       >
         <div className={classes.container}>
+          <HandleSignupResponse/>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
@@ -108,7 +133,7 @@ export default function SignUp(props) {
                       </Button>
                     </div> */}
                   </CardHeader>
-                  <p className={classes.divider}>Or Be Classical</p>
+                  <p className={classes.divider}></p>
                   <CardBody>
                   <TextField
                       label="Name"

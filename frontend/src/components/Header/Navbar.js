@@ -118,6 +118,12 @@ export default function PrimarySearchAppBar(props) {
   const handleSearch =(e)=>{
     window.location.href="/search/"+ search;
   }
+  const HandleEnter =(e)=>{
+   
+    if(e.keyCode===13){
+      window.location.href="/search/"+ search;
+    }
+  }
   const handleLoginclick =(e)=>{
     window.location.href="/login-page";
   }
@@ -152,6 +158,21 @@ export default function PrimarySearchAppBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem>
+      <div className={classes.search}>
+                    <InputBase
+                    value={search}
+                    placeholder="Search for products"
+                    onChange={ e =>{setSearch(e.target.value)}}
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                    onKeyDown={(e)=>HandleEnter(e)}
+                    inputProps={{ 'aria-label': 'search' }}
+                  />
+                  </div>
+      </MenuItem>
       <MenuItem onClick={handleSignupclick} >
         <IconButton aria-label="Sign-Up" color="inherit">
             <PersonAddIcon/>
@@ -198,7 +219,7 @@ export default function PrimarySearchAppBar(props) {
             aria-label="open drawer"
           >
               {/* <MenuIcon/> */}
-           <img height="45vh" width="50vw" src={logo}/>
+           <img  style={{height: "7vh", width: "auto"}} src={logo}/>
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             EnR E-Commerce
@@ -215,7 +236,7 @@ export default function PrimarySearchAppBar(props) {
           </Grid>
         </Grid>
         </div> */}
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
 
             <InputBase
               value={search}
@@ -232,9 +253,27 @@ export default function PrimarySearchAppBar(props) {
               <SearchIcon style={{color:"white"}}/>
             </IconButton>
             </div>
-          </div>
+          </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+
+                 <div className={classes.search}>
+                    <InputBase
+                    value={search}
+                    placeholder="Search for products"
+                    onChange={ e =>{setSearch(e.target.value)}}
+                    classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                    }}
+                    inputProps={{ 'aria-label': 'search' }}
+                  />
+                  <div className={classes.searchIcon}>
+                  <IconButton onClick={handleSearch}>
+                    <SearchIcon style={{color:"white"}}/>
+                  </IconButton>
+                  </div>
+                  </div>
             <Button style={{background:"white", marginRight:"1vw", height:"5vh", marginTop:"1vh"}} href="/login-page">
               Login
             </Button>

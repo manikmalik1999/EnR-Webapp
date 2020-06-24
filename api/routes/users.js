@@ -47,10 +47,10 @@ router.post('/signup', (req, res, next)=>{
               transporter.sendMail(mailOptions, (error, info)=>{
                 if (error) {
                   console.log(error);
-                  res.status(500).json({error : error})
+                  res.json({error : error}).status(500)
                 } else {
                   console.log('Email sent: ' + info.response);
-                    res.status(201).json({message: 'Email Sent'})
+                    res.json({message: 'Email Sent', status:201}).status(201);
                 }
               });
         } 

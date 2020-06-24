@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import image from "assets/img/bg7.jpg";
 import Footer from "components/Footer/Footer.js";
+import Categories from "components/Header/CategoryBar.js"
 // import styles from "assets/jss/material-kit-react/views/loginPage.js";
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -45,9 +46,10 @@ export default function SearchDisplay(props) {
     )
   return (
     <div>
-      <NavBar/>
+      <NavBar value={search}/>
 
       <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
+            <Categories/>
         <h4 style={{color:"green"}} >Search Results for "{search}"</h4>
         <div className={classes.container}>
                 
