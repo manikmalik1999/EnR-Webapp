@@ -47,7 +47,7 @@ router.post('/signup', (req, res, next)=>{
               transporter.sendMail(mailOptions, (error, info)=>{
                 if (error) {
                   console.log(error);
-                  res.json({error : error}).status(500)
+                  res.json({error : error, status: 500, message: error}).status(500)
                 } else {
                   console.log('Email sent: ' + info.response);
                     res.json({message: 'Email Sent', status:201}).status(201);
