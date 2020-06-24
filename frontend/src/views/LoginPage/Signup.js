@@ -43,7 +43,7 @@ export default function SignUp(props) {
   function handleSignup(e){
     axios({
         method: 'post',
-        url: "http://localhost:5000/users/signup",
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/signup",
         headers: {}, 
         data: {
             email: email,
