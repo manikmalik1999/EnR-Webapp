@@ -49,7 +49,7 @@ export default function LandingPage(props) {
         }}
         {...rest}
       /> */}
-      <Parallax filter image={require("assets/img/Landing-bg1.jpg")}>
+      {/* <Parallax filter image={require("assets/img/Landing-bg1.jpg")}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
@@ -61,8 +61,8 @@ export default function LandingPage(props) {
             </GridItem>
           </GridContainer>
         </div>
-      </Parallax>
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      </Parallax> */}
+      <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <ProductSection />
         </div>

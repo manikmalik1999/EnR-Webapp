@@ -2,36 +2,45 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const checkAuth = require("../Middleware/check-auth")
-const Product = require("../models/product");
+const multer = require('multer');
 
+const storage = multer.diskStorage({
+  destination : function(req, file , cb){
+    cb(null, './uploads');
+
+  },
+  filename : function (req, file, cb){
+      cb(null, Date.now() + file.originalname)
+  }
+});
+
+const fileFilter = (req, file, cb)=>{
+if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    cb(null, true);}
+    else {cb(new Error('Only jpeg and png files allowed'), false);}
+};
+const upload = multer({storage: storage,
+   limits:{fileSize: 1024*1024 *5},
+   fileFilter: fileFilter
+  });
+
+const Product = require("../models/product");
 router.get("/", (req, res, next) => {
   Product.find()
-  .select('name price _id quantity description dataSheet')
+  .select('name price _id quantity category sellerId description image')
     .exec()
     .then(docs => {
       const response = {
         count: docs.length,
-        products: docs.map(doc =>{
-          return {
-            name: doc.name,
-            description: doc.description,
-            _id: doc._id,
-            quantity: doc.quantity,
-            dataSheet: doc.dataSheet,
-            request: {
-              type: 'GET',
-              url: 'https://limitless-lowlands-36879.herokuapp.com/products/'+ doc._id
-            }
-          }
-        })
+        products: docs
       };
-      //   if (docs.length >= 0) {
+        if (docs.length >= 0) {
       res.status(200).json(response);
-      //   } else {
-      //       res.status(404).json({
-      //           message: 'No entries found'
-      //       });
-      //   }
+        } else {
+            res.status(404).json({
+                message: 'No entries found'
+            });
+        }
     })
     .catch(err => {
       console.log(err);
@@ -41,14 +50,19 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", checkAuth, (req, res, next) => {
+
+router.post("/",  upload.single('productImage'), (req, res, next) => {
+  console.log(req.file);
+  console.log(req.body);
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     description: req.body.description,
     quantity:  req.body.quantity,
-    dataSheet: req.body.dataSheet,
-
+    price: req.body.price,
+    category: req.body.category,
+    sellerId: req.body.sellerId,
+    image: req.file.path
   });
   product
     .save()
@@ -61,12 +75,12 @@ router.post("/", checkAuth, (req, res, next) => {
           description: result.description,
           _id: result._id,
           quantity: result.quantity,
-          dataSheet: result.dataSheet,
+         
 
           request: {
             type: 'GET',
             url:  'https://limitless-lowlands-36879.herokuapp.com/products/'+ result._id
-          }
+          } 
         }
       });
     })
@@ -78,10 +92,11 @@ router.post("/", checkAuth, (req, res, next) => {
     });
 });
 
+
 router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
-  .select('name _id quantity description dataSheet')
+  .select('name price _id quantity category sellerId description image')
     .exec()
     .then(doc => {
       console.log("From database", doc);
@@ -117,7 +132,15 @@ router.patch("/:productId",checkAuth, (req, res, next) => {
   //   updateOps[ops.propName] = ops.value;
   // }
   console.log(req.body.Product.description);
-  Product.update({ _id: id }, { $set:{ name: req.body.Product.name, quantity: req.body.Product.quantity, description: req.body.Product.description, dataSheet: req.body.Product.dataSheet } })
+  Product.update({ _id: id }, { $set:{ 
+    name: req.body.Product.name, 
+    quantity: req.body.Product.quantity, 
+    description: req.body.Product.description, 
+    price: req.body.Product.price,
+    category:  req.body.Product.category,
+    sellerId:  req.body.Product.sellerId,
+    image:  req.body.Product.image
+  } })
     .exec()
     .then(result => {
       console.log(result);

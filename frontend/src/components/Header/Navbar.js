@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,17 +9,21 @@ import TextField from '@material-ui/core/TextField';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
+
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Tooltip from '@material-ui/core/Tooltip';
 //images 
 import logo from 'assets/img/EnR-logo.png'
-import { Icon } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -84,12 +88,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const {value} = props;
+  const [search, setSearch]= useState(value);
+  
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -109,6 +115,15 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const handleSearch =(e)=>{
+    window.location.href="/search/"+ search;
+  }
+  const handleLoginclick =(e)=>{
+    window.location.href="/login-page";
+  }
+  const handleSignupclick =(e)=>{
+    window.location.href="/sign-up";
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -137,6 +152,18 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem onClick={handleSignupclick} >
+        <IconButton aria-label="Sign-Up" color="inherit">
+            <PersonAddIcon/>
+        </IconButton>
+        <p>Sign-Up</p>
+      </MenuItem>
+      <MenuItem onClick={handleLoginclick}>
+        <IconButton aria-label="login" color="inherit">
+            <LockOpenIcon/>
+        </IconButton>
+        <p>login</p>
+      </MenuItem>
        <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -149,27 +176,19 @@ export default function PrimarySearchAppBar() {
         <p>Profile</p>
       </MenuItem>
       <MenuItem>
-        <IconButton aria-label="show new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
+        <IconButton aria-label="show cart" color="inherit">
+          <Badge badgeContent={1} color="secondary">
+            <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+        <p>Shopping Cart</p>
       </MenuItem>
 
     </Menu>
   );
-
+//className={classes.grow}
   return (
-    <div className={classes.grow}>
+    <div className={classes.grow} >
       <AppBar style={{}} position="fixed">
         <Toolbar>
           <IconButton
@@ -199,7 +218,9 @@ export default function PrimarySearchAppBar() {
           <div className={classes.search}>
 
             <InputBase
+              value={search}
               placeholder="Search for products"
+              onChange={ e =>{setSearch(e.target.value)}}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -207,13 +228,19 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
             <div className={classes.searchIcon}>
-            <IconButton>
+            <IconButton onClick={handleSearch}>
               <SearchIcon style={{color:"white"}}/>
             </IconButton>
             </div>
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Button style={{background:"white", marginRight:"1vw", height:"5vh", marginTop:"1vh"}} href="/login-page">
+              Login
+            </Button>
+            <Button style={{background:"white", marginRight:"1vw",height:"5vh",  marginTop:"1vh"}} href="/sign-up">
+              Sign-up
+            </Button>
           <Tooltip title="Account Info">
           <IconButton
               edge="end"
@@ -226,16 +253,18 @@ export default function PrimarySearchAppBar() {
               <AccountCircle />
             </IconButton>
             </Tooltip>
-            <IconButton aria-label="show 4 new mails" color="inherit">
+            {/* <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
               </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
+            </IconButton> */}
+            <Tooltip title="Cart">
+            <IconButton aria-label="show user's cart" color="inherit">
+              <Badge badgeContent={1} color="secondary">
+              <ShoppingCartIcon/>
               </Badge>
             </IconButton>
+            </Tooltip>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

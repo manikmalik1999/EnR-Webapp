@@ -8,6 +8,7 @@ import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 import LockIcon from '@material-ui/icons/Lock';
+import PersonIcon from '@material-ui/icons/Person';
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -29,6 +30,7 @@ const useStyles = makeStyles(styles);
 
 export default function SignUp(props) {
   const [email , setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   setTimeout(function() {
@@ -41,7 +43,7 @@ export default function SignUp(props) {
   function handleSignup(e){
     axios({
         method: 'post',
-        url: "http://localhost:5000/users/signup",
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/signup",
         headers: {}, 
         data: {
             email: email,
@@ -108,6 +110,23 @@ export default function SignUp(props) {
                   </CardHeader>
                   <p className={classes.divider}>Or Be Classical</p>
                   <CardBody>
+                  <TextField
+                      label="Name"
+                      id="name"
+                      type="text"
+                      fullWidth
+                      style={{paddingBottom:'10%'}}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <PersonIcon style={{color:"purple"}} />
+                          </InputAdornment>
+                        )
+                      }}
+                    
+                      value ={name}
+                      onChange={e =>{setName(e.target.value)}}  
+                    />
                   <TextField
                       label="Email..."
                       id="email"

@@ -5,7 +5,10 @@ const productSchema = mongoose.Schema({
     name: {type: String, required: true },
     description: {type: String, required: true },
     quantity: {type: Number, default: 1},
-    dataSheet: {type: String, required: false, default: "https://www.datasheets360.com/" }
+    price: {type: Number, required: true},
+    category: {type: String, required: true },
+    sellerId: {type: String, required: true },
+    image: {type: String, required: false}
 });
 
 module.exports = mongoose.model('Product', productSchema);

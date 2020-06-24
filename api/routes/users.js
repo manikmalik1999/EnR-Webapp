@@ -19,6 +19,7 @@ router.post('/signup', (req, res, next)=>{
         else{
 
             const token = jwt.sign({
+                name: req.body.name,
                 email: req.body.email,
                 password: req.body.password
             },process.env.EMAIL_VERIFY ,
@@ -63,7 +64,7 @@ router.post('/verify', (req,res, next)=>{
             if(err)
                 return res.status(400).json({Error: "Incorrect or Expired link"})
             
-            const {email, password}= decodedtoken;
+            const {email, password, name}= decodedtoken;
             User.find({email: email })
             .exec()
             .then(user =>{
@@ -78,6 +79,7 @@ router.post('/verify', (req,res, next)=>{
                         else{
                     const user = new User({
                         _id: new mongoose.Types.ObjectId(),
+                        name: name,
                         email: email,
                         password: hash
                     }); 
@@ -220,7 +222,6 @@ router.post('/login', (req, res, next)=>{
                 message: 'Authorization Failed'
             });
             });
-    
     })
     .catch(err => {
         console.log(err);
