@@ -9,7 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import Badge from 'components/Badge/Badge.js';
 // core components
-
+import Categories from "components/Header/CategoryBar.js"
 import Footer from "components/Footer/Footer.js";
 import Grid from '@material-ui/core/Grid';
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
@@ -29,7 +29,7 @@ export default function SingleProd(props) {
   const [product, setProduct] = useState([]);
   const ID = props.match.params.productID;
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/'+ ID)
+    axios.get('http://localhost:5000/products/'+ ID)
   .then(res =>{
     setProduct(res.data.product);
   })
@@ -42,10 +42,12 @@ export default function SingleProd(props) {
       {[product].map(pro =>(
               
       <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
+        <Categories/>
+        <div><p></p></div>
            <div className={classes.container}>
                  <Grid className ="element"  container spacing={2} >
                     <Grid item xs={4}>
-                        <img style={{height: "auto", width: "30vw"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        <img style={{height: "auto", width: "30vw"}} src= {"http://localhost:5000/" + pro.image} />
                         <div style={{display:"inline"}}>
                         <Button variant="contained" style={{backgroundColor:"#00e676", marginRight:"0.5vw",  fontSize:"1.5vw"}}>Cart</Button>
                         <Button variant="contained"  style={{backgroundColor:"#33eb91",  fontSize:"1.5vw"}}>Wishlist</Button>                          

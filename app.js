@@ -1,5 +1,9 @@
 const express = require("express");
 const app = express();
+// TODO: add a stripe key
+// const stripe = require("stripe")("");
+// const uuid = require("uuid/v4")
+
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -8,8 +12,11 @@ var cors = require('cors');
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 const userRoutes = require("./api/routes/users");
+const StripeReq = require("./api/routes/Stripe");
 // const projectRoutes = require("./api/routes/projects");
 const mentorRoutes = require("./api/routes/mentors");
+
+
 mongoose.connect('mongodb+srv://malikmanik:4xkJc1XRpCdjSzOm@cluster0-wqaaz.gcp.mongodb.net/test?retryWrites=true&w=majority', 
 { useNewUrlParser: true,  
   useUnifiedTopology: true 
@@ -45,6 +52,7 @@ app.use((req, res, next) => {
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/users", userRoutes);
+app.use("/payment", StripeReq);
 // app.use("/projects", projectRoutes);
 app.use("/ourmentors", mentorRoutes);
 

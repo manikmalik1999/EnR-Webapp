@@ -16,6 +16,7 @@ import resetpass from "views/LoginPage/ResetPassword.js"
 import forgotpass from "views/LoginPage/ForgotPass.js"
 import searchpage from "views/ProductPage/SearchDisplay.js"
 import productDisplay from "views/ProductPage/SingleProduct.js"
+import CategoryDisplay from "views/ProductPage/CategoryDisplay.js"
 var hist = createBrowserHistory();
 //:searchquery
 ReactDOM.render(
@@ -28,7 +29,8 @@ ReactDOM.render(
       <Route path="/Evef/:token" component={evef} />
       <Route path="/resetpass/:token" component={resetpass} />
       <Route path="/forgotpass" component={forgotpass} />
-      <Route path="/search/:searchquery" component={searchpage} /> 
+      <Route path="/search/:searchquery" component={searchpage} />
+      <Route path="/categories/:category/:index" component={CategoryDisplay} />  
       <Route path="/display/:productID" component={productDisplay} /> 
       <Route path="/" component={LandingPage} />
     </Switch>

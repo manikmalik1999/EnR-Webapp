@@ -11,14 +11,21 @@ export default function Categories(props) {
   const handleChange = (event, newValue) => {
     switch(newValue){
         case 0:
-            window.location.href="/search/Sports";
+            window.location.href="/categories/Sports/"+ 0;
             break;
         case 1:
-            window.location.href="/search/Health";
+            window.location.href="/categories/Health/" +1;
             break;
         case 2:
-            window.location.href="/search/Fashion";
+            window.location.href="/categories/Toys/" +2;
             break;
+        case 3:
+              window.location.href="/categories/Fashion/" +3;
+              break;
+
+        case 4:
+              window.location.href="/categories/Entertainment/" +4;
+              break;
 
     }
   }
@@ -32,10 +39,13 @@ export default function Categories(props) {
         onChange={handleChange}
         aria-label=" tabs "
         centered
+        orientation="horizontal"
       >
-        <Tab label="Sports" />
-        <Tab label="Health" />
-        <Tab label="Fashion" />
+        <Tab label="Sports"  />
+        <Tab label="Health"  />
+        <Tab label="Toys" />
+        <Tab label="Fashion"  />
+        <Tab label= "Entertainment" />
       </Tabs>
     </Paper>
   );

@@ -68,7 +68,7 @@ export default function Footer(props) {
             className={aClasses}
             target="_blank"
           >
-            Manik Malik
+            EnR
           </a>{" "}
         </div>
       </div>
