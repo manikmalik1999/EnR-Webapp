@@ -23,9 +23,7 @@ router.post("/", (req, res)=>{
             customer: customer.id,
             receipt_email: token.email,
             description: 'purchase of' + product.name,
-            shipping: {
-                name: token.card.name,
-            }
+            
         },{idempotencyKey})
     })
     .then(result => res.status(200).json(result))

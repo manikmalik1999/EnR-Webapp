@@ -103,8 +103,8 @@ const product = require("../models/product");
   router.get('/:userId', (req, res, next) => {
     Cart.find({userId: req.params.userId})
     .exec()
-    .then(order =>{
-        if(!order){
+    .then(cart =>{
+        if(!cart){
             return res.status(404).json({
                 message: "Nothing found"
             });
