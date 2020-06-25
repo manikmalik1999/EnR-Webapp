@@ -1,12 +1,8 @@
 import React,{ Component} from 'react';
-import Header from "./HeaderComponent";
+//import Header from "./HeaderComponent";
 import Button from "@material-ui/core/Button";
 import Item1 from 'components/images/item1.jpg'
-import Item2 from 'components/images/item2.jpg'
-import Item3 from 'components/images/item3.jpg'
-import Item4 from 'components/images/item4.jpg'
-import Item5 from 'components/images/item5.jpg'
-import Item6 from 'components/images/item6.jpg'
+import Item2 from 'components/images/item2.jpg';
 import {Loading} from './LoadingComponent'
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -18,6 +14,7 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Wishlist from './Wishlist'
+import Stripe from '../PaymentsPage/Stripe'
 
 class Cart extends Component{
 
@@ -142,7 +139,6 @@ class Cart extends Component{
        return(
            
             <div>
-                <Header />
                     <div  className="container" style={{ background: blue[200] }}>
                     <div className="e-card e-card-horizontal container-fluid">
                                     <div className="row" >
@@ -157,9 +153,7 @@ class Cart extends Component{
                                     <div className="col-12 mt-3">
                     <FormControlLabel control={ <Checkbox color="primary" onChange= {()=>{this.handleChecked()}} icon={<CheckBoxOutlineBlankIcon fontSize="large" />} checkedIcon={<CheckBoxIcon fontSize="large" />} name="checkedI" /> } label="Shipping(+6$)" />
                         <h3><b>Total: {this.state.total} $</b></h3>
-                    <div className="checkout">
-                        <Button variant="contained" color="secondary" style={{ color: yellow[600] }} href="#"> Checkout </Button>
-                    </div>
+                    <Stripe />
                     </div></div></div>
             </div>   
        )

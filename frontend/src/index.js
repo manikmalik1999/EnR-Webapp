@@ -15,9 +15,10 @@ import resetpass from "views/LoginPage/ResetPassword.js"
 import forgotpass from "views/LoginPage/ForgotPass.js"
 //import Home from './components/components-cart/Home'
 import Cart from 'views/CartPage/Cart'
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import Stripe from 'views/PaymentsPage/Stripe'
+//import { Provider } from 'react-redux';
+//import { createStore, applyMiddleware } from 'redux';
+//import thunk from 'redux-thunk';
 
 var hist = createBrowserHistory();
 //const k = createStore(DataFetching);
@@ -32,6 +33,7 @@ ReactDOM.render(
       <Route path="/resetpass/:token" component={resetpass} />
       <Route path="/forgotpass" component={forgotpass} />
       <Route path="/cart" component={Cart}/>
+      <Route path="/stripe" component={Stripe}/>
       <Route path="/" component={LandingPage} />
     </Switch>
   </Router>,
