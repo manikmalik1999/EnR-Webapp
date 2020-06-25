@@ -3,7 +3,7 @@ const router = express.Router();
 // const mongoose = require("mongoose");
 // const checkAuth = require("../Middleware/check-auth")
 // const Mentor = require("../models/mentor");
-const stripe = require("stripe")("");
+const stripe = require("stripe")("sk_test_51GxHdEB7zZwux5TfdKFdpUQVQ57zvsQ9p6qIACZApDF9PGUWAcELzUxCtI73ssPlsabOy3AZFekBwXHQDDunIhNP009NoSZCdi");
 const {v4: uuidv4} = require("uuid")
 
 router.post("/", (req, res)=>{
