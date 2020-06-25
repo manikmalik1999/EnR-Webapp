@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const checkAuth = require("../Middleware/check-auth")
+const Product = require("../models/product");
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -24,7 +25,7 @@ const upload = multer({storage: storage,
    fileFilter: fileFilter
   });
 
-const Product = require("../models/product");
+
 router.get("/", (req, res, next) => {
   Product.find()
   .select('name price _id quantity category sellerId description image')
@@ -51,7 +52,7 @@ router.get("/", (req, res, next) => {
 });
 
 
-router.post("/",  upload.single('productImage'), (req, res, next) => {
+router.post("/", checkAuth, upload.single('productImage'), (req, res, next) => {
   console.log(req.file);
   console.log(req.body);
   const product = new Product({

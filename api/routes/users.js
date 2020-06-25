@@ -258,7 +258,30 @@ router.delete('/:userId',checkAuth, (req, res, next)=>{
       });
 });
 
-
+router.get("/", (req, res, next) => {
+    User.find()
+    .select('name price _id quantity category sellerId description image')
+      .exec()
+      .then(docs => {
+        const response = {
+          count: docs.length,
+          users: docs
+        };
+          if (docs.length >= 0) {
+        res.status(200).json(response);
+          } else {
+              res.status(404).json({
+                  message: 'No entries found'
+              });
+          }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+    });
 
 
 module.exports = router;

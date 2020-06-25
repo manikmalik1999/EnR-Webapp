@@ -11,7 +11,7 @@ router.post("/", (req, res)=>{
     const {product, token} = req.body;
     console.log("Product", product);
     console.log("Price", product.price);
-
+    
     const idempotencyKey = uuidv4();
     return stripe.customers.create({
         email: token.email,
@@ -25,9 +25,6 @@ router.post("/", (req, res)=>{
             description: 'purchase of' + product.name,
             shipping: {
                 name: token.card.name,
-                address: {
-                    country: token.card.address_country
-                }
             }
         },{idempotencyKey})
     })
