@@ -107,7 +107,7 @@ export default function CartDisplay(props) {
                 </div>
                 ))}
 
-                <StripeCheckout stripekey="pk_test_51GydELJ4HkzSmV6vjb1f1fKaTWjlQnhDIMlzxlgnuSeyJgpeAfyr7v24Dm3MmZE2vKvim7Glf5s4nfrMOw3BPczz00KBrG9c8T" 
+                <StripeCheckout stripeKey="pk_test_51GydELJ4HkzSmV6vjb1f1fKaTWjlQnhDIMlzxlgnuSeyJgpeAfyr7v24Dm3MmZE2vKvim7Glf5s4nfrMOw3BPczz00KBrG9c8T" 
                 token={makePayment} 
                 name="Buy EnR" 
                 shippingAddress 
