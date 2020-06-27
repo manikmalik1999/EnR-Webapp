@@ -130,7 +130,9 @@ export default function PrimarySearchAppBar(props) {
   const handleSignupclick =(e)=>{
     window.location.href="/sign-up";
   }
-
+const HandleCart = (e)=>{
+  window.location.href="/cart-page"
+}
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -196,7 +198,7 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={HandleCart}>
         <IconButton aria-label="show cart" color="inherit">
           <Badge badgeContent={1} color="secondary">
             <ShoppingCartIcon />
@@ -298,7 +300,7 @@ export default function PrimarySearchAppBar(props) {
               </Badge>
             </IconButton> */}
             <Tooltip title="Cart">
-            <IconButton aria-label="show user's cart" color="inherit">
+            <IconButton aria-label="show user's cart" color="inherit" onClick={HandleCart}>
               <Badge badgeContent={1} color="secondary">
               <ShoppingCartIcon/>
               </Badge>

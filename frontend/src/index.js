@@ -17,6 +17,7 @@ import forgotpass from "views/LoginPage/ForgotPass.js"
 import searchpage from "views/ProductPage/SearchDisplay.js"
 import productDisplay from "views/ProductPage/SingleProduct.js"
 import CategoryDisplay from "views/ProductPage/CategoryDisplay.js"
+import CartDisplay from "views/Cart-Order/cart-page.js"
 var hist = createBrowserHistory();
 //:searchquery
 ReactDOM.render(
@@ -32,6 +33,7 @@ ReactDOM.render(
       <Route path="/search/:searchquery" component={searchpage} />
       <Route path="/categories/:category/:index" component={CategoryDisplay} />  
       <Route path="/display/:productID" component={productDisplay} /> 
+      <Route path="/cart-page" component={CartDisplay} /> 
       <Route path="/" component={LandingPage} />
     </Switch>
   </Router>,

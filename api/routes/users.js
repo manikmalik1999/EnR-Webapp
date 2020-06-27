@@ -14,6 +14,7 @@ router.post('/signup', (req, res, next)=>{
     .exec()
     .then(user =>{
         console.log(process.env.DOMAIN_SERVER);
+        console.log(req.body);
         if (user.length>=1){
             return res.json({message: "User with this e-mail ID already exists"}).status(422);}
         else{
@@ -59,17 +60,20 @@ router.post('/signup', (req, res, next)=>{
 
 router.post('/verify', (req,res, next)=>{
     const {token} = req.body;
+    console.log(token);
+    console.log(process.env.EMAIL_VERIFY);
     if(token){
         jwt.verify(token, process.env.EMAIL_VERIFY, (err, decodedtoken)=>{
             if(err)
-                return res.status(400).json({Error: "Incorrect or Expired link"})
+                return res.json({Error: "Incorrect or Expired link"}).status(400);
             
             const {email, password, name}= decodedtoken;
+            console.log(name);
             User.find({email: email })
             .exec()
             .then(user =>{
                 if (user.length>=1){
-                    return res.status(402).json({message: "User with this e-mail ID already exists"});}
+                    return res.json({message: "User with this e-mail ID already exists"}).status(402);}
                 else {
                     bcrypt.hash(password, 10, (err, hash)=>{
                         if (err)
@@ -260,7 +264,7 @@ router.delete('/:userId',checkAuth, (req, res, next)=>{
 
 router.get("/", (req, res, next) => {
     User.find()
-    .select('name price _id quantity category sellerId description image')
+    .select('')
       .exec()
       .then(docs => {
         const response = {

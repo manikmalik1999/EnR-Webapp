@@ -48,6 +48,7 @@ export default function SignUp(props) {
         url: "https://limitless-lowlands-36879.herokuapp.com/users/signup",
         headers: {}, 
         data: {
+            name: name,  
             email: email,
             password: password
         }
@@ -152,6 +153,7 @@ else {
                       value ={name}
                       onChange={e =>{setName(e.target.value)}}  
                     />
+
                   <TextField
                       label="Email..."
                       id="email"

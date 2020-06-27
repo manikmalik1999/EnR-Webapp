@@ -3,7 +3,7 @@ const router = express.Router();
 // const mongoose = require("mongoose");
 // const checkAuth = require("../Middleware/check-auth")
 // const Mentor = require("../models/mentor");
-const stripe = require("stripe")("sk_test_51GxHdEB7zZwux5TfdKFdpUQVQ57zvsQ9p6qIACZApDF9PGUWAcELzUxCtI73ssPlsabOy3AZFekBwXHQDDunIhNP009NoSZCdi");
+const stripe = require("stripe")("sk_test_51GydELJ4HkzSmV6vJanHUaArARtPqO4JlDUnM1QYogEzEohCVrXIT8LZPFK7heaPKELjZXCJRLV09UZ0p9UUEnal00F55bh2oy");
 const {v4: uuidv4} = require("uuid")
 
 router.post("/", (req, res)=>{
@@ -19,7 +19,7 @@ router.post("/", (req, res)=>{
     }).then(customer =>{
         stripe.charges.create({ 
             amount: product.price * 100,
-            currency: 'usd',
+            currency: 'inr',
             customer: customer.id,
             receipt_email: token.email,
             description: 'purchase of' + product.name,
