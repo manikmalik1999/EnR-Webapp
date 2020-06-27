@@ -7,22 +7,19 @@ const stripe = require("stripe")("sk_test_51GydELJ4HkzSmV6vJanHUaArARtPqO4JlDUnM
 const {v4: uuidv4} = require("uuid")
 
 router.post("/", (req, res)=>{
-
-    const {product, token} = req.body;
-    console.log("Product", product);
-    console.log("Price", product.price);
-    
+    const {product, token, amount} = req.body;
     const idempotencyKey = uuidv4();
+   
     return stripe.customers.create({
         email: token.email,
         source: token.id
     }).then(customer =>{
         stripe.charges.create({ 
-            amount: product.price * 100,
+            amount: amount * 100,
             currency: 'inr',
             customer: customer.id,
             receipt_email: token.email,
-            description: 'purchase of' + product.name,
+            description: "Purchase by "+ token.card.name,
             shipping: {
                 name: token.card.name,
                 address: {
@@ -33,8 +30,7 @@ router.post("/", (req, res)=>{
         },{idempotencyKey})
     })
     .then(result => res.status(200).json(result))
-    .catch(err => console.log(err) )
-})
+    .catch(err => res.status(401).json({message: err}) )
 
-
+});
 module.exports = router;

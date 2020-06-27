@@ -26,7 +26,9 @@ const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenKey');
+console.log(Token);
 let count = 0;
+let totalAmount =0;
 export default function CartDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
@@ -45,21 +47,19 @@ export default function CartDisplay(props) {
             // }
           })
       .then(res =>{
-        console.log(res);
         count = res.data.count;
+        totalAmount = res.data.Price;
         setProducts(res.data.cart);
       })
       }, [])
     
-      const makePayment = token => {
+      const makePayment = (token) => {
         {/*also provide product info  */}
         axios({
           method: 'post',
           url: "https://limitless-lowlands-36879.herokuapp.com/payment",
-          headers: {
-              "Content-Type":"application/json"
-          }, 
           data: {
+              amount: totalAmount,
               token: token,
               product: products
           }
@@ -70,11 +70,7 @@ export default function CartDisplay(props) {
         })
         .catch ( error => console.log(error)); 
     }
-    // let filterpro = products.filter(
-    //     (e)=>{
-    //         return e.name.toUpperCase().includes(search.toUpperCase()) ;
-    //     }
-    // )
+
   return (
     <div>
       <NavBar/>
@@ -112,9 +108,8 @@ export default function CartDisplay(props) {
                 name="Buy EnR" 
                 shippingAddress 
                 billingAddress
-                amount = {100*100}
                  >
-                  <Button variant="contained" color="secondary">Proceed to checkout</Button>
+                  <Button variant="contained" color="secondary">Total Amount : {totalAmount}</Button>
                 </StripeCheckout>
 
         </div>

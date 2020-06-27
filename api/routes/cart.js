@@ -58,6 +58,7 @@ const product = require("../models/product");
   
   router.get('/', checkAuth, (req, res, next) => {
       const {userId} = req.userData;
+      let totalAmount = 0;
     Cart.find({userId: userId})
     .exec()
     .then(cart =>{
@@ -66,8 +67,12 @@ const product = require("../models/product");
                 message: "Nothing found"
             });
         }
+        cart.forEach((element) => {
+            totalAmount = totalAmount + element.price;
+        })
         res.status(200).json({
             count: cart.length,
+            Price: totalAmount,
             cart: cart,
             request: {
                 type: 'GET',
