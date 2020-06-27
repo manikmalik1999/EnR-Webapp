@@ -54,7 +54,7 @@ export default function CartDisplay(props) {
       const makePayment = token => {
         {/*also provide product info  */}
         axios({
-          method: 'get',
+          method: 'post',
           url: "https://limitless-lowlands-36879.herokuapp.com/payment",
           headers: {
               "Content-Type":"application/json"
