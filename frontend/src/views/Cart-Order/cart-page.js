@@ -112,7 +112,7 @@ export default function CartDisplay(props) {
                 name="Buy EnR" 
                 shippingAddress 
                 billingAddress
-                amount = {100}
+                amount = {100*100}
                  >
                   <Button variant="contained" color="secondary">Proceed to checkout</Button>
                 </StripeCheckout>
