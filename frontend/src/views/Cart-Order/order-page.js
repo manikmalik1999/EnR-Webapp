@@ -1,6 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import axios from 'axios'; 
-import StripeCheckout from 'react-stripe-checkout';
+
 
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import NavBar from "components/Header/Navbar";
@@ -30,9 +30,8 @@ const dashboardRoutes = [];
 const useStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenKey');
 console.log(Token);
-let count = 0;
-let totalAmount =0;
-export default function CartDisplay(props) {
+
+export default function orderDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
     const [products, setProducts] = useState([]);
@@ -43,7 +42,7 @@ export default function CartDisplay(props) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+            url: "https://limitless-lowlands-36879.herokuapp.com/orders/",
             headers: {
                 'Authorization': 'Bearer '+Token,
             } 
@@ -58,76 +57,11 @@ export default function CartDisplay(props) {
       })
       }, [])
     
-      const makePayment = (token) => {
-        {/*also provide product info  */}
-        axios({
-          method: 'post',
-          url: "https://limitless-lowlands-36879.herokuapp.com/payment",
-          data: {
-              amount: totalAmount,
-              token: token,
-          }
-        }).then(response => {
-            console.log("RESPONSE", response);
-            const {status} = response;
-            console.log("Status ", status)
-            products.forEach(element => {
-              axios({
-                method: 'post',
-                url: "https://limitless-lowlands-36879.herokuapp.com/orders",
-                headers: {
-                  'Authorization': 'Bearer '+Token,
-              } ,
-                data: {
-                    element
-                }
-              }).then(res =>{
-                console.log(res);
-              })
-            })
-        })
-         
-    }
+     
 
-    const handleCartRemove=(e)=>{
-      axios({
-        method: 'delete',
-        url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e,
-        headers: {
-            'Authorization': 'Bearer '+Token,
-        } 
-      })
-  .then(res =>{
-    if(res.data.status === 401){
-      window.location.href="/login-page";
-    }
+    
 
-    else if(res.data.status === 200){
-        window.location.href ="/cart-page";
-    }
-    else{
-      setAlert({
-        status: res.data.status,
-      })
-    }
-  })
-    }
 
-    const CartDeleteResponse=()=>{
-         if(alert.status === 500){
-          return(<SnackbarContent
-            message={
-              <span>
-              Something Went Wrong
-              </span>
-            }
-            close
-            color="warning"
-            icon="info_outline"
-          />);
-        }
-        else{return null;}
-    }
 
   return (
     <div>
@@ -135,7 +69,7 @@ export default function CartDisplay(props) {
 
       <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
             {/* <Categories/> */}
-        <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Cart</b> ({count})</h4>
+        <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Orders</b> ()</h4>
         <div className={classes.container}>
                 <CartDeleteResponse/>
             {products.map(pro =>(
@@ -153,7 +87,7 @@ export default function CartDisplay(props) {
                             <Link style={{color:"#f44336"}}to={"/Display/" + pro.productId} target="_blank">
                                 INR: {pro.price}
                             </Link>
-                            <Button  onClick={()=> handleCartRemove(pro._id)} style={{display:"inline", marginLeft:"5vw"}} variant="contained" color="primary" >Remove from Cart</Button>
+                          
                     </Grid>
                     
                 </Grid> 
@@ -161,14 +95,6 @@ export default function CartDisplay(props) {
                 </div>
                 ))}
 
-                <StripeCheckout stripeKey="pk_test_51GydELJ4HkzSmV6vjb1f1fKaTWjlQnhDIMlzxlgnuSeyJgpeAfyr7v24Dm3MmZE2vKvim7Glf5s4nfrMOw3BPczz00KBrG9c8T" 
-                token={makePayment} 
-                name="Buy EnR" 
-                shippingAddress 
-                billingAddress
-                 >
-                  <Button variant="contained" color="secondary">Total Amount : {totalAmount}</Button>
-                </StripeCheckout>
 
         </div>
       </div>

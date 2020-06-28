@@ -38,27 +38,21 @@ router.get('/', (req, res, next) => {
   });
 });
 
-router.post('/', (req, res, next) => {
-    console.log(req)
-    Product.findById(req.body.Order.productId)
-    .then(product =>{
-        if (!product){
-            return res.status(404).json({
-                message: "Product not found"
-            });
-        }
-        console.log("entering True")
+router.post('/',checkAuth, (req, res, next) => {
+        console.log(req.body);
+       const {userId}= req.userData
         const order = new Order({
             _id: mongoose.Types.ObjectId(),
-            quantity: req.body.Order.quantity,
-            product: req.body.Order.productId,
-            ordername: req.body.Order.ordername,
-            rollNo: req.body.Order.rollNo,
-            Email: req.body.Order.Email,
-            mobileno: req.body.Order.mobileno,
-        });
-        return order.save();
+            name: req.body.element.name,
+            description: req.body.element.description,
+            quantity: req.body.element.quantity,
+            price: req.body.element.price,
+            category: req.body.element.category,
+            sellerId: req.body.element.sellerId,
+            image: req.body.element.image,
+            userId: userId
     })
+    order.save()
     .then(result =>{
         console.log(result);
         res.status(201).json({

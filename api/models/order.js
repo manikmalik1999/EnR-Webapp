@@ -2,15 +2,14 @@ const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    product:{ 
-        type: mongoose.Schema.Types.ObjectId , 
-        ref: 'Product', required: true
-    },
-    quantity: {type: Number, default: 1 },
-    ordername: {type: String, required: true },
-    rollNo: {type: String, required: true },
-    Email: {type: String, required: true },
-    mobileno: {type: Number, default: 9999999999},
+    userId: {type: String, required: true },
+    name: {type: String, required: true },
+    description: {type: String, required: true },
+    quantity: {type: Number, default: 1},
+    price: {type: Number, required: true},
+    category: {type: String, required: true },
+    sellerId: {type: String, required: true },
+    image: {type: String, required: false}
 });
 
 module.exports = mongoose.model('Order', orderSchema);

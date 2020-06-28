@@ -65,28 +65,32 @@ export default function LandingPage(props) {
 return null;
   }
 const handleAdding=(e)=>{
-    const formData = new FormData()
+    var formData = new FormData()
     formData.append('productImage', proimage)
-    let data ={
-            name: name,
-            description: description,
-            quantity: quantity,
-            price: price,
-            category: category,
-            sellerId: ID
-    }
-    formData.append('data', data);
+    // let data ={
+    //         name: name,
+    //         description: description,
+    //         quantity: quantity,
+    //         price: price,
+    //         category: category,
+    //         sellerId: ID
+    // }
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('quantity', quantity);
+    formData.append('price', price);
+    formData.append('category', category);
+    formData.append('sellerId', ID);
     console.log(formData);
-    console.log(price);
     axios({
         method: 'post',
-        formData,
+        
         url: "https://limitless-lowlands-36879.herokuapp.com/products",
+        data: formData,
         headers: {
             'Authorization': 'Bearer '+Token,
             'Content-Type': 'multipart/form-data'
           },
-          formData
           
       }).then(res =>{
             alert(res.data.message);

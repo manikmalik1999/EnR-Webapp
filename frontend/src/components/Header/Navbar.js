@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Token = sessionStorage.getItem('TokenKey');
 let count =0;
-
+let account = "none";
 export default function PrimarySearchAppBar(props) {
 
   const classes = useStyles();
@@ -122,6 +122,7 @@ export default function PrimarySearchAppBar(props) {
         count = 0;
     else {
       count = res.data.count;
+      account = "";
       setDisplay("none");
       axios({
         method: 'get',
@@ -154,7 +155,12 @@ export default function PrimarySearchAppBar(props) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+const handleMyOrders =()=>{
+  window.location.href ="/myorders"
+}
+const handleSignOut =()=>{
 
+}
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -186,10 +192,10 @@ const HandleCart = (e)=>{
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-      style={{}}
+      style={{display: account}}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMyOrders}>My Orders</MenuItem>
+      <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
     </Menu>
   );
 
@@ -238,7 +244,7 @@ const HandleCart = (e)=>{
           aria-haspopup="true"
           color="inherit"
         >
-        <AccountCircle style={{display: display}} />
+        <AccountCircle style={{display: account}} />
                   <t >{name}</t>
         </IconButton>
         <p style={{display: display }} >Profile</p>
@@ -299,7 +305,7 @@ const HandleCart = (e)=>{
             <Button style={{background:"white", marginRight:"1vw",height:"5vh",  marginTop:"1vh", display: display}} href="/sign-up">
               Sign-up
             </Button>
-          <Tooltip title="Account Info">
+          <Tooltip title={"Hi "+ name}>
           <IconButton
               edge="end"
               aria-label="account of current user"
@@ -308,8 +314,7 @@ const HandleCart = (e)=>{
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle style={{display: display}} />
-                  <t>{name}</t>
+              <AccountCircle style={{display: account}} />
             </IconButton>
             </Tooltip>
             {/* <IconButton aria-label="show 4 new mails" color="inherit">
@@ -317,7 +322,7 @@ const HandleCart = (e)=>{
                 <MailIcon />
               </Badge>
             </IconButton> */}
-            <Tooltip title="Cart">
+            <Tooltip title="cart">
             <IconButton aria-label="show user's cart" color="inherit" onClick={HandleCart}>
               <Badge badgeContent={count} color="secondary">
               <ShoppingCartIcon/>
