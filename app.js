@@ -14,6 +14,7 @@ const orderRoutes = require("./api/routes/orders");
 const userRoutes = require("./api/routes/users");
 const StripeReq = require("./api/routes/Stripe");
 const cartRoutes = require("./api/routes/cart");
+const sellerRoutes = require("./api/routes/sellers");
 // const projectRoutes = require("./api/routes/projects");
 const mentorRoutes = require("./api/routes/mentors");
 
@@ -57,6 +58,7 @@ app.use("/payment", StripeReq);
 // app.use("/projects", projectRoutes);
 app.use("/ourmentors", mentorRoutes);
 app.use("/cart", cartRoutes);
+app.use("/sellers", sellerRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

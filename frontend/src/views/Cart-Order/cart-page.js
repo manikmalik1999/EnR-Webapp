@@ -2,10 +2,13 @@ import React,{useState, useEffect} from 'react';
 import axios from 'axios'; 
 import StripeCheckout from 'react-stripe-checkout';
 
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import NavBar from "components/Header/Navbar";
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from "@material-ui/core/styles";
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 // import Link from '@material-ui/core/Link';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -33,7 +36,10 @@ export default function CartDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
     const [products, setProducts] = useState([]);
-    
+    const [alert, setAlert]= useState([]);
+    if(!Token){
+      window.location.href="/login-page";
+    }
     useEffect(() => {
         axios({
             method: 'get',
@@ -41,12 +47,11 @@ export default function CartDisplay(props) {
             headers: {
                 'Authorization': 'Bearer '+Token,
             } 
-            // data: {
-            //     email: email,
-            //     password: password
-            // }
           })
       .then(res =>{
+        if(res.data.status === 401){
+          window.location.href="/login-page";
+        }
         count = res.data.count;
         totalAmount = res.data.Price;
         setProducts(res.data.cart);
@@ -61,14 +66,54 @@ export default function CartDisplay(props) {
           data: {
               amount: totalAmount,
               token: token,
-              product: products
           }
         }).then(response => {
             console.log("RESPONSE", response);
             const {status} = response;
             console.log("Status ", status)
+
         })
-        .catch ( error => console.log(error)); 
+         
+    }
+
+    const handleCartRemove=(e)=>{
+      axios({
+        method: 'delete',
+        url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e,
+        headers: {
+            'Authorization': 'Bearer '+Token,
+        } 
+      })
+  .then(res =>{
+    if(res.data.status === 401){
+      window.location.href="/login-page";
+    }
+
+    else if(res.data.status === 200){
+        window.location.href ="/cart-page";
+    }
+    else{
+      setAlert({
+        status: res.data.status,
+      })
+    }
+  })
+    }
+
+    const CartDeleteResponse=()=>{
+         if(alert.status === 500){
+          return(<SnackbarContent
+            message={
+              <span>
+              Something Went Wrong
+              </span>
+            }
+            close
+            color="warning"
+            icon="info_outline"
+          />);
+        }
+        else{return null;}
     }
 
   return (
@@ -79,9 +124,9 @@ export default function CartDisplay(props) {
             {/* <Categories/> */}
         <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Cart</b> ({count})</h4>
         <div className={classes.container}>
-                
+                <CartDeleteResponse/>
             {products.map(pro =>(
-                <div key= {pro.productId}  style={{margin:"2vh"}} >
+                <div key= {pro._id}  style={{margin:"2vh"}} >
                  <Grid className ="element"  container spacing={3} >
                     <Grid item xs={3}>
                         <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
@@ -91,11 +136,11 @@ export default function CartDisplay(props) {
                             <Link to={"/Display/" + pro.productId} target="_blank">
                                 {pro.name}
                             </Link>
-                        <p style={{color: "black"}}>Quantity: {pro.quantity}</p>
-                        <Link style={{color:"#f44336"}}to={"/Display/" + pro.productId} target="_blank">
+                             <p style={{color:"black"}}>Quantity: {pro.quantity}</p>
+                            <Link style={{color:"#f44336"}}to={"/Display/" + pro.productId} target="_blank">
                                 INR: {pro.price}
                             </Link>
-
+                            <Button  onClick={()=> handleCartRemove(pro._id)} style={{display:"inline", marginLeft:"5vw"}} variant="contained" color="primary" >Remove from Cart</Button>
                     </Grid>
                     
                 </Grid> 

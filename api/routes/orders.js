@@ -38,7 +38,7 @@ router.get('/', (req, res, next) => {
   });
 });
 
-router.post('/', checkAuth, (req, res, next) => {
+router.post('/', (req, res, next) => {
     console.log(req)
     Product.findById(req.body.Order.productId)
     .then(product =>{

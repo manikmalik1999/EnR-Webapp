@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios'; 
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -88,6 +89,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Token = sessionStorage.getItem('TokenKey');
+let count =0;
+
 export default function PrimarySearchAppBar(props) {
 
   const classes = useStyles();
@@ -95,9 +99,48 @@ export default function PrimarySearchAppBar(props) {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const {value} = props;
   const [search, setSearch]= useState(value);
-  
+  const [display, setDisplay]=useState("");
+  const [name, setName]= useState("")
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
+  useEffect(() => {
+    axios({
+        method: 'get',
+        url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+        headers: {
+            'Authorization': 'Bearer '+Token,
+        } 
+
+      })
+  .then(res =>{
+    console.log(res);
+    if(res.data.status === 401){
+        count =0;
+    }
+    else if(res.status=== 404)
+        count = 0;
+    else {
+      count = res.data.count;
+      setDisplay("none");
+      axios({
+        method: 'get',
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/"+ res.data.userId,
+        headers: {
+            'Authorization': 'Bearer '+Token,
+        } 
+
+      }).then(res=>{
+        console.log(res);
+        
+          setName(res.data.users.name);
+         
+      })
+    }
+
+  })
+  }, [])
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -143,6 +186,7 @@ const HandleCart = (e)=>{
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      style={{}}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
@@ -175,13 +219,13 @@ const HandleCart = (e)=>{
                   />
                   </div>
       </MenuItem>
-      <MenuItem onClick={handleSignupclick} >
+      <MenuItem style={{display: display}} onClick={handleSignupclick} >
         <IconButton aria-label="Sign-Up" color="inherit">
             <PersonAddIcon/>
         </IconButton>
         <p>Sign-Up</p>
       </MenuItem>
-      <MenuItem onClick={handleLoginclick}>
+      <MenuItem  style={{display: display }} onClick={handleLoginclick}>
         <IconButton aria-label="login" color="inherit">
             <LockOpenIcon/>
         </IconButton>
@@ -194,13 +238,14 @@ const HandleCart = (e)=>{
           aria-haspopup="true"
           color="inherit"
         >
-        <AccountCircle />
+        <AccountCircle style={{display: display}} />
+                  <t >{name}</t>
         </IconButton>
-        <p>Profile</p>
+        <p style={{display: display }} >Profile</p>
       </MenuItem>
       <MenuItem onClick={HandleCart}>
         <IconButton aria-label="show cart" color="inherit">
-          <Badge badgeContent={1} color="secondary">
+          <Badge badgeContent={count} color="secondary">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -219,6 +264,7 @@ const HandleCart = (e)=>{
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
+            href="/"
           >
               {/* <MenuIcon/> */}
            <img  style={{height: "7vh", width: "auto"}} src={logo}/>
@@ -226,36 +272,7 @@ const HandleCart = (e)=>{
           <Typography className={classes.title} variant="h6" noWrap>
             EnR E-Commerce
           </Typography>
-          {/* <div className={classes.search}>
-          <Grid container spacing={1} alignItems="flex-end">
-          <Grid item>
-              <IconButton>
-              <SearchIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <TextField  style={{}} id="input-with-icon-grid" label="Search" />
-          </Grid>
-        </Grid>
-        </div> */}
-          {/* <div className={classes.search}>
-
-            <InputBase
-              value={search}
-              placeholder="Search for products"
-              onChange={ e =>{setSearch(e.target.value)}}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-            <div className={classes.searchIcon}>
-            <IconButton onClick={handleSearch}>
-              <SearchIcon style={{color:"white"}}/>
-            </IconButton>
-            </div>
-          </div> */}
+          
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
@@ -276,10 +293,10 @@ const HandleCart = (e)=>{
                   </IconButton>
                   </div>
                   </div>
-            <Button style={{background:"white", marginRight:"1vw", height:"5vh", marginTop:"1vh"}} href="/login-page">
+            <Button  style={{background:"white", marginRight:"1vw", height:"5vh", marginTop:"1vh", display: display}} href="/login-page">
               Login
             </Button>
-            <Button style={{background:"white", marginRight:"1vw",height:"5vh",  marginTop:"1vh"}} href="/sign-up">
+            <Button style={{background:"white", marginRight:"1vw",height:"5vh",  marginTop:"1vh", display: display}} href="/sign-up">
               Sign-up
             </Button>
           <Tooltip title="Account Info">
@@ -291,7 +308,8 @@ const HandleCart = (e)=>{
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle style={{display: display}} />
+                  <t>{name}</t>
             </IconButton>
             </Tooltip>
             {/* <IconButton aria-label="show 4 new mails" color="inherit">
@@ -301,7 +319,7 @@ const HandleCart = (e)=>{
             </IconButton> */}
             <Tooltip title="Cart">
             <IconButton aria-label="show user's cart" color="inherit" onClick={HandleCart}>
-              <Badge badgeContent={1} color="secondary">
+              <Badge badgeContent={count} color="secondary">
               <ShoppingCartIcon/>
               </Badge>
             </IconButton>

@@ -28,9 +28,9 @@ router.post("/", (req, res)=>{
                 }
             }
         },{idempotencyKey})
-    })
-    .then(result => res.status(200).json(result))
-    .catch(err => res.status(401).json({message: err}) )
+    }) 
+    .then(result => res.json(result).status(200))
+    .catch(err => res.json({message: err}).status(401));
 
 });
 module.exports = router;

@@ -25,6 +25,7 @@ const landingPageStyle = {
     position: "relative",
     zIndex: "3"
   },
+  //-60px 30px 0px
   mainRaised: {
     margin: "-60px 30px 0px",
     borderRadius: "6px",

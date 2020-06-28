@@ -264,7 +264,7 @@ router.delete('/:userId',checkAuth, (req, res, next)=>{
 
 router.get("/", (req, res, next) => {
     User.find()
-    .select('')
+    .select('name email')
       .exec()
       .then(docs => {
         const response = {
@@ -287,5 +287,29 @@ router.get("/", (req, res, next) => {
       });
     });
 
+
+    router.get("/:userId",(req, res, next) => {
+        const id = req.params.userId;
+        User.findById(id)
+        .select('name email')
+          .exec()
+          .then(docs => {
+              console.log(docs);
+            if (docs) {
+                res.status(200).json({
+                  users: docs,
+                });
+                
+              } else {
+                res
+                  .status(404)
+                  .json({ message: "No valid entry found for provided ID" });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json({ error: err });
+            });
+        });
 
 module.exports = router;

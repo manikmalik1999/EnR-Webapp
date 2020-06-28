@@ -64,7 +64,7 @@ export default function SearchDisplay(props) {
                             <Link to={"/Display/" + pro._id} target="_blank">
                                 {pro.name}
                             </Link>
-                        <p >{ pro.description}</p>
+                        <p style={{color: "black"}}>{ pro.description}</p>
                         <Link style={{color:"#f44336"}}to={"/Display/" + pro._id} target="_blank">
                                 INR: {pro.price}
                             </Link>

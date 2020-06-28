@@ -79,7 +79,7 @@ router.post("/", checkAuth, (req, res, next) => {
 });
 
 // router.get("/:productId", (req, res, next) => {
-//   const id = req.params.productId;
+//   const id = wtId;
 //   Product.findById(id)
 //   .select('name _id quantity description dataSheet')
 //     .exec()

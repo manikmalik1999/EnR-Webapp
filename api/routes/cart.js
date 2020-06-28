@@ -25,6 +25,16 @@ const product = require("../models/product");
                     });
                   }
                   console.log(product);
+                if(req.body.quantity === 0){
+                    return res.json({
+                        message: "Select Some quantity"
+                    }).status(404);
+                }
+                if(req.body.quantity > product.quantity){
+                    return res.json({
+                        message: "Quantity not available"
+                    }).status(404);
+                }
                 const cart = new Cart({
                     _id: mongoose.Types.ObjectId(),
                     userId: userId,
@@ -35,13 +45,15 @@ const product = require("../models/product");
                     category: product.category,
                     sellerId: product.sellerId,
                     image: product.image,
-                    quantity: product.quantity
+                    quantity: req.body.quantity,
+                    maxQuanity: product.quantity
                     });
           return cart.save();
               }).then(result =>{
                 console.log(result);
                 res.status(201).json({
                     message:"Added to cart",
+                    status: 201
                 });
             })
           }
@@ -63,16 +75,17 @@ const product = require("../models/product");
     .exec()
     .then(cart =>{
         if(!cart){
-            return res.status(404).json({
+            return res.json({
                 message: "Nothing found"
-            });
+            }).status(404);
         }
         cart.forEach((element) => {
-            totalAmount = totalAmount + element.price;
+            totalAmount = totalAmount + element.price* element.quantity;
         })
         res.status(200).json({
             count: cart.length,
             Price: totalAmount,
+            userId: userId,
             cart: cart,
             request: {
                 type: 'GET',
@@ -89,10 +102,11 @@ const product = require("../models/product");
   
   
   router.delete('/:cartId', checkAuth,(req, res, next) => {
-      Order.remove({_id: req.params.cartId}).exec()
+      Cart.deleteOne({_id: req.params.cartId}).exec()
       .then(result=>{
           res.status(200).json({
-              message: "Product Removed",
+              message: "Removed",
+              status: 200,
               request: {
                   type: "POST",
                   url: "https://limitless-lowlands-36879.herokuapp.com/orders",
@@ -101,9 +115,10 @@ const product = require("../models/product");
           })
       })
       .catch(err=>{
-          res.status(500).json({
-              error: err
-          });
+          res.json({
+              message: err,
+              status: 500
+          }).status(500);
       });
       });
   

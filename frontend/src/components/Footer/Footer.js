@@ -58,6 +58,15 @@ export default function Footer(props) {
                 Services
               </a>
             </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="/seller-signup"
+                className={classes.block}
+                target="_blank"
+              >
+                Sell With Us
+              </a>
+            </ListItem>
           </List>
         </div>
         <div className={classes.right}>
