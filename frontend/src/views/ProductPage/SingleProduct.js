@@ -27,6 +27,9 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
+import Chip from '@material-ui/core/Chip';
+import StarRateIcon from '@material-ui/icons/StarRate';
+import TextField from '@material-ui/core/TextField';
 
 import image1 from "assets/img/1592674003336hockey-Stick.jpg";
 import image2 from "assets/img/bg2.jpg";
@@ -42,6 +45,7 @@ function SectionCarousel(){
     autoplay: true
   };
   return (
+    <GridContainer>
       <GridItem xs={12}>
           <Carousel {...settings}>
             <div>
@@ -51,6 +55,12 @@ function SectionCarousel(){
                 className="slick-image"
                 style={{float:"left" ,height: "auto", width: "23vw"}}
               />
+              <div className="slick-caption">
+                <h4>
+                  <LocationOn className="slick-icons" />Yellowstone
+                  National Park, United States
+                </h4>
+              </div>
             </div>
             <div>
               <img
@@ -80,6 +90,7 @@ function SectionCarousel(){
             </div>
           </Carousel>
       </GridItem>
+    </GridContainer>
   );
 }
 
@@ -180,54 +191,53 @@ export default function SingleProd(props) {
   return (
     <div>
       <NavBar/>
-      {[product].map(pro =>(
-              
-      <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
-        <Categories/>
-        <div><p></p></div>
-        
-           <div className={classes.container}>
-           <QuantityResponse/>  <HandleCartResponse />
-                 <Grid className ="element"  container spacing={1} >
-                    <Grid item xs={4}>
-                        <SectionCarousel />
-                        <div style={{display:"inline"}}>
-                        <Button onClick ={HandleCart} variant="contained" style={{backgroundColor:"#00e676", marginRight:"0.5vw",  fontSize:"1.5vw"}}>Cart</Button>
-                        <Button variant="contained"  style={{backgroundColor:"#33eb91",  fontSize:"1.5vw"}}>Wishlist</Button>                          
-                        </div>
-                    </Grid>
-                    <Grid item xs style={{color:"black"}} >
-                       <h2 style={{fontSize:"3vw"}}>{pro.name}</h2>
-                        <Badge color="primary">{pro.category}</Badge>
-                       <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price} </h4>
-                        <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
-                        <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
-                                <Select
-                                    native
-                                    value={quantity}
-                                    onChange={handleChange}
-                                    // inputProps={{
+      {[product].map(pro =>(             
+        <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
+          <Categories/>
+          <div><p></p></div>       
+          <div className={classes.container}>
+            <QuantityResponse/>
+            <HandleCartResponse />
+            <Grid className ="element"  container spacing={1} >
+              <Grid item xs={4} style={{float:"left"}}>
+                <SectionCarousel />
+                <div className="center" style={{display:"inline",   margin: "0",position: "relative", left: "3.5vw", right: "4vw"}}>
+                  <Button onClick ={HandleCart} size="small" variant="contained" style={{backgroundColor:"#00e676", marginRight:"0.8vw",  fontSize:"1.4vw"}}>Cart</Button>
+                  <Button variant="contained" size="small" style={{backgroundColor:"#33eb91",  fontSize:"1.4vw"}}>Wishlist</Button>                          
+                </div>
+              </Grid>
+              <Grid item xs style={{color:"black", marginLeft:"1vw"}} >
+                <h2 style={{fontSize:"3vw"}}>{pro.name}</h2>
+                <Badge color="primary">{pro.category}</Badge>
+                <Chip color="secondary" label="4.4" onClick ={console.log('take to reviews sction')} clickable size="small" icon={<StarRateIcon />} />
+                <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price}</h4>
+                <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
+                <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
+                <Select native value={quantity} onChange={handleChange}>
+                                    {/* inputProps={{
                                     //   name: 'age',
                                     //   id: 'age-native-simple',
-                                    // }}
-                                  >
-                                     <option value={0}>0</option>
-                                    <option value={1}>1</option>
-                                    <option value={2}>2</option>
-                                    <option value={3}>3</option>
-                                    <option value={4}>4</option>
-                                    <option value={5}>5</option>
-                                  </Select>
-                                  
-                    </Grid>
-                    
-                </Grid>
-             
-       </div>
-      </div>
+                                     }}*/}                                  
+                  <option value={0}>0</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </Select>                                  
+                <h5 style={{fontSize:"1.4vw", fontWeight:"bold", color: "green"}}> Available Offers</h5> 
+                <ul>
+                  <li>This offer is so cool</li>
+                </ul> 
+                <form className={classes.root} noValidate autoComplete="off">
+                  <TextField id="outlined-basic" label="Deliver to" variant="outlined" />
+                </form>
+              </Grid>                   
+            </Grid>             
+          </div>
+        </div>
       ))}
-      <Footer/>
-   
+      <Footer/>  
     </div>
   );
 }
