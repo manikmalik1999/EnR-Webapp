@@ -107,7 +107,7 @@ export default function PrimarySearchAppBar(props) {
   useEffect(() => {
     axios({
         method: 'get',
-        url: "http://localhost:5000/cart/",
+        url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
         headers: {
             'Authorization': 'Bearer '+Token,
         } 
@@ -126,7 +126,7 @@ export default function PrimarySearchAppBar(props) {
       setDisplay("none");
       axios({
         method: 'get',
-        url: "http://localhost:5000/users/"+ res.data.userId,
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/"+ res.data.userId,
         headers: {
             'Authorization': 'Bearer '+Token,
         } 

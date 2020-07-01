@@ -43,7 +43,7 @@ export default function CartDisplay(props) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: "http://localhost:5000/cart/",
+            url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
             headers: {
                 'Authorization': 'Bearer '+Token,
             } 
@@ -62,7 +62,7 @@ export default function CartDisplay(props) {
         {/*also provide product info  */}
         axios({
           method: 'post',
-          url: "http://localhost:5000/payment",
+          url: "https://limitless-lowlands-36879.herokuapp.com/payment",
           data: {
               amount: totalAmount,
               token: token,
@@ -74,7 +74,7 @@ export default function CartDisplay(props) {
             products.forEach(element => {
               axios({
                 method: 'post',
-                url: "http://localhost:5000/orders",
+                url: "https://limitless-lowlands-36879.herokuapp.com/orders",
                 headers: {
                   'Authorization': 'Bearer '+Token,
               } ,
@@ -92,7 +92,7 @@ export default function CartDisplay(props) {
     const handleCartRemove=(e)=>{
       axios({
         method: 'delete',
-        url: "http://localhost:5000/cart/" + e,
+        url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e,
         headers: {
             'Authorization': 'Bearer '+Token,
         } 
@@ -142,7 +142,7 @@ export default function CartDisplay(props) {
                 <div key= {pro._id}  style={{margin:"2vh"}} >
                  <Grid className ="element"  container spacing={3} >
                     <Grid item xs={3}>
-                        <img style={{height: "20vh", width: "auto"}} src= {"http://localhost:5000/" + pro.image} />
+                        <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                     </Grid>
                     <hr/>
                     <Grid item xs style={{textAlign:"top"}}>

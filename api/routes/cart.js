@@ -89,7 +89,7 @@ const product = require("../models/product");
             cart: cart,
             request: {
                 type: 'GET',
-                url: "http://localhost:5000/orders"
+                url: "https://limitless-lowlands-36879.herokuapp.com/orders"
             }
         })
 
@@ -109,7 +109,7 @@ const product = require("../models/product");
               status: 200,
               request: {
                   type: "POST",
-                  url: "http://localhost:5000/orders",
+                  url: "https://limitless-lowlands-36879.herokuapp.com/orders",
                   body: {productId: 'ID', quantity:'Number'} 
               }
           })

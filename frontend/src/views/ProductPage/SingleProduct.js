@@ -33,7 +33,7 @@ export default function SingleProd(props) {
   const [cartResponse, setCartRes]= useState([]);
   const [quantity, setQuantity]= useState(0);
   useEffect(() => {
-    axios.get('http://localhost:5000/products/'+ ID)
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/'+ ID)
   .then(res =>{
     setProduct(res.data.product);
   })
@@ -66,7 +66,7 @@ export default function SingleProd(props) {
     }
     axios({
       method: 'post',
-      url: "http://localhost:5000/cart/",
+      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
       headers: {
           'Authorization': 'Bearer '+Token,
       } ,
@@ -126,7 +126,7 @@ export default function SingleProd(props) {
            <QuantityResponse/>  <HandleCartResponse />
                  <Grid className ="element"  container spacing={1} >
                     <Grid item xs={4}>
-                        <img style={{float:"left" ,height: "auto", width: "23vw"}} src= {"http://localhost:5000/" + pro.image} />
+                        <img style={{float:"left" ,height: "auto", width: "23vw"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                         <div style={{display:"inline"}}>
                         <Button onClick ={HandleCart} variant="contained" style={{backgroundColor:"#00e676", marginRight:"0.5vw",  fontSize:"1.5vw"}}>Cart</Button>
                         <Button variant="contained"  style={{backgroundColor:"#33eb91",  fontSize:"1.5vw"}}>Wishlist</Button>                          
