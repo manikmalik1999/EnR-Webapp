@@ -19,6 +19,70 @@ import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 import NavBar from "components/Header/Navbar"
 
+import Carousel from "react-slick";
+// material-ui components
+// @material-ui/icons
+import LocationOn from "@material-ui/icons/LocationOn";
+// core components
+import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Grid/GridItem.js";
+import Card from "components/Card/Card.js";
+
+import image1 from "assets/img/1592674003336hockey-Stick.jpg";
+import image2 from "assets/img/bg2.jpg";
+import image3 from "assets/img/bg3.jpg";
+
+function SectionCarousel(){
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true
+  };
+  return (
+      <GridItem xs={12}>
+          <Carousel {...settings}>
+            <div>
+              <img
+                src={image1}
+                alt="First slide"
+                className="slick-image"
+                style={{float:"left" ,height: "auto", width: "23vw"}}
+              />
+            </div>
+            <div>
+              <img
+                src={image2}
+                alt="Second slide"
+                className="slick-image"
+              />
+              <div className="slick-caption">
+                <h4>
+                  <LocationOn className="slick-icons" />Somewhere Beyond,
+                  United States
+                </h4>
+              </div>
+            </div>
+            <div>
+              <img
+                src={image3}
+                alt="Third slide"
+                className="slick-image"
+              />
+              <div className="slick-caption">
+                <h4>
+                  <LocationOn className="slick-icons" />Yellowstone
+                  National Park, United States
+                </h4>
+              </div>
+            </div>
+          </Carousel>
+      </GridItem>
+  );
+}
+
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
@@ -126,7 +190,7 @@ export default function SingleProd(props) {
            <QuantityResponse/>  <HandleCartResponse />
                  <Grid className ="element"  container spacing={1} >
                     <Grid item xs={4}>
-                        <img style={{float:"left" ,height: "auto", width: "23vw"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        <SectionCarousel />
                         <div style={{display:"inline"}}>
                         <Button onClick ={HandleCart} variant="contained" style={{backgroundColor:"#00e676", marginRight:"0.5vw",  fontSize:"1.5vw"}}>Cart</Button>
                         <Button variant="contained"  style={{backgroundColor:"#33eb91",  fontSize:"1.5vw"}}>Wishlist</Button>                          
@@ -135,7 +199,7 @@ export default function SingleProd(props) {
                     <Grid item xs style={{color:"black"}} >
                        <h2 style={{fontSize:"3vw"}}>{pro.name}</h2>
                         <Badge color="primary">{pro.category}</Badge>
-                       <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price}</h4>
+                       <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price} </h4>
                         <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
                         <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
                                 <Select
