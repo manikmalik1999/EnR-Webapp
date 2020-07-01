@@ -44,10 +44,10 @@ const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenSeller');
-const ID = sessionStorage.getItem('TokenSellerID');
-console.log(ID);
+// console.log(ID);
+// console.log(Token);
 export default function LandingPage(props) {
-
+  const ID = props.match.params.ID;
     const [name, setName]= useState("");
     const [category, setCategory]= useState("");
     const [proimage, setImage] = useState("");
@@ -85,7 +85,7 @@ const handleAdding=(e)=>{
     axios({
         method: 'post',
         
-        url: "https://limitless-lowlands-36879.herokuapp.com/products",
+        url: "http://localhost:5000/products",
         data: formData,
         headers: {
             'Authorization': 'Bearer '+Token,

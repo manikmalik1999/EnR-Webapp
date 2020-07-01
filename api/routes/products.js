@@ -29,7 +29,7 @@ const upload = multer({storage: storage,
 
 router.get("/", (req, res, next) => {
   Product.find()
-  .select('name price _id quantity category sellerId description image')
+  .select('')
     .exec()
     .then(docs => {
       const response = {
@@ -64,7 +64,8 @@ router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => 
     price: req.body.price,
     category: req.body.category,
     sellerId: req.body.sellerId,
-    image: req.file.path
+    image: req.file.path,
+    approved: req.body.approved
   });
   product
     .save()
@@ -81,7 +82,7 @@ router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => 
 
           request: {
             type: 'GET',
-            url:  'https://limitless-lowlands-36879.herokuapp.com/products/'+ result._id
+            url:  'http://localhost:5000/products/'+ result._id
           } 
         }
       });
@@ -107,7 +108,7 @@ router.get("/:productId", (req, res, next) => {
           product: doc,
           request: {
             type: 'GET',
-            url: 'https://limitless-lowlands-36879.herokuapp.com/products'
+            url: 'http://localhost:5000/products'
           }
         });
         
@@ -150,7 +151,7 @@ router.patch("/:productId",SellerAuth, (req, res, next) => {
         message: 'product updated',
         request: {
           type: 'GET',
-          url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ id,
+          url: "http://localhost:5000/products/"+ id,
         }
       });
     })
@@ -174,7 +175,7 @@ router.delete("/:productId",SellerAuth, (req, res, next) => {
         message: 'product deleted',
         request:{
           type: 'POST',
-          url: 'https://limitless-lowlands-36879.herokuapp.com/products',
+          url: 'http://localhost:5000/products',
           body: {name: 'String', quantity: 'Number'}
         }
       }

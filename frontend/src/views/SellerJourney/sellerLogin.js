@@ -48,7 +48,7 @@ export default function SignUp(props) {
     console.log(email);
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.com/sellers/login/",
+        url: "http://localhost:5000/sellers/login/",
         headers: {}, 
         data: {
             email: email,
@@ -59,7 +59,7 @@ export default function SignUp(props) {
                 if((res.data.status)!= 401){
                 const token = res.data.token;
                 sessionStorage.setItem('TokenSeller', token);
-                window.location.href = "/seller-landing";
+                window.location.href = "/seller-landing/"+ res.data.id;
                }
                else{
                 setLoginFal(true);

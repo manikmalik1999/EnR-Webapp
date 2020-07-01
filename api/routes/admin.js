@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const Admin= require('../models/admin');
 const bcrypt= require("bcrypt");
 const jwt = require('jsonwebtoken');
-
+const Product = require("../models/product");
+const SellerAuth = require("../Middleware/check-auth-sellers")
 // router.post('/signup', (req, res, next)=>{
 //     Admin.find({email: req.body.email })
 //     .exec()
@@ -66,7 +67,6 @@ router.post('/login', (req, res, next)=>{
           else if(result){
                 
                   const token = jwt.sign({
-                      name: user[0].name,
                       email: user[0].email,
                       userId: user[0]._id
                   }, 
@@ -97,7 +97,65 @@ router.post('/login', (req, res, next)=>{
     });
 });
 
+router.get("/approve/:message/:productId",SellerAuth, (req, res, next) => {
+    const id = req.params.productId;
+    const approve = req.params.message;
+    const {email} = req.userData;
+    if(email!== "testadmin@gmail.com")
+        res.status(401).json({message:"Unauthorized"})
+    
+    Product.updateOne({ _id: id }, { $set:{ 
+      approved: approve
+    } })
+      .exec()
+      .then(result => {
+        console.log(result);
+         res.status(200).json({
+          message: 'message recieved',
+        //   request: {
+        //     type: 'GET',
+        //     url: "http://localhost:5000/products/"+ id,
+        //   }
+        });
+        
+    // else{
+    //     res.status(200).json({
+    //         message: 'product disapproved',
 
+    //       });
+    // }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
+
+  router.delete("/delete/products",SellerAuth, (req, res, next) => {
+  
+
+    Product.deleteMany({})
+      .exec()
+      .then(response=> {
+        res.status(200).json({
+          message: 'All products deleted',
+          request:{
+            type: 'POST',
+            url: 'http://localhost:5000/products',
+            body: {name: 'String', quantity: 'Number'}
+          }
+        }
+          );
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
 
 
 module.exports = router;
