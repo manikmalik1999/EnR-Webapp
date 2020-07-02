@@ -56,7 +56,7 @@ function Modal() {
   const classes = usStyles();
   return (
     <div>
-        <Button color="primary" round onClick={() => setModal(true)}>
+        <Button color="primary" round size="small" onClick={() => setModal(true)}>
           Product Details
         </Button>
       <Dialog
@@ -106,7 +106,7 @@ function Modal() {
   );
 }
 
-function SectionCarousel(){
+function SectionCarousel(props){
   const settings = {
     dots: true,
     infinite: true,
@@ -118,10 +118,11 @@ function SectionCarousel(){
   return (
     <GridContainer>
       <GridItem xs={12}>
+      <Card>
           <Carousel {...settings}>
             <div>
               <img
-                src={image1}
+                src={"https://limitless-lowlands-36879.herokuapp.com/"+ props.img}
                 alt="First slide"
                 className="slick-image"
                 style={{float:"left" ,height: "auto", width: "23vw"}}
@@ -156,6 +157,7 @@ function SectionCarousel(){
               </div>
             </div>
           </Carousel>
+          </Card>
       </GridItem>
     </GridContainer>
   );
@@ -176,6 +178,16 @@ const uStyles = makeStyles((theme) => ({
   },
 }));
 
+function Loading (){
+  const clas = uStyles();
+  const classes = useStyles();
+  console.log('yes it is');
+  return (
+    <div style={{ marginTop:"12vh"}} className={classNames(clas.root)}>
+    <CircularProgress color="secondary" />
+  </div>
+);}
+
 export default function SingleProd(props) {
   const classes = useStyles();
   const { ...rest } = props;
@@ -185,10 +197,12 @@ export default function SingleProd(props) {
   const [cartResponse, setCartRes]= useState([]);
   const [quantity, setQuantity]= useState(0);
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/products/'+ ID)
   .then(res =>{
     setProduct(res.data.product);
+    setLoading(false);
   })
   }, [])
 
@@ -273,19 +287,10 @@ export default function SingleProd(props) {
       return null;
     }
   }
-  if (product.length){
-    const clas = uStyles();
-    console.log(product);
-    return (
-      <div className={clas.root}>
-      <CircularProgress color="secondary" />
-    </div>
-  );}
-  else 
   return (
     <div>
       <NavBar/>
-      {[product].map(pro =>(             
+      {loading ? <Loading /> :([product].map(pro =>(             
         <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
           <Categories/>
           <div><p></p></div>       
@@ -294,7 +299,7 @@ export default function SingleProd(props) {
             <HandleCartResponse />
             <Grid className ="element"  container spacing={1} >
               <Grid item xs={4} style={{float:"left"}}>
-                <SectionCarousel />
+                <SectionCarousel img={pro.image}/>
                 <div className="center" style={{display:"inline",   margin: "0",position: "relative", left: "3.5vw", right: "4vw"}}>
                   <Button onClick ={HandleCart} size="small" variant="contained" style={{backgroundColor:"#00e676", marginRight:"0.8vw",  fontSize:"1.4vw"}}>Cart</Button>
                   <Button variant="contained" size="small" style={{backgroundColor:"#33eb91",  fontSize:"1.4vw"}}>Wishlist</Button>                          
@@ -319,21 +324,21 @@ export default function SingleProd(props) {
                   <option value={4}>4</option>
                   <option value={5}>5</option>
                 </Select><br/><br/>                                 
-                <h5 style={{fontSize:"1.4vw", fontWeight:"bold", color: "green"}}> Available Offers</h5> 
+                <h5 style={{fontSize:"1.8vw", fontWeight:"bold", color: "green"}}> Available Offers</h5> 
                 <ul>
-                  <li>This offer is so cool</li>
+                  <li style={{fontSize:"1.4vw"}}>This offer is so cool</li>
                 </ul><br/> 
                 <form className={classes.root} noValidate autoComplete="off">
-                  <TextField id="outlined-basic" label="Deliver to" variant="outlined" />
+                  <TextField className={classes.textField} margin="dense" id="outlined-basic" label="Deliver to" variant="outlined" />
                 </form><br/>
                 <Modal /><br/><br/>  
-                Seller: &emsp; <Link>Take you to page with sellers info and ADD to CART opt</Link>       
+                <p style={{fontSize:"1.4vw"}}>Seller: &emsp; <Link>Take you to page with sellers info and ADD to CART opt</Link></p>       
               </Grid>                   
             </Grid>             
           </div>
         </div>
-      ))}
-      <Footer/>  
+      )))}
+      <Footer/>
     </div>
   );
 }
