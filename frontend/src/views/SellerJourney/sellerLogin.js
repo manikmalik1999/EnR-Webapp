@@ -59,7 +59,7 @@ export default function SignUp(props) {
                 if((res.data.status)!= 401){
                 const token = res.data.token;
                 sessionStorage.setItem('TokenSeller', token);
-                window.location.href = "/seller-landing";
+                window.location.href = "/seller-landing/"+ res.data.id;
                }
                else{
                 setLoginFal(true);

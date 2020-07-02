@@ -10,7 +10,12 @@ import Button from '@material-ui/core/Button';
 import image from "assets/img/bg7.jpg";
 import Footer from "components/Footer/Footer.js";
 import Categories from "components/Header/CategoryBar.js"
-
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -42,7 +47,7 @@ export default function CategoryDisplay(props) {
     
     let filterpro = products.filter(
         (e)=>{
-            return e.category.toUpperCase().includes(category.toUpperCase()) ;
+            return( e.category.toUpperCase().includes(category.toUpperCase()) && e.approved.toUpperCase().includes("TRUE"));
         }
     )
   return (
@@ -53,30 +58,42 @@ export default function CategoryDisplay(props) {
             <Categories value= {index} />
         <h4 style={{color:"green", marginLeft:"1vw"}} ><b>{category}</b> </h4>
         <div className={classes.container}>
-                
+        <Grid className ="element"  container spacing={1} style={{display: "flex" }}>
             {filterpro.map(pro =>(
-                <div key= {pro._id}  style={{margin:"2vh"}} >
-                 <Grid className ="element"  container spacing={3} >
-                    <Grid item xs={3}>
-                        <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
-                    </Grid>
-                    <hr/>
-                    <Grid item xs style={{textAlign:"top"}}>
-                            <Link to={"/Display/" + pro._id} target="_blank">
-                                {pro.name}
-                            </Link>
-                        <p style={{color: "black"}} >{ pro.description}</p>
-                        <Link style={{color:"#f44336"}}to={"/Display/" + pro._id} target="_blank">
-                                INR: {pro.price}
-                            </Link>
-
-                    </Grid>
-                    
-                </Grid>
-                    <hr/>
-                </div>
+                                    <Grid item xs>
+                                    {/* className={classes.root} */}
+                                    {/* className={classes.media} */}
+                                        <Card style={{maxWidth:"20vw", minWidth:"20vw", maxHeight:"45vh", minHeight:"45vh"}}> 
+                                            <CardActionArea>
+                                              <CardMedia
+                                                title={pro.name}
+                                                
+                                              >
+                                                  <img style={{height: "20vh", width: "auto", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                                              </CardMedia>
+                                              <CardContent>
+                                                <Typography gutterBottom variant="h5" component="h2">
+                                                    
+                                                    <Link to={"/Display/" + pro._id} target="_blank">
+                                                        {pro.name}
+                                                    </Link>
+                                                
+                                                </Typography>
+                                                <Typography variant="body2" color="textSecondary" component="p">
+                                                      {pro.description}
+                                                </Typography>
+                                                <Typography variant="body2" color="textSecondary" component="p">
+                                                  
+                                                      <b>INR: {pro.price}</b>
+                                                </Typography>
+                                              </CardContent>
+                                            </CardActionArea>
+              
+                                          </Card>
+                                     
+                                  </Grid>
                 ))}
-
+    </Grid>
         </div>
       </div>
  

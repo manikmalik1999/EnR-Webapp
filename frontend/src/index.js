@@ -40,7 +40,7 @@ ReactDOM.render(
       <Route path="/cart-page" component={CartDisplay} /> 
       <Route path="/seller-login" component={SellerLogin} />
       <Route path="/seller-signup" component={SellerSignup} />
-      <Route path="/seller-landing" component={sellerLanding} />
+      <Route path="/seller-landing/:ID" component={sellerLanding} />
       {/* <Route path="/myorders" component={orderDisplay} /> */}
       <Route path="/" component={LandingPage} />
     </Switch>

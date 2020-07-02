@@ -75,7 +75,7 @@ router.post('/login', (req, res, next)=>{
                       expiresIn: "5h"
                   }
                   );
-              return res.json({message: "Authorization Successful", token: token}).status(200);
+              return res.json({message: "Authorization Successful", token: token, id: user[0]._id}).status(200);
           }
           else{
 

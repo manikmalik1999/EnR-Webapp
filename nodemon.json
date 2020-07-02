@@ -1,7 +1,7 @@
 {
     "env":  {
                 "JWT_KEY": "secret",
-                "JWT_SELLER_KEY": "secret",
+                "JWT_SELLER_KEY": "sellerisking",
                 "EMAIL_ID": "manikmalik123abc@gmail.com",
                 "EMAIL_PASS": "9056282462",
                 "EMAIL_VERIFY": "1357908642",
