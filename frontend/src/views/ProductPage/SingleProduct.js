@@ -35,6 +35,77 @@ import image1 from "assets/img/1592674003336hockey-Stick.jpg";
 import image2 from "assets/img/bg2.jpg";
 import image3 from "assets/img/bg3.jpg";
 
+import Slide from "@material-ui/core/Slide";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import IconButton from "@material-ui/core/IconButton";
+// @material-ui/icons
+import Close from "@material-ui/icons/Close";
+import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Link } from 'react-router-dom';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+const usStyles = makeStyles(modalStyle);
+function Modal() {
+  const [modal, setModal] = React.useState(false);
+  const classes = usStyles();
+  return (
+    <div>
+        <Button color="primary" round onClick={() => setModal(true)}>
+          Product Details
+        </Button>
+      <Dialog
+        classes={{
+          root: classes.center,
+          paper: classes.modal
+        }}
+        open={modal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setModal(false)}
+        aria-labelledby="modal-slide-title"
+        aria-describedby="modal-slide-description"
+      >
+        <DialogTitle
+          id="classic-modal-slide-title"
+          disableTypography
+          className={classes.modalHeader}
+        >
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setModal(false)}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h4 className={classes.modalTitle}>Specifications</h4>
+        </DialogTitle>
+        <DialogContent
+          id="modal-slide-description"
+          className={classes.modalBody}
+        >
+          <h5>Are you sure you want to do this?</h5>
+        </DialogContent>
+        <DialogActions
+          className={classes.modalFooter + " " + classes.modalFooterCenter}
+        >
+          <Button onClick={() => setModal(false)}>Never Mind</Button>
+          <Button onClick={() => setModal(false)} color="secondary">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
 function SectionCarousel(){
   const settings = {
     dots: true,
@@ -55,18 +126,13 @@ function SectionCarousel(){
                 className="slick-image"
                 style={{float:"left" ,height: "auto", width: "23vw"}}
               />
-              <div className="slick-caption">
-                <h4>
-                  <LocationOn className="slick-icons" />Yellowstone
-                  National Park, United States
-                </h4>
-              </div>
             </div>
             <div>
               <img
                 src={image2}
                 alt="Second slide"
                 className="slick-image"
+                style={{marginTop: '50%'}}
               />
               <div className="slick-caption">
                 <h4>
@@ -80,6 +146,7 @@ function SectionCarousel(){
                 src={image3}
                 alt="Third slide"
                 className="slick-image"
+                style={{marginTop: '50%'}}
               />
               <div className="slick-caption">
                 <h4>
@@ -94,10 +161,20 @@ function SectionCarousel(){
   );
 }
 
+
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenKey');
+const uStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+    marginLeft: '50%'
+  },
+}));
 
 export default function SingleProd(props) {
   const classes = useStyles();
@@ -107,6 +184,7 @@ export default function SingleProd(props) {
   const ID = props.match.params.productID;
   const [cartResponse, setCartRes]= useState([]);
   const [quantity, setQuantity]= useState(0);
+  const [open, setOpen] = React.useState(false);
   useEffect(() => {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/products/'+ ID)
   .then(res =>{
@@ -114,6 +192,14 @@ export default function SingleProd(props) {
   })
   }, [])
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  
   const handleChange = (e) =>{
     setQuantity(e.target.value);
   }
@@ -187,7 +273,15 @@ export default function SingleProd(props) {
       return null;
     }
   }
-
+  if (product.length){
+    const clas = uStyles();
+    console.log(product);
+    return (
+      <div className={clas.root}>
+      <CircularProgress color="secondary" />
+    </div>
+  );}
+  else 
   return (
     <div>
       <NavBar/>
@@ -213,25 +307,27 @@ export default function SingleProd(props) {
                 <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price}</h4>
                 <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
                 <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
-                <Select native value={quantity} onChange={handleChange}>
+                <Select native value={quantity} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
                                     {/* inputProps={{
                                     //   name: 'age',
                                     //   id: 'age-native-simple',
-                                     }}*/}                                  
+                                     }}*/}             
                   <option value={0}>0</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
                   <option value={4}>4</option>
                   <option value={5}>5</option>
-                </Select>                                  
+                </Select><br/><br/>                                 
                 <h5 style={{fontSize:"1.4vw", fontWeight:"bold", color: "green"}}> Available Offers</h5> 
                 <ul>
                   <li>This offer is so cool</li>
-                </ul> 
+                </ul><br/> 
                 <form className={classes.root} noValidate autoComplete="off">
                   <TextField id="outlined-basic" label="Deliver to" variant="outlined" />
-                </form>
+                </form><br/>
+                <Modal /><br/><br/>  
+                Seller: &emsp; <Link>Take you to page with sellers info and ADD to CART opt</Link>       
               </Grid>                   
             </Grid>             
           </div>
