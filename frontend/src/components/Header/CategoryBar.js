@@ -1,36 +1,31 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Switch } from '@material-ui/core';
+import axios from 'axios';
 
 export default function Categories(props) {
+  const [categories, setCategories]= useState([]);
     const {value} = props;
   const [val, setVal] = useState(value);
+ useEffect(()=>{
+   axios.get("https://limitless-lowlands-36879.herokuapp.com/categories")
+   .then((result)=>{
+     console.log(result);
+      setCategories(result.data.categories)
+   })
+ },[])
+
 
   const handleChange = (event, newValue) => {
-    switch(newValue){
-        case 0:
-            window.location.href="/categories/Sports/"+ 0;
-            break;
-        case 1:
-            window.location.href="/categories/Health/" +1;
-            break;
-        case 2:
-            window.location.href="/categories/Toys/" +2;
-            break;
-        case 3:
-              window.location.href="/categories/Fashion/" +3;
-              break;
-
-        case 4:
-              window.location.href="/categories/Entertainment/" +4;
-              break;
-
-    }
+    console.log(event.target.innerHTML);
+    window.location.href = "/categories/"+ event.target.innerHTML +"/"+ newValue;
   }
 
   return (
+    <>
+   
     <Paper square>
       <Tabs
         value={val}
@@ -41,12 +36,16 @@ export default function Categories(props) {
         centered
         orientation="horizontal"
       >
-        <Tab label="Sports"  />
-        <Tab label="Health"  />
+         {categories.map(cat=>(
+        <Tab key= {cat._id} label={cat.category} />
+        ))}
+        {/* <Tab label="Health"  />
         <Tab label="Toys" />
         <Tab label="Fashion"  />
-        <Tab label= "Entertainment" />
+        <Tab label= "Entertainment" /> */}
       </Tabs>
     </Paper>
+    
+    </>
   );
 }

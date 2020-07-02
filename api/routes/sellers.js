@@ -102,7 +102,7 @@ router.post('/login', (req, res, next)=>{
 
 
 router.delete('/:sellerId', (req, res, next)=>{
-    User.remove({_id: req.params.sellerId}).exec().
+    Seller.remove({_id: req.params.sellerId}).exec().
     then(result => {
         res.status(200).json({
             message: 'Seller Profile deleted'
