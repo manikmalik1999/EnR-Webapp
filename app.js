@@ -18,6 +18,7 @@ const sellerRoutes = require("./api/routes/sellers");
 const adminRoutes = require("./api/routes/admin");
 // const projectRoutes = require("./api/routes/projects");
 const mentorRoutes = require("./api/routes/mentors");
+const categoryRoutes = require("./api/routes/categories")
 
 
 mongoose.connect('mongodb+srv://malikmanik:4xkJc1XRpCdjSzOm@cluster0-wqaaz.gcp.mongodb.net/test?retryWrites=true&w=majority', 
@@ -61,6 +62,7 @@ app.use("/ourmentors", mentorRoutes);
 app.use("/cart", cartRoutes);
 app.use("/sellers", sellerRoutes);
 app.use("/admin", adminRoutes);
+app.use("/categories", categoryRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Set static folder

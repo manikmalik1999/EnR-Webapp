@@ -63,7 +63,7 @@ export default function CategoryDisplay(props) {
                                     <Grid item xs>
                                     {/* className={classes.root} */}
                                     {/* className={classes.media} */}
-                                        <Card style={{maxWidth:"20vw", minWidth:"20vw", maxHeight:"45vh", minHeight:"45vh"}}> 
+                                        <Card style={{maxWidth:"25vw", minWidth:"200px", maxHeight:"45vh", minHeight:"45vh"}}> 
                                             <CardActionArea>
                                               <CardMedia
                                                 title={pro.name}
