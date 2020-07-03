@@ -18,10 +18,11 @@ import searchpage from "views/ProductPage/SearchDisplay.js"
 import productDisplay from "views/ProductPage/SingleProduct.js"
 import CategoryDisplay from "views/ProductPage/CategoryDisplay.js"
 import CartDisplay from "views/Cart-Order/cart-page.js"
+import OrderDisplay from "views/Cart-Order/order-page.js"
 import SellerLogin from "views/SellerJourney/sellerLogin"
 import SellerSignup from "views/SellerJourney/SellerSignup"
 import sellerLanding from "views/SellerJourney/sellerLanding"
-// import orderDisplay from "views/Cart-Order/order-page"
+
 var hist = createBrowserHistory();
 //:searchquery
 ReactDOM.render(
@@ -38,10 +39,12 @@ ReactDOM.render(
       <Route path="/categories/:category/:index" component={CategoryDisplay} />  
       <Route path="/display/:productID" component={productDisplay} /> 
       <Route path="/cart-page" component={CartDisplay} /> 
+      <Route path="/order-page" component={OrderDisplay} />
       <Route path="/seller-login" component={SellerLogin} />
       <Route path="/seller-signup" component={SellerSignup} />
+      
       <Route path="/seller-landing/:ID" component={sellerLanding} />
-      {/* <Route path="/myorders" component={orderDisplay} /> */}
+   
       <Route path="/" component={LandingPage} />
     </Switch>
   </Router>,

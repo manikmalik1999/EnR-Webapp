@@ -1,7 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import axios from 'axios'; 
 
-
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import NavBar from "components/Header/Navbar";
 import Grid from '@material-ui/core/Grid';
@@ -26,15 +25,15 @@ import classNames from "classnames";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 const dashboardRoutes = [];
-
+let count =0;
 const useStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenKey');
 console.log(Token);
 
-export default function orderDisplay(props) {
+export default function OrderDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
-    const [products, setProducts] = useState([]);
+    const [orders, setOrders] = useState([]);
     const [alert, setAlert]= useState([]);
     if(!Token){
       window.location.href="/login-page";
@@ -42,7 +41,7 @@ export default function orderDisplay(props) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/orders/",
+            url: "https://limitless-lowlands-36879.herokuapp.com/orders/myOrder",
             headers: {
                 'Authorization': 'Bearer '+Token,
             } 
@@ -52,8 +51,8 @@ export default function orderDisplay(props) {
           window.location.href="/login-page";
         }
         count = res.data.count;
-        totalAmount = res.data.Price;
-        setProducts(res.data.cart);
+        console.log(res);
+        setOrders(res.data.order);
       })
       }, [])
     
@@ -69,23 +68,22 @@ export default function orderDisplay(props) {
 
       <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
             {/* <Categories/> */}
-        <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Orders</b> ()</h4>
+        <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Orders</b> ({count})</h4>
         <div className={classes.container}>
-                <CartDeleteResponse/>
-            {products.map(pro =>(
+            {orders.map(pro =>(
                 <div key= {pro._id}  style={{margin:"2vh"}} >
                  <Grid className ="element"  container spacing={3} >
                     <Grid item xs={3}>
-                        <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.product.image} />
                     </Grid>
                     <hr/>
                     <Grid item xs style={{textAlign:"top"}}>
-                            <Link to={"/Display/" + pro.productId} target="_blank">
-                                {pro.name}
+                            <Link to={"/Display/" + pro.product._id} target="_blank">
+                                {pro.product.name}
                             </Link>
                              <p style={{color:"black"}}>Quantity: {pro.quantity}</p>
                             <Link style={{color:"#f44336"}}to={"/Display/" + pro.productId} target="_blank">
-                                INR: {pro.price}
+                                INR: {pro.product.price}
                             </Link>
                           
                     </Grid>
