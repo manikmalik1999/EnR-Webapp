@@ -1,18 +1,24 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const SellerAuth = require("../Middleware/check-auth-sellers")
 
 const Order = require("../models/order");
 const Product = require("../models/product")
 const checkAuth = require("../Middleware/check-auth")
 // Handle incoming GET requests to /orders
-router.get('/', (req, res, next) => {
+router.get('/',SellerAuth, (req, res, next) => {
+    let revenue =0;
   Order.find({})
-  .select('product _id userId')
+  .select('product _id userId quantity')
   .populate('product','name _id price')
   .exec()
   .then(docs =>{
+      docs.forEach(element => {
+          revenue = revenue + element.quantity*element.product.price;
+      });
       res.status(200).json({
+          revenue: revenue,
           count: docs.length,
           orders: docs
       });
@@ -34,7 +40,6 @@ router.post('/',checkAuth, (req, res, next) => {
             });
             return;
         }
-        console.log("iserror here?")
        const {userId}= req.userData;
        console.log(userId);
                    // name: req.body.element.name,

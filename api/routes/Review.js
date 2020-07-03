@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Review = require("../models/reviews");
 const User = require("../models/user")
 const checkAuth = require("../Middleware/check-auth");
+const SellerAuth = require("../Middleware/check-auth-sellers")
 const product = require('../models/product');
 // Handle incoming GET requests to /orders
 router.get('/', (req, res, next) => {
@@ -103,7 +104,7 @@ router.post('/',checkAuth, (req, res, next) => {
         
           });
 
-router.delete('/:reviewId', checkAuth,(req, res, next) => {
+router.delete('/:reviewId',SellerAuth,(req, res, next) => {
     Review.remove({_id: req.params.reviewId}).exec()
     .then(result=>{
         res.status(200).json({
