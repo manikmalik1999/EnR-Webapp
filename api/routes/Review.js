@@ -34,11 +34,10 @@ router.post('/',checkAuth, (req, res, next) => {
         .exec()
         .then(result =>{
             if(result.length>=1){
-                console.log("here");
-              res.status(404).json({
+              res.json({
                     
                     message: "You can't add more reviews for this product"
-                });
+                }).status(401);
                  return;
             }
             else{
@@ -49,16 +48,18 @@ router.post('/',checkAuth, (req, res, next) => {
                 value: req.body.value,
                 product: req.body.productId,
                 user: userId,
-                comment: req.body.comment
+                comments: req.body.comment
             })
+            review.save() 
+            .then(result =>{
+                res.status(201).json({
+                    message:"Review Submitted",
+                });
+            })
+            
         }
     
-         review.save() 
-        .then(result =>{
-            res.status(201).json({
-                message:"Review Submitted",
-            });
-        })
+
     })
 
     .catch(err=>{
@@ -72,12 +73,11 @@ router.post('/',checkAuth, (req, res, next) => {
 
 
 
-    router.get('/:productId', checkAuth, (req, res, next) => {
+    router.get('/:productId', (req, res, next) => {
         const productId = req.params.productId;
-        const {userId} = req.userData;
-        console.log(userId);
+        
         Review.find({product: productId})
-        .select('value user comment')
+        .select('value user comments')
         .populate('user','name')
         .exec()
         .then(review =>{

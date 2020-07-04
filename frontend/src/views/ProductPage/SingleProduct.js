@@ -168,6 +168,7 @@ const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenKey');
+let AvgRev;
 const uStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -196,6 +197,7 @@ export default function SingleProd(props) {
   const ID = props.match.params.productID;
   const [cartResponse, setCartRes]= useState([]);
   const [quantity, setQuantity]= useState(0);
+  const[reviews, setReviews]= useState([]);
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -203,6 +205,12 @@ export default function SingleProd(props) {
   .then(res =>{
     setProduct(res.data.product);
     setLoading(false);
+  })
+  axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/'+ ID)
+  .then(res=>{
+    AvgRev= res.data.avgvalue;
+    console.log(res.data);
+    setReviews(res.data.reviews);
   })
   }, [])
 
@@ -308,7 +316,7 @@ export default function SingleProd(props) {
               <Grid item xs style={{color:"black", marginLeft:"1vw"}} >
                 <h2 style={{fontSize:"3vw"}}>{pro.name}</h2>
                 <Badge color="primary">{pro.category}</Badge>
-                <Chip color="secondary" label="4.4" onClick ={console.log('take to reviews sction')} clickable size="small" icon={<StarRateIcon />} />
+                <Chip color="secondary" label={AvgRev} onClick ={console.log('take to reviews sction')} clickable size="small" icon={<StarRateIcon />} />
                 <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price}</h4>
                 <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
                 <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
@@ -332,12 +340,22 @@ export default function SingleProd(props) {
                   <TextField className={classes.textField} margin="dense" id="outlined-basic" label="Deliver to" variant="outlined" />
                 </form><br/>
                 <Modal /><br/><br/>  
-                <p style={{fontSize:"1.4vw"}}>Seller: &emsp; <Link>Take you to page with sellers info and ADD to CART opt</Link></p>       
+                <p style={{fontSize:"1.4vw"}}>Seller: &emsp; <Link>{pro.sellerId.name}</Link></p>       
               </Grid>                   
             </Grid>             
           </div>
         </div>
       )))}
+      <div>
+        <h1>Reviews</h1>
+        {reviews.map(rev=>(
+          <div>
+          <h3>{rev.user.name}</h3>
+        <p><b>{rev.value}</b>/5</p>
+          <p>{rev.comments}</p>
+            </div>
+        ))}
+      </div>
       <Footer/>
     </div>
   );

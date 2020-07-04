@@ -100,6 +100,7 @@ router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
   .select('name price _id quantity category sellerId description image')
+  .populate('sellerId', 'name')
     .exec()
     .then(doc => {
       console.log("From database", doc);
