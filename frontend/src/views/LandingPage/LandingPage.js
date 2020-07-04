@@ -18,18 +18,27 @@ import ProductSection from "./Sections/ProductSection.js";
 import NavBar from "components/Header/Navbar"
 // import TeamSection from "./Sections/TeamSection.js";
 // import WorkSection from "./Sections/WorkSection.js";
+//import Parallax from "components/Parallax/Parallax.js";
+//import parallaxStyle from "assets/jss/material-kit-react/components/parallaxStyle.js";
+import {MyCarousel, Caro, Mul,Spec} from "./Sections/CardCarousel";
+import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Grid/GridItem.js";
+import Paper from '@material-ui/core/Paper';
 
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
+//const usStyles = makeStyles(parallaxStyle)
 
 export default function LandingPage(props) {
   const classes = useStyles();
+  //const clas = usStyles();
   const { ...rest } = props;
   return (
     <div>
      <NavBar/>
-     
+     <div style={{ marginTop:"10vh"}}>
+     <Categories />
       {/* <Header
         color="info"
         routes={dashboardRoutes}
@@ -41,29 +50,41 @@ export default function LandingPage(props) {
           color: "white"
         }}
         {...rest}
-      /> */}
-      {/* <Parallax filter image={require("assets/img/Landing-bg1.jpg")}>
+      /> 
+       <Parallax filter image={require("assets/img/Landing-bg1.jpg")}>
         <div className={classes.container}>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
+          
               <h1 className={classes.title}>Your Shopping Starts With Us.</h1>
               <h4>
                 EnR brings to you a state of the art solution for all your shopping needs
               </h4>
-              <br />
-            </GridItem>
-          </GridContainer>
+              <br /> 
+              <MyCarousel />             
         </div>
-      </Parallax> */}
+      </Parallax>*/}
       
-      <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
-      <Categories />
+      {/*<div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
+      
         <div className={classes.container}>
           <ProductSection />
+          
         </div>
+      </div>*/}
+      <br/>
+      <Mul /><br/>
+      <GridContainer spacing ={0} style={{marginLeft:"10px"}}>
+      <GridItem xs={8}>     
+      <Spec />
+      </GridItem>
+      <GridItem xs={4} >
+        <MyCarousel />
+      </GridItem>
+      </GridContainer>
+      <br/><br/>
+      <Caro />
       </div>
-      
       <Footer />
+
     </div>
   );
 }
