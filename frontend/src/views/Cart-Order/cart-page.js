@@ -79,7 +79,8 @@ export default function CartDisplay(props) {
                   'Authorization': 'Bearer '+Token,
               } ,
                 data: {
-                    element
+                    productId: element.productId,
+                    quantity: element.quantity
                 }
               }).then(res =>{
                 console.log(res);

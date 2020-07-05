@@ -155,10 +155,10 @@ export default function PrimarySearchAppBar(props) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-const handleMyOrders =()=>{
-  window.location.href ="/myorders"
-}
+
 const handleSignOut =()=>{
+  sessionStorage.removeItem('TokenKey');
+  window.location.href ="/";
 
 }
   const handleMobileMenuOpen = (event) => {
@@ -180,7 +180,10 @@ const handleSignOut =()=>{
     window.location.href="/sign-up";
   }
 const HandleCart = (e)=>{
-  window.location.href="/cart-page"
+  window.location.href="/cart-page";
+}
+const HandleOrder =(e)=>{
+  window.location.href="/order-page";
 }
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -194,7 +197,7 @@ const HandleCart = (e)=>{
       onClose={handleMenuClose}
       style={{display: account}}
     >
-      <MenuItem onClick={handleMyOrders}>My Orders</MenuItem>
+      <MenuItem onClick={HandleOrder}>My Orders</MenuItem>
       <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
     </Menu>
   );

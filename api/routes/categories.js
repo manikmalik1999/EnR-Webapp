@@ -61,5 +61,20 @@ router.get('/', (req, res, next) => {
         });
     })
       });
+      
+      router.delete('/:categoryId',checkAuthSellers, (req, res, next) => {
+        Categories.remove({_id: req.params.categoryId}).exec()
+        .then(result=>{
+            res.status(200).json({
+                message: "Review Deleted",
+                
+            })
+        })
+        .catch(err=>{
+            res.status(500).json({
+                error: err
+            });
+        });
+        });
 
       module.exports = router;
