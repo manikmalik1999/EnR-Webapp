@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -46,11 +46,12 @@ const useStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenSeller');
 // console.log(ID);
 // console.log(Token);
+let n,cat,pri,desc,quant;
 export default function LandingPage(props) {
-
+    const ID = props.match.params.productId;
+    const [product, setProducts]= useState([]);
     const [name, setName]= useState("");
     const [category, setCategory]= useState("");
-    const [proimage, setImage] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("");
@@ -61,41 +62,58 @@ export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
 
-  const HandleSubmitResponse=(e)=>{
-return null;
-  }
-const handleAdding=(e)=>{
-    var formData = new FormData()
-    formData.append('productImage', proimage)
-    // let data ={
-    //         name: name,
-    //         description: description,
-    //         quantity: quantity,
-    //         price: price,
-    //         category: category,
-    //         sellerId: ID
-    // }
-    formData.append('name', name);
-    formData.append('description', description);
-    formData.append('quantity', quantity);
-    formData.append('price', price);
-    formData.append('category', category);
-    console.log(formData);
+  useEffect(() => {
     axios({
-        method: 'post',
-        
-        url: "https://limitless-lowlands-36879.herokuapp.com/products",
-        data: formData,
+        method: 'get',
+        url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ID,
         headers: {
             'Authorization': 'Bearer '+Token,
-            'Content-Type': 'multipart/form-data'
-          },
-          
-      }).then(res =>{
-            alert(res.data.message);
-           
-        })
+        } 
+      })
+  .then(res =>{
+    console.log(res);
+    setProducts(res.data.product);
+  })
+  }, [])
+
+const handleUpdate =()=>{
+    if(name){n=name}
+    else n=product.name
+
+    if(description){desc= description}
+    else desc = product.description
+
+    if(quantity){quant= quantity}
+    else quant = product.quantity;
+
+    if(category){cat = category}
+    else cat= product.category;
+
+    if(price){pri = price}
+    else pri = product.price;
+    axios({
+        method: 'patch',
+        url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ID,
+        headers: {
+            'Authorization': 'Bearer '+Token,
+        }, 
+        data:{
+            Product: {
+            name: n,
+            description: desc,
+            quantity: quant,
+            price: pri,
+            category: cat,
+            }
+        }
+      })
+  .then(res =>{
+    alert(res.data.message);
+  })
+
 }
+
+
   return (
     <div>
      <SellerNav/>
@@ -109,14 +127,24 @@ const handleAdding=(e)=>{
           backgroundPosition: "top center"
         }}
       >
+
         <div className={classes.container}>
-          <HandleSubmitResponse/>
+        <SnackbarContent
+    message={
+      <span>
+      Only Add Those feilds that need updating
+      </span>
+    }
+    close
+    color="info"
+    icon="info_outline"
+  />
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="success" className={classes.cardHeader}>
-                    <h4>ADD Product</h4>
+                    <h4>Edit Product</h4>
 
                   </CardHeader>
                   <p className={classes.divider}></p>
@@ -209,13 +237,13 @@ const handleAdding=(e)=>{
                       onChange={e =>{setQuantity(e.target.value)}}  
                     />  
 
-                     <div className="form-group">
+                     {/* <div className="form-group">
                             <input type="file" onChange={e=>{setImage(e.target.files[0])}} />
-                    </div>
+                    </div> */}
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button variant="outlined" color="success" size="sm" onClick={handleAdding}>
-                      Add
+                    <Button variant="outlined" color="success" size="sm" onClick={handleUpdate}>
+                      Update
                     </Button>
                   </CardFooter>
                 </form>

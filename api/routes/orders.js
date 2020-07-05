@@ -10,7 +10,7 @@ const checkAuth = require("../Middleware/check-auth")
 router.get('/',SellerAuth, (req, res, next) => {
     let revenue =0;
   Order.find({})
-  .select('product _id userId quantity')
+  .select('product _id userId quantity date')
   .populate('product','name _id price')
   .exec()
   .then(docs =>{

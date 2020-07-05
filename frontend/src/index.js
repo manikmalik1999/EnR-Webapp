@@ -22,7 +22,8 @@ import OrderDisplay from "views/Cart-Order/order-page.js"
 import SellerLogin from "views/SellerJourney/sellerLogin"
 import SellerSignup from "views/SellerJourney/SellerSignup"
 import sellerLanding from "views/SellerJourney/sellerLanding"
-
+import sellerDisplay from "views/SellerJourney/sellerProduct"
+import sellerEdit from "views/SellerJourney/seller-edit"
 var hist = createBrowserHistory();
 //:searchquery
 ReactDOM.render(
@@ -42,9 +43,9 @@ ReactDOM.render(
       <Route path="/order-page" component={OrderDisplay} />
       <Route path="/seller-login" component={SellerLogin} />
       <Route path="/seller-signup" component={SellerSignup} />
-      
-      <Route path="/seller-landing/:ID" component={sellerLanding} />
-   
+      <Route path="/seller-edit/:productId" component={sellerEdit} /> 
+      <Route path="/seller-landing/" component={sellerLanding} />
+      <Route path="/seller-products/" component={sellerDisplay} />
       <Route path="/" component={LandingPage} />
     </Switch>
   </Router>,

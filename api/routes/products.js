@@ -56,6 +56,7 @@ router.get("/", (req, res, next) => {
 router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => {
   console.log(req.data);
   console.log(req.file);
+  const{userId}= req.userData;
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -63,7 +64,7 @@ router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => 
     quantity:  req.body.quantity,
     price: req.body.price,
     category: req.body.category,
-    sellerId: req.body.sellerId,
+    sellerId: userId,
     image: req.file.path,
     approved: req.body.approved
   });
@@ -136,25 +137,23 @@ router.patch("/:productId",SellerAuth, (req, res, next) => {
   //   updateOps[ops.propName] = ops.value;
   // }
   console.log(req.body.Product.description);
-  Product.update({ _id: id }, { $set:{ 
+  Product.updateOne({ _id: id }, { $set:{ 
     name: req.body.Product.name, 
     quantity: req.body.Product.quantity, 
     description: req.body.Product.description, 
     price: req.body.Product.price,
     category:  req.body.Product.category,
-    sellerId:  req.body.Product.sellerId,
-    image:  req.body.Product.image
   } })
     .exec()
     .then(result => {
       console.log(result);
-      res.status(200).json({
+      res.json({
         message: 'product updated',
         request: {
           type: 'GET',
           url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ id,
         }
-      });
+      }).status(200);
     })
     .catch(err => {
       console.log("Entering error")
@@ -189,5 +188,8 @@ router.delete("/:productId",SellerAuth, (req, res, next) => {
       });
     });
 });
+
+
+
 
 module.exports = router;

@@ -10,7 +10,7 @@ const product = require('../models/product');
 // Handle incoming GET requests to /orders
 router.get('/', (req, res, next) => {
   Review.find()
-  .select('product _id userId value comment')
+  .select('product _id userId value comments')
   .populate('product','name _id price')
   .populate('user', 'name _id')
   .exec()

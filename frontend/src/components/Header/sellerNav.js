@@ -76,7 +76,7 @@ export default function SimpleTabs() {
             window.location.href="/seller-landing";
             break;
         case 1:
-            window.location.href="/seller-view";
+            window.location.href="/seller-products";
             break;
 
     }
@@ -84,10 +84,10 @@ export default function SimpleTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-      <Typography className={classes.title} variant="h6" noWrap>
-            {name}
-          </Typography>
+      <AppBar position="static" style={{backgroundColor:"#4caf50"}}>
+      <Typography style={{marginLeft:"5vw"}}className={classes.title} variant="h6" noWrap>
+           {name}
+      </Typography>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Add Products" {...a11yProps(0)} />
           <Tab label="See Your Products" {...a11yProps(1)} />

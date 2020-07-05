@@ -4,7 +4,9 @@ const mongoose = require("mongoose");
 const Seller= require('../models/seller');
 const bcrypt= require("bcrypt");
 const jwt = require('jsonwebtoken');
-const SellerAuth = require("../Middleware/check-auth-sellers")
+const SellerAuth = require("../Middleware/check-auth-sellers");
+const Product = require("../models/product");
+
 router.post('/signup', (req, res, next)=>{
     Seller.find({email: req.body.email })
     .exec()
@@ -167,5 +169,32 @@ router.get("/", (req, res, next) => {
             });
         });
 
+
+        router.get("/products",SellerAuth, (req, res, next) => {
+          const {userId}= req.userData;
+          console.log(userId);
+          console.log("debugging");
+          Product.find({sellerId : mongoose.Types.ObjectId(userId)})
+          .select('name price _id quantity category sellerId description image approved')
+          .populate('sellerId', 'name')
+            .exec()
+            .then(doc => {
+              console.log("From database", doc);
+              if (doc) {
+                res.status(200).json({
+                  product: doc,
+                });
+                
+              } else {
+                res
+                  .status(404)
+                  .json({ message: "No valid entry found for provided ID" });
+              }
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json({ error: err });
+            });
+        });
 
 module.exports = router;
