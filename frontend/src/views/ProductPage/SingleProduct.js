@@ -46,6 +46,7 @@ import Close from "@material-ui/icons/Close";
 import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
+import { Paper } from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -214,6 +215,11 @@ export default function SingleProd(props) {
   })
   }, [])
 
+  const handleClick = () => {
+    console.info('You clicked the Chip.');
+    window.location.href="#Rate"
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -298,8 +304,9 @@ export default function SingleProd(props) {
   return (
     <div>
       <NavBar/>
+      <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
       {loading ? <Loading /> :([product].map(pro =>(             
-        <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
+        <div>
           <Categories/>
           <div><p></p></div>       
           <div className={classes.container}>
@@ -316,7 +323,7 @@ export default function SingleProd(props) {
               <Grid item xs style={{color:"black", marginLeft:"1vw"}} >
                 <h2 style={{fontSize:"3vw"}}>{pro.name}</h2>
                 <Badge color="primary">{pro.category}</Badge>
-                <Chip color="secondary" label={AvgRev} onClick ={console.log('take to reviews sction')} clickable size="small" icon={<StarRateIcon />} />
+                <Chip color="secondary" label={AvgRev} onClick={handleClick} clickable size="small" icon={<StarRateIcon />} />
                 <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price}</h4>
                 <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
                 <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
@@ -346,15 +353,16 @@ export default function SingleProd(props) {
           </div>
         </div>
       )))}
-      <div>
-        <h1>Reviews</h1>
+      <div style={{textAlign: "center",marginLeft: "10px", marginRight: "10px"}} id="Rate">
+        <h1 style={{ color: "#F46D43", }}>Reviews</h1>
         {reviews.map(rev=>(
-          <div>
-          <h3>{rev.user.name}</h3>
-        <p><b>{rev.value}</b>/5</p>
-          <p>{rev.comments}</p>
-            </div>
+          <Paper style ={{background: "#F2F1F1"}}>
+          <h3 style={{ color: "#531907", }}>{rev.user.name}</h3>
+        <Button startIcon={<StarRateIcon />} disabled><span><b>{rev.value}</b>/5</span></Button>
+          <p style={{ color: "#144A16", }}>{rev.comments}</p>
+            </Paper>
         ))}
+      </div>
       </div>
       <Footer/>
     </div>

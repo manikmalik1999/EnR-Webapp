@@ -176,7 +176,7 @@ const useStyles = makeStyles(styles);
               min: 1024
             },
             items: 3,
-            partialVisibilityGutter: 40
+            partialVisibilityGutter: 40,
           },
           mobile: {
             breakpoint: {
@@ -201,9 +201,9 @@ const useStyles = makeStyles(styles);
         swipeable
       >
         <div className="md-col-4 xs-col-6">
-        <Card style={{width: "98%"}}>
+        <Card style={{width: "95%"}}>
       <img
-        style={{height: "200px", width: "100%", display: "block"}}
+        style={{height: "200px", width: "70%", display: "block", marginLeft: "15%"}}
         className={classes.imgCardTop}
         src={img1}
         alt="Card-img-cap"
@@ -223,9 +223,9 @@ const useStyles = makeStyles(styles);
     </Card>
     </div>
     <div className="md-col-4 xs-col-6">
-        <Card style={{width: "98%"}}>
+        <Card style={{width: "95%"}}>
       <img
-        style={{height: "200px", width: "100%", display: "block"}}
+        style={{height: "200px", width: "70%", display: "block", marginLeft: "15%"}}
         className={classes.imgCardTop}
         src={img2}
         alt="Card-img-cap"
@@ -245,9 +245,9 @@ const useStyles = makeStyles(styles);
     </Card>
     </div>
     <div className="md-col-4 xs-col-6">
-        <Card style={{width: "98%"}}>
+        <Card style={{width: "95%"}}>
       <img
-        style={{height: "200px", width: "100%", display: "block"}}
+        style={{height: "200px", width: "70%", display: "block", marginLeft: "15%"}}
         className={classes.imgCardTop}
         src={img3}
         alt="Card-img-cap"
@@ -267,9 +267,9 @@ const useStyles = makeStyles(styles);
     </Card>
     </div>
     <div className="md-col-4 xs-col-6">
-        <Card style={{width: "98%"}}>
+        <Card style={{width: "95%"}}>
       <img
-        style={{height: "200px", width: "100%", display: "block"}}
+        style={{height: "200px", width: "70%", display: "block", marginLeft: "15%"}}
         className={classes.imgCardTop}
         src={img4}
         alt="Card-img-cap"
@@ -289,9 +289,9 @@ const useStyles = makeStyles(styles);
     </Card>
     </div>
     <div className="md-col-4 xs-col-6">
-        <Card style={{width: "98%"}}>
+        <Card style={{width: "95%"}}>
       <img
-        style={{height: "200px", width: "100%", display: "block"}}
+        style={{height: "200px", width: "70%", display: "block", marginLeft: "15%"}}
         className={classes.imgCardTop}
         src={img1}
         alt="Card-img-cap"
@@ -311,9 +311,9 @@ const useStyles = makeStyles(styles);
     </Card>
     </div>
     <div className="md-col-4 xs-col-6">
-        <Card style={{width: "96%"}}>
+        <Card style={{width: "95%"}}>
       <img
-        style={{height: "200px", width: "100%", display: "block"}}
+        style={{height: "200px", width: "70%", display: "block", marginLeft: "15%"}}
         className={classes.imgCardTop}
         src={img2}
         alt="Card-img-cap"
