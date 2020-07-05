@@ -27,13 +27,14 @@ import Button from "components/CustomButtons/Button.js";
 import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
 
 import { cardTitle, cardLink, cardSubtitle } from "assets/jss/material-kit-react.js";
+import Paper from '@material-ui/core/Paper';
 
 class MyCarousel extends Component {
 
   static get CARD_STYLE() {
     return {
       height: '17vw',
-      width: '20vw',
+      width: '25vw',
       paddingTop: 'auto',
       textAlign: 'center',
       background: '#52C0F5',
@@ -83,6 +84,7 @@ const Caro = () => {
   
   let filterpro = products
     return(
+      <Paper>
         <div style={{"padding":0,"maxWidth":"100%","margin":"0"}}>
   <ItemsCarousel
     infiniteLoop={false}
@@ -101,6 +103,7 @@ const Caro = () => {
     rightChevron={'>'}
     leftChevron={'<'}
   >
+    
     {filterpro.map(pro =>(
                                         <Card style={{maxWidth:"25vw", minWidth:"180px", maxHeight:"45vh", minHeight:"45vh"}}> 
                                             <CardActionArea>
@@ -129,11 +132,12 @@ const Caro = () => {
                                             </CardActionArea>
               
                                           </Card>
-                                     
+                                          
                                   
                 ))}
   </ItemsCarousel>
 </div>
+</Paper>
     );
 }
 
@@ -344,14 +348,17 @@ function Spec ()
     }, [])
     return (
       <Card>
-        <Link to={"/Display/" + product._id} target="_blank">
+        
       <img className={classes.imgCard} style={{height: "60vh", width: "a60vw", marginLeft:"auto", marginRight:"auto", display:"block"}} src={"https://limitless-lowlands-36879.herokuapp.com/" + product.image} alt="Card-img" />
+      
       <div className={classes.imgCardOverlay}>
+      <Link to={"/Display/" + product._id} target="_blank">
         <h4 className={classes.cardTitle}>Witcher 3</h4>
         <p>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
         <p>Last updated 3 mins ago</p>
+        </Link>
       </div>
-      </Link>
+      
     </Card>
     );
 
