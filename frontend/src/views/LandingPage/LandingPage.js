@@ -72,16 +72,20 @@ export default function LandingPage(props) {
       </div>*/}
       <br/>
       <Mul /><br/>
-      <GridContainer spacing ={0} style={{marginLeft:"10px"}}>
+      
+      <GridContainer spacing ={0} style={{marginLeft:"5px"}}>
+        
       <GridItem xs={8}>     
       <Spec />
       </GridItem>
-      <GridItem xs={4} >
+      <GridItem xs={4} style={{background: "white"}}>
         <MyCarousel />
       </GridItem>
       </GridContainer>
-      <br/><br/>
+      
+      <div style={{marginTop:"3px"}}>
       <Caro />
+      </div>
       </div>
       <Footer />
 
