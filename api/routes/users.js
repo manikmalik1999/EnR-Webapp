@@ -6,9 +6,19 @@ const bcrypt= require("bcrypt");
 const jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 const checkAuth = require("../Middleware/check-auth");
+const {OAuth2Client} = require("google-auth-library");
 const { path } = require("../../app");
+const client = new OAuth2Client("744225883265-ru7qj83bl7bqsfcarhbp6c6qqqo71e64.apps.googleusercontent.com")
 
 
+router.post('/google/login', (req,res,next)=>{
+    const{tokenId}= req.body;
+    client.verifyIdToken({idToken: tokenId, audience: "744225883265-ru7qj83bl7bqsfcarhbp6c6qqqo71e64.apps.googleusercontent.com" })
+    .then(res=>{
+        // const {email_verified}
+        console.log(res.payload);
+    })
+})
 router.post('/signup', (req, res, next)=>{
     User.find({email: req.body.email })
     .exec()
