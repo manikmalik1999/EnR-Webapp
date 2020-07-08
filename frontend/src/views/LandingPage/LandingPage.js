@@ -165,7 +165,7 @@ export default function LandingPage(props) {
         <img src={ent} alt="image" className={classes.media} style={{width:"100%", height:"35vh"}}/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" style={{textAlign:"center"}}>
-            Enatertainment
+            Entertainment
           </Typography>
         </CardContent>
       </CardActionArea>
