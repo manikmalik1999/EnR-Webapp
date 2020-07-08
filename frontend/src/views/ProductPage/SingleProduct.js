@@ -1,5 +1,5 @@
-import React,{useState, useEffect} from 'react';
-import axios from 'axios'; 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import Button from '@material-ui/core/Button';
@@ -23,6 +23,9 @@ import Carousel from "react-slick";
 // material-ui components
 // @material-ui/icons
 import LocationOn from "@material-ui/icons/LocationOn";
+// import Rating from '@material-ui/core/Rating';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -51,14 +54,16 @@ import { Paper } from '@material-ui/core';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
+
 const usStyles = makeStyles(modalStyle);
+
 function Modal() {
   const [modal, setModal] = React.useState(false);
   const classes = usStyles();
   return (
     <div>
-        <Button color="primary" round size="small" onClick={() => setModal(true)}>
-          Product Details
+      <Button color="primary" round size="small" onClick={() => setModal(true)}>
+        Product Details
         </Button>
       <Dialog
         classes={{
@@ -70,8 +75,7 @@ function Modal() {
         keepMounted
         onClose={() => setModal(false)}
         aria-labelledby="modal-slide-title"
-        aria-describedby="modal-slide-description"
-      >
+        aria-describedby="modal-slide-description">
         <DialogTitle
           id="classic-modal-slide-title"
           disableTypography
@@ -94,24 +98,20 @@ function Modal() {
         >
           <h5>Are you sure you want to do this?</h5>
         </DialogContent>
-        <DialogActions
-          className={classes.modalFooter + " " + classes.modalFooterCenter}
-        >
+        <DialogActions className={classes.modalFooter + " " + classes.modalFooterCenter}>
           <Button onClick={() => setModal(false)}>Never Mind</Button>
-          <Button onClick={() => setModal(false)} color="secondary">
-            Yes
-          </Button>
+          <Button onClick={() => setModal(false)} color="secondary">Yes</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 }
 
-function SectionCarousel(props){
+function SectionCarousel(props) {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
+    speed: 400,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true
@@ -119,22 +119,30 @@ function SectionCarousel(props){
   return (
     <GridContainer>
       <GridItem xs={12}>
-      <Card>
-          <Carousel {...settings}>
+        <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "400px", height: "auto", maxHeigt: "450px" }}>
+          <Carousel {...settings} style={{ padding: "12px" }}>
             <div>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/"+ props.img}
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img}
                 alt="First slide"
                 className="slick-image"
-                style={{float:"left" ,height: "auto", width: "23vw"}}
+                style={{ float: "left", height: "auto", width: "23vw" }}
               />
             </div>
             <div>
               <img
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img}
+                alt="First slide"
+                className="slick-image"
+                style={{ float: "left", height: "auto", width: "23vw" }}
+              />
+            </div>
+            {/* <div>
+              <img
                 src={image2}
                 alt="Second slide"
                 className="slick-image"
-                style={{marginTop: '50%'}}
+                style={{ marginTop: '50%' }}
               />
               <div className="slick-caption">
                 <h4>
@@ -148,7 +156,7 @@ function SectionCarousel(props){
                 src={image3}
                 alt="Third slide"
                 className="slick-image"
-                style={{marginTop: '50%'}}
+                style={{ marginTop: '50%' }}
               />
               <div className="slick-caption">
                 <h4>
@@ -156,9 +164,9 @@ function SectionCarousel(props){
                   National Park, United States
                 </h4>
               </div>
-            </div>
+            </div> */}
           </Carousel>
-          </Card>
+        </Card>
       </GridItem>
     </GridContainer>
   );
@@ -180,15 +188,16 @@ const uStyles = makeStyles((theme) => ({
   },
 }));
 
-function Loading (){
+function Loading() {
   const clas = uStyles();
   const classes = useStyles();
   console.log('yes it is');
   return (
-    <div style={{ marginTop:"12vh"}} className={classNames(clas.root)}>
-    <CircularProgress color="secondary" />
-  </div>
-);}
+    <div style={{ marginTop: "12vh" }} className={classNames(clas.root)}>
+      <CircularProgress color="primary" />
+    </div>
+  );
+}
 
 export default function SingleProd(props) {
   const classes = useStyles();
@@ -196,28 +205,28 @@ export default function SingleProd(props) {
 
   const [product, setProduct] = useState([]);
   const ID = props.match.params.productID;
-  const [cartResponse, setCartRes]= useState([]);
-  const [quantity, setQuantity]= useState(0);
-  const[reviews, setReviews]= useState([]);
+  const [cartResponse, setCartRes] = useState([]);
+  const [quantity, setQuantity] = useState(0);
+  const [reviews, setReviews] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/'+ ID)
-  .then(res =>{
-    setProduct(res.data.product);
-    setLoading(false);
-  })
-  axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/'+ ID)
-  .then(res=>{
-    AvgRev= res.data.avgvalue;
-    console.log(res.data);
-    setReviews(res.data.reviews);
-  })
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
+      .then(res => {
+        setProduct(res.data.product);
+        setLoading(false);
+      })
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/' + ID)
+      .then(res => {
+        AvgRev = res.data.avgvalue;
+        console.log(res.data);
+        setReviews(res.data.reviews);
+      })
   }, [])
 
   const handleClick = () => {
     console.info('You clicked the Chip.');
-    window.location.href="#Rate"
+    window.location.href = "#Rate"
   };
 
   const handleClose = () => {
@@ -227,16 +236,16 @@ export default function SingleProd(props) {
   const handleOpen = () => {
     setOpen(true);
   };
-  
-  const handleChange = (e) =>{
+
+  const handleChange = (e) => {
     setQuantity(e.target.value);
   }
-  const QuantityResponse=()=>{
-    if(quantity> product.quantity){
-      return(<SnackbarContent
+  const QuantityResponse = () => {
+    if (quantity > product.quantity) {
+      return (<SnackbarContent
         message={
           <span>
-           Quantity is not available
+            Quantity is not available
           </span>
         }
         close
@@ -244,12 +253,12 @@ export default function SingleProd(props) {
         icon="info_outline"
       />);
     }
-    else{
+    else {
       return null;
     }
   }
-  const HandleCart =(e)=>{
-    if(quantity> product.quantity){
+  const HandleCart = (e) => {
+    if (quantity > product.quantity) {
       alert("Set Appropriate Quantity")
       return;
     }
@@ -257,39 +266,39 @@ export default function SingleProd(props) {
       method: 'post',
       url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
       headers: {
-          'Authorization': 'Bearer '+Token,
-      } ,
-      data:{
+        'Authorization': 'Bearer ' + Token,
+      },
+      data: {
         productId: ID,
         quantity: quantity,
       }
 
-    }).then(res=>{
-      console.log(res); 
-      if(res.data.status === 201){
+    }).then(res => {
+      console.log(res);
+      if (res.data.status === 201) {
         setCartRes({
           message: res.data.message,
           color: "success"
-        }) 
+        })
       }
-      else if(res.data.status === 401){
+      else if (res.data.status === 401) {
         window.location.href = "/login-page";
       }
-      else{
+      else {
         setCartRes({
           message: res.data.message,
           color: "danger"
-        }) 
+        })
       }
-    
+
     })
   }
-  const HandleCartResponse =() =>{
-    if(cartResponse.message){
-      return(<SnackbarContent
+  const HandleCartResponse = () => {
+    if (cartResponse.message) {
+      return (<SnackbarContent
         message={
           <span>
-           {cartResponse.message}
+            {cartResponse.message}
           </span>
         }
         close
@@ -297,74 +306,113 @@ export default function SingleProd(props) {
         icon="info_outline"
       />);
     }
-    else{
+    else {
       return null;
     }
   }
+
+
   return (
     <div>
-      <NavBar/>
-      <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
-      {loading ? <Loading /> :([product].map(pro =>(             
-        <div>
-          <Categories/>
-          <div><p></p></div>       
-          <div className={classes.container}>
-            <QuantityResponse/>
-            <HandleCartResponse />
-            <Grid className ="element"  container spacing={1} >
-              <Grid item xs={4} style={{float:"left"}}>
-                <SectionCarousel img={pro.image}/>
-                <div className="center" style={{display:"inline",   margin: "0",position: "relative", left: "3.5vw", right: "4vw"}}>
-                  <Button onClick ={HandleCart} size="small" variant="contained" style={{backgroundColor:"#00e676", marginRight:"0.8vw",  fontSize:"1.4vw"}}>Cart</Button>
-                  <Button variant="contained" size="small" style={{backgroundColor:"#33eb91",  fontSize:"1.4vw"}}>Wishlist</Button>                          
-                </div>
-              </Grid>
-              <Grid item xs style={{color:"black", marginLeft:"1vw"}} >
-                <h2 style={{fontSize:"3vw"}}>{pro.name}</h2>
-                <Badge color="primary">{pro.category}</Badge>
-                <Chip color="secondary" label={AvgRev} onClick={handleClick} clickable size="small" icon={<StarRateIcon />} />
-                <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>£: {pro.price}</h4>
-                <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
-                <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
-                <Select native value={quantity} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
-                                    {/* inputProps={{
-                                    //   name: 'age',
-                                    //   id: 'age-native-simple',
-                                     }}*/}             
-                  <option value={0}>0</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </Select><br/><br/>                                 
-                <h5 style={{fontSize:"1.8vw", fontWeight:"bold", color: "green"}}> Available Offers</h5> 
-                <ul>
-                  <li style={{fontSize:"1.4vw"}}>This offer is so cool</li>
-                </ul><br/> 
-                <form className={classes.root} noValidate autoComplete="off">
-                  <TextField className={classes.textField} margin="dense" id="outlined-basic" label="Deliver to" variant="outlined" />
-                </form><br/>
-                <Modal /><br/><br/>  
-                <p style={{fontSize:"1.4vw"}}>Seller: &emsp; <Link>{pro.sellerId.name}</Link></p>       
-              </Grid>                   
-            </Grid>             
-          </div>
-        </div>
-      )))}
-      <div style={{textAlign: "center",marginLeft: "10px", marginRight: "10px"}} id="Rate">
-        <h1 style={{ color: "#F46D43", }}>Reviews</h1>
-        {reviews.map(rev=>(
-          <Paper style ={{background: "#F2F1F1"}}>
-          <h3 style={{ color: "#531907", }}>{rev.user.name}</h3>
-        <Button startIcon={<StarRateIcon />} disabled><span><b>{rev.value}</b>/5</span></Button>
-          <p style={{ color: "#144A16", }}>{rev.comments}</p>
-            </Paper>
-        ))}
+      <NavBar />
+      <div style={{ marginTop: "10vh", minHeight: "560px" }} className={classNames(classes.main, classes.mainRaised)}>
+        {loading ? <div style={{ paddingTop: "170px" }}><Loading /></div> : (
+          [product].map(pro => (
+            <div>
+              <Categories />
+              {/* <div><p></p></div> */}
+              <div className={classes.container}>
+                <QuantityResponse />
+                <HandleCartResponse />
+                <Grid className="element" container spacing={1} alignContent="center" style={{ borderBottom: "1px solid lightgrey" }} >
+                  <Grid item xs={4} style={{ float: "left" }}>
+                    <SectionCarousel img={pro.image} />
+                  </Grid>
+                  <Grid item xs={2} ></Grid>
+                  {/* <div className="center" style={{ display: "inline", margin: "0", position: "relative", left: "3.5vw", right: "4vw" }}>
+                    <Button onClick={HandleCart} size="small" variant="contained" style={{ backgroundColor: "#00e676", marginRight: "0.8vw", fontSize: "1.4vw" }}>Cart</Button>
+                    <Button variant="contained" size="small" style={{ backgroundColor: "#33eb91", fontSize: "1.4vw" }}>Wishlist</Button>
+                  </div> */}
+                  <Grid item xs style={{ color: "black", marginLeft: "1vw" }} >
+                    <h2 style={{ fontSize: "2.2vw", fontWeight: "400" }}>{pro.name}</h2>
+                    <hr></hr>
+                    <h4 style={{ fontSize: "1.4vw" }}>{pro.description}</h4>
+
+                    <Chip color="primary" label={pro.category.toUpperCase()} size="small  " />
+                    {AvgRev ?
+                      <Chip color="secondary" style={{ marginLeft: "16px" }} label={AvgRev} onClick={handleClick} clickable size="small" icon={<StarRateIcon />} />
+                      : <Chip color="secondary" style={{ marginLeft: "16px" }} label={"Un-Rated"} onClick={handleClick} clickable size="small" icon={<StarRateIcon style={{ color: "yellow" }} />} />}
+
+                    <br></br>
+                    <h4 style={{ fontSize: "1.5vw", fontWeight: "bold" }}>£: {pro.price}</h4>
+                    <span htmlFor="age-native-simple" style={{ marginRight: "16px" }}>Quantity</span>
+                    <Select native value={quantity} style={{ textDecoration: "none" }} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
+                      <option value={0}>0</option>
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                      <option value={5}>5</option>
+                    </Select><br /><br />
+                    <h5 style={{ fontSize: "1.4vw", fontWeight: "400", color: "green" }}> Available Offers</h5>
+                    <ul>
+                      <li style={{ fontSize: "1.1vw" }}>EMI @ £ 10 /month </li>
+                      <li style={{ fontSize: "1.1vw" }}>Cash on delivery </li>
+                      <li style={{ fontSize: "1.1vw" }}>One day Guaranteed Delivery </li>
+                    </ul><br />
+
+                    <Grid className="element" container spacing={1} style={{ marginBottom: "18px" }} >
+                      <Grid item xs={6}>
+                        <Button onClick={HandleCart} size="small" variant="contained" style={{ width: "100%", backgroundColor: "#512da8", color: "white", padding: "6px" }}>Add to Cart</Button>
+                      </Grid>
+                      <Grid xs></Grid>
+                      <Grid item xs={6} >
+                        <Button variant="contained" size="small" style={{ width: "100%", backgroundColor: "#512da8", color: "white", padding: "6px" }}>Add to Wishlist</Button>
+                      </Grid>
+                    </Grid>
+                    <hr />
+                    <Grid className="element" container spacing={1} >
+                      <Grid item xs={5} style={{ marginTop: "16px" }} >
+                        <p style={{ fontSize: "1.2vw" }}>Seller: &emsp; <Link>{pro.sellerId.name}</Link></p>
+                      </Grid>
+                      <Grid xs></Grid>
+                      <Grid item xs={5}>
+                        <form className={classes.root} noValidate autoComplete="off">
+                          <TextField className={classes.textField} margin="dense" id="outlined-basic" label="Deliver to" variant="outlined" />
+                        </form><br />
+                      </Grid>
+                    </Grid>
+                    <Modal /><br /><br />
+                  </Grid>
+                </Grid>
+              </div>
+              {AvgRev ?
+                < div style={{ margin: "auto", width: "80%" }} id="Rate">
+                  <Grid className="element" container spacing={1} style={{ marginBottom: "18px" }} >
+                    <Grid item xs={12} >
+                      <h3 style={{ color: "#512da8", fontWeight: "400" }}>Ratings & Reviews</h3>
+                    </Grid>
+                    <Grid item xs={10} style={{ margin: "auto" }}>
+                      {reviews.map(rev => (
+                        <Grid item xs={12}>
+                          <Paper style={{ boxShadow:"2px 3px 15px lightgrey", padding: "8px",marginBottom:"12px" }}>
+                            <div style={{ paddingLeft: "16px"}}>
+                              <span style={{ color: "#531907", fontWeight: "300",fontSize:"22px"  }}>{rev.user.name}</span>
+                              <br/>
+                              <Button style={{marginRight:"18px",marginLeft:"8px"}} startIcon={<StarRateIcon style={{color:"#ffab00"}} />} disabled><span><b>{rev.value}</b>/5</span></Button> 
+                              <span style={{ color: "#144A16",fontWeight:"400",fontSize:"16px" }}> - {rev.comments}</span>
+                            </div>
+                          </Paper>
+                        </Grid>
+                      ))}
+                    </Grid>
+
+                  </Grid>
+                </div> : null}
+            </div>
+          )))}
       </div>
-      </div>
-      <Footer/>
-    </div>
+      <Footer />
+    </div >
   );
 }
