@@ -324,7 +324,7 @@ export default function SingleProd(props) {
                 <h2 style={{fontSize:"3vw"}}>{pro.name}</h2>
                 <Badge color="primary">{pro.category}</Badge>
                 <Chip color="secondary" label={AvgRev} onClick={handleClick} clickable size="small" icon={<StarRateIcon />} />
-                <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>INR: {pro.price}</h4>
+                <h4 style={{fontSize:"1.5vw", fontWeight:"bold"}}>£: {pro.price}</h4>
                 <h4 style={{fontSize:"1.5vw"}}>{pro.description}</h4>
                 <InputLabel htmlFor="age-native-simple">Quantity</InputLabel>
                 <Select native value={quantity} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
