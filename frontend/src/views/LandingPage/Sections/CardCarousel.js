@@ -192,7 +192,7 @@ const useStyles = makeStyles(styles);
           showDots={true}
           arrows
           autoPlay
-          autoPlaySpeed={1800}
+          autoPlaySpeed={3800}
           centerMode={false}
           className=""
           containerClass="container-with-dots"
