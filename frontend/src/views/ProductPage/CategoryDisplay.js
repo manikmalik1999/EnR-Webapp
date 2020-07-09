@@ -99,7 +99,7 @@ export default function CategoryDisplay(props) {
             <Categories value= {index} />
             <h3 style={{color: "#512da8", textAlign:"center"}} ><b>{category.toUpperCase()}</b> </h3>
             <div className={classes.container}>
-              <GridContainer>
+              <GridContainer style={{marginLeft:"10px",marginRight:"8px"}}>
                 {currentPro.map(pro =>(
                   <GridItem xs={6} md={4} lg={3} style={{marginBottom:"15px"}}>
                     <CardActionArea>
