@@ -32,10 +32,10 @@ function Ecart () {
     window.location.href = "/";
   }
   return (
-    <div className="container-fluid" >
+    <div className="container-fluid" style={{paddingBottom:"40px"}}>
       <Typography color="textPrimary" style={{textAlign: "center"}} variant="h2" gutterBottom>Your Cart is empty</Typography>
   <img style={{width:"14vw", display:"block", marginLeft:"auto", marginRight:"auto"}} src={cimg} alt="Empty-Cart" />
-  <Typography color="textSecondary" style={{textAlign: "center"}} variant="h5" gutterBottom>Add items to cart now!.</Typography>
+  <Typography color="textSecondary" style={{textAlign: "center"}} variant="h5" gutterBottom>Add items to cart now!</Typography>
   <Button variant="contained" style={{display:"block", marginLeft:"auto", marginRight:"auto"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
   </div>
   );
@@ -150,7 +150,7 @@ export default function CartDisplay(props) {
     <div>
       <NavBar/>
 
-      <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
+      <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
             {/* <Categories/> */}
         <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Cart</b> ({count})</h4>
         {count ? (
