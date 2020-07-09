@@ -266,7 +266,7 @@ const HandleOrder =(e)=>{
 //className={classes.grow}
   return (
     <div className={classes.grow} >
-      <AppBar style={{backgroundColor:"#673ab7"}} position="fixed">
+      <AppBar style={{backgroundColor:"#008080"}} position="fixed">
         <Toolbar>
           <IconButton
             edge="start"

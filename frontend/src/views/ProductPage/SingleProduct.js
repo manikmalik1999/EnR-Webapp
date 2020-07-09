@@ -6,6 +6,13 @@ import Button from '@material-ui/core/Button';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Select from '@material-ui/core/Select';
+import Rating from '@material-ui/lab/Rating';
+import Popover from '@material-ui/core/Popover';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+
 import InputLabel from '@material-ui/core/InputLabel';
 // @material-ui/icons
 import Badge from 'components/Badge/Badge.js';
@@ -19,6 +26,7 @@ import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 import NavBar from "components/Header/Navbar"
 
+import CheckIcon from '@material-ui/icons/Check';
 import Carousel from "react-slick";
 // material-ui components
 // @material-ui/icons
@@ -38,6 +46,7 @@ import image1 from "assets/img/1592674003336hockey-Stick.jpg";
 import image2 from "assets/img/bg2.jpg";
 import image3 from "assets/img/bg3.jpg";
 
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -119,7 +128,7 @@ function SectionCarousel(props) {
   return (
     <GridContainer>
       <GridItem xs={12}>
-        <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "400px", height: "auto", maxHeigt: "450px" }}>
+        <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "100%", height: "auto", maxHeigt: "450px" }}>
           <Carousel {...settings} style={{ padding: "12px" }}>
             <div>
               <img
@@ -137,34 +146,6 @@ function SectionCarousel(props) {
                 style={{ float: "left", height: "auto", width: "23vw" }}
               />
             </div>
-            {/* <div>
-              <img
-                src={image2}
-                alt="Second slide"
-                className="slick-image"
-                style={{ marginTop: '50%' }}
-              />
-              <div className="slick-caption">
-                <h4>
-                  <LocationOn className="slick-icons" />Somewhere Beyond,
-                  United States
-                </h4>
-              </div>
-            </div>
-            <div>
-              <img
-                src={image3}
-                alt="Third slide"
-                className="slick-image"
-                style={{ marginTop: '50%' }}
-              />
-              <div className="slick-caption">
-                <h4>
-                  <LocationOn className="slick-icons" />Yellowstone
-                  National Park, United States
-                </h4>
-              </div>
-            </div> */}
           </Carousel>
         </Card>
       </GridItem>
@@ -186,6 +167,19 @@ const uStyles = makeStyles((theme) => ({
     },
     marginLeft: '50%'
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
+  }
 }));
 
 function Loading() {
@@ -201,6 +195,8 @@ function Loading() {
 
 export default function SingleProd(props) {
   const classes = useStyles();
+  const clas = uStyles();
+  const clase = uStyles();
   const { ...rest } = props;
 
   const [product, setProduct] = useState([]);
@@ -210,6 +206,17 @@ export default function SingleProd(props) {
   const [reviews, setReviews] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const openn = Boolean(anchorEl);
   useEffect(() => {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
       .then(res => {
@@ -219,6 +226,7 @@ export default function SingleProd(props) {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/' + ID)
       .then(res => {
         AvgRev = res.data.avgvalue;
+        console.log("----> here");
         console.log(res.data);
         setReviews(res.data.reviews);
       })
@@ -324,19 +332,19 @@ export default function SingleProd(props) {
               <div className={classes.container}>
                 <QuantityResponse />
                 <HandleCartResponse />
-                <Grid className="element" container spacing={1} alignContent="center" style={{ borderBottom: "1px solid lightgrey" }} >
-                  <Grid item xs={4} style={{ float: "left" }}>
+                <Grid className="element" container spacing={3} alignContent="center" style={{ borderBottom: "1px solid lightgrey", marginBottom:"12px" }} >
+                  <Grid item xs={10} lg={4} style={{ float: "left", marginLeft: "auto", marginRight: "auto" }}>
                     <SectionCarousel img={pro.image} />
                   </Grid>
-                  <Grid item xs={2} ></Grid>
+                  <Grid item xs={12} lg={1}></Grid>
                   {/* <div className="center" style={{ display: "inline", margin: "0", position: "relative", left: "3.5vw", right: "4vw" }}>
                     <Button onClick={HandleCart} size="small" variant="contained" style={{ backgroundColor: "#00e676", marginRight: "0.8vw", fontSize: "1.4vw" }}>Cart</Button>
                     <Button variant="contained" size="small" style={{ backgroundColor: "#33eb91", fontSize: "1.4vw" }}>Wishlist</Button>
                   </div> */}
-                  <Grid item xs style={{ color: "black", marginLeft: "1vw" }} >
-                    <h2 style={{ fontSize: "2.2vw", fontWeight: "400" }}>{pro.name}</h2>
+                  <Grid item xs={12} lg={6} style={{ color: "black", marginLeft: "1vw" }} >
+                    <h2 style={{ fontSize: "2rem", fontWeight: "400" }}>{pro.name}</h2>
                     <hr></hr>
-                    <h4 style={{ fontSize: "1.4vw" }}>{pro.description}</h4>
+                    <h4 style={{ fontSize: "1.3rem" }}>{pro.description}</h4>
 
                     <Chip color="primary" label={pro.category.toUpperCase()} size="small  " />
                     {AvgRev ?
@@ -344,36 +352,49 @@ export default function SingleProd(props) {
                       : <Chip color="secondary" style={{ marginLeft: "16px" }} label={"Un-Rated"} onClick={handleClick} clickable size="small" icon={<StarRateIcon style={{ color: "yellow" }} />} />}
 
                     <br></br>
-                    <h4 style={{ fontSize: "1.5vw", fontWeight: "bold" }}>£: {pro.price}</h4>
-                    <span htmlFor="age-native-simple" style={{ marginRight: "16px" }}>Quantity</span>
-                    <Select native value={quantity} style={{ textDecoration: "none" }} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
+                    <h4 style={{ fontSize: "1.3rem", fontWeight: "bold" }}>£: {pro.price}</h4>
+                    {/* <span htmlFor="age-native-simple" style={{ marginRight: "16px" }}>Quantity</span>
+                    <Select native value={quantity} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
                       <option value={0}>0</option>
                       <option value={1}>1</option>
                       <option value={2}>2</option>
                       <option value={3}>3</option>
                       <option value={4}>4</option>
                       <option value={5}>5</option>
-                    </Select><br /><br />
-                    <h5 style={{ fontSize: "1.4vw", fontWeight: "400", color: "green" }}> Available Offers</h5>
+                    </Select><br /><br /> */}
+                    <FormControl className={clas.formControl}>
+                      <p id="demo-simple-select-label" >Quantity</p>
+                      <Select
+                        value={quantity} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}
+                      >
+                        <MenuItem value={0}>0</MenuItem>
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem value={5}>5</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <h5 style={{ fontSize: "1.3rem", fontWeight: "400", color: "green" }}> Available Offers</h5>
                     <ul>
-                      <li style={{ fontSize: "1.1vw" }}>EMI @ £ 10 /month </li>
-                      <li style={{ fontSize: "1.1vw" }}>Cash on delivery </li>
-                      <li style={{ fontSize: "1.1vw" }}>One day Guaranteed Delivery </li>
+                      <li style={{ fontSize: "1.05rem" }}>EMI @ £ 10 /month </li>
+                      <li style={{ fontSize: "1.05rem" }}>Cash on delivery </li>
+                      <li style={{ fontSize: "1.05rem" }}>One day Guaranteed Delivery </li>
                     </ul><br />
 
                     <Grid className="element" container spacing={1} style={{ marginBottom: "18px" }} >
-                      <Grid item xs={6}>
-                        <Button onClick={HandleCart} size="small" variant="contained" style={{ width: "100%", backgroundColor: "#512da8", color: "white", padding: "6px" }}>Add to Cart</Button>
+                      <Grid item xs={12} lg={6}>
+                        <Button onClick={HandleCart} size="small" variant="contained" style={{ width: "100%", backgroundColor: "#00897b", color: "white", padding: "6px" }}>Add to Cart</Button>
                       </Grid>
                       <Grid xs></Grid>
-                      <Grid item xs={6} >
-                        <Button variant="contained" size="small" style={{ width: "100%", backgroundColor: "#512da8", color: "white", padding: "6px" }}>Add to Wishlist</Button>
+                      <Grid item xs={12} lg={6}>
+                        <Button variant="contained" size="small" style={{ width: "100%", backgroundColor: "#00897b", color: "white", padding: "6px" }}>Add to Wishlist</Button>
                       </Grid>
                     </Grid>
                     <hr />
                     <Grid className="element" container spacing={1} >
                       <Grid item xs={5} style={{ marginTop: "16px" }} >
-                        <p style={{ fontSize: "1.2vw" }}>Seller: &emsp; <Link>{pro.sellerId.name}</Link></p>
+                        <p style={{ fontSize: "1.2rem" }}>Seller: &emsp; <Link>{pro.sellerId.name}</Link></p>
                       </Grid>
                       <Grid xs></Grid>
                       <Grid item xs={5}>
@@ -382,7 +403,45 @@ export default function SingleProd(props) {
                         </form><br />
                       </Grid>
                     </Grid>
-                    <Modal /><br /><br />
+                    <div>
+                      <Typography
+                        aria-owns={openn ? 'mouse-over-popover' : undefined}
+                        aria-haspopup="true"
+                        onMouseEnter={handlePopoverOpen}
+                        onMouseLeave={handlePopoverClose}
+                        style={{margin:"0px"}}
+                      >Product Details</Typography>
+                      <Popover
+                        id="mouse-over-popover"
+                        className={clase.popover}
+                        clase={{
+                          paper: clase.paper,
+                        }}
+                        open={openn}
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'left',
+                        }}
+                        onClose={handlePopoverClose}
+                        // disableRestoreFocus
+                      >
+                        <div style={{padding:"12px",width:"300px",fontSize:"14px",fontWeight:"400"}}>
+                        <ul style={{listStyle:"none"}}>
+                          <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> Durable</li>
+                          <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> Tested</li>
+                          <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> Satisfied Customers</li>
+                          <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> Factory Checked</li>
+                          <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> EnR Assurance</li>
+                        </ul>
+                        </div>
+                      </Popover>
+                    </div>
+                    {/* <Modal /><br /><br /> */}
                   </Grid>
                 </Grid>
               </div>
@@ -390,25 +449,33 @@ export default function SingleProd(props) {
                 < div style={{ margin: "auto", width: "80%" }} id="Rate">
                   <Grid className="element" container spacing={1} style={{ marginBottom: "18px" }} >
                     <Grid item xs={12} >
-                      <h3 style={{ color: "#512da8", fontWeight: "400" }}>Ratings & Reviews</h3>
+                      <h3 style={{ color: "#512da8", fontWeight: "400", textAlign: "center" }}>Ratings & Reviews</h3>
                     </Grid>
                     <Grid item xs={10} style={{ margin: "auto" }}>
                       {reviews.map(rev => (
                         <Grid item xs={12}>
-                          <Paper style={{ boxShadow:"2px 3px 15px lightgrey", padding: "8px",marginBottom:"12px" }}>
-                            <div style={{ paddingLeft: "16px"}}>
-                              <span style={{ color: "#531907", fontWeight: "300",fontSize:"22px"  }}>{rev.user.name}</span>
-                              <br/>
-                              <Button style={{marginRight:"18px",marginLeft:"8px"}} startIcon={<StarRateIcon style={{color:"#ffab00"}} />} disabled><span><b>{rev.value}</b>/5</span></Button> 
-                              <span style={{ color: "#144A16",fontWeight:"400",fontSize:"16px" }}> - {rev.comments}</span>
-                            </div>
-                          </Paper>
+                          <div style={{ paddingLeft: "16px", marginBottom: "8px" }}>
+                            <Box component="fieldset" borderColor="transparent">
+                              <Rating name="read-only" value={AvgRev} readOnly />
+                              <p style={{ color: "#531907", fontWeight: "400", fontSize: "16px", marginLeft: "18px", marginBottom: "0px" }}>{rev.comments}</p>
+                              <span style={{ color: "grey", fontWeight: "300", fontSize: "14px", margin: "0", marginLeft: "22px", fontWeight: "400" }}>
+                                {rev.user.name}
+                                <small style={{ marginLeft: "12px" }}>Jul, 2020</small>
+                              </span>
+                              <div style={{ color: "grey", fontWeight: "300", fontSize: "16px", margin: "0", marginLeft: "18px" }}>
+                                <CheckIcon style={{ margin: "auto", fontSize: "14px", display: "inline" }} />
+                                <small style={{ marginLeft: "12px" }}>Certified user</small>
+                              </div>
+                            </Box>
+                          </div>
+                          <hr style={{ border: "none", borderBottom: "1px solid lightgrey" }} />
+                          {/* </Paper> */}
                         </Grid>
                       ))}
                     </Grid>
 
                   </Grid>
-                </div> : null}
+                </div> : <br />}
             </div>
           )))}
       </div>

@@ -75,7 +75,7 @@ export default function CategoryDisplay(props) {
                       </CardMedia>
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-
+                        
                           {pro.name}
 
                         </Typography>
