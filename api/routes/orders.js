@@ -11,7 +11,8 @@ router.get('/',SellerAuth, (req, res, next) => {
     let revenue =0;
   Order.find({})
   .select('product _id userId quantity date')
-  .populate('product','name _id price')
+  .populate('product','name _id price category')
+  .populate('userId','name email')
   .exec()
   .then(docs =>{
       docs.forEach(element => {
