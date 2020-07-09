@@ -1,12 +1,12 @@
-import React,{useState, useEffect} from 'react';
-import axios from 'axios'; 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import NavBar from "components/Header/Navbar";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from "@material-ui/core/styles";
 // import Link from '@material-ui/core/Link';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import image from "assets/img/bg7.jpg";
 import Footer from "components/Footer/Footer.js";
