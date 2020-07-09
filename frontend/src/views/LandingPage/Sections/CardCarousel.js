@@ -240,7 +240,7 @@ const useStyles = makeStyles(styles);
             <GridItem md={12}>
               <CardActionArea>
                 <CardMedia title={pro.name} >
-                  <img style={{height: "37vh", width: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                  <img style={{height: "37vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                 </CardMedia>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">

@@ -245,7 +245,7 @@ export default function LandingPage(props) {
       <CardMedia
         className={classe.media}
         image={chair}
-        title="Paella dish"
+        title="CHAIR"
       />
       </Card>
       </GridItem>
@@ -265,7 +265,7 @@ export default function LandingPage(props) {
       <CardMedia
         className={classe.media}
         image={fri}
-        title="Paella dish"
+        title="Smart Fridge"
       />
       </Card>
       </GridItem>
@@ -287,7 +287,7 @@ export default function LandingPage(props) {
       <CardMedia
         className={classe.media}
         image={tt}
-        title="Paella dish"
+        title="Turntable"
       />
       </Card>
       </GridItem>
@@ -307,7 +307,7 @@ export default function LandingPage(props) {
       <CardMedia
         className={classe.media}
         image={tele}
-        title="Paella dish"
+        title="Telescope"
       />
       </Card>
       </GridItem>

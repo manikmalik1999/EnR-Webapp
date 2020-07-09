@@ -64,7 +64,7 @@ export default function CategoryDisplay(props) {
   const category = props.match.params.category;
   const index = parseInt(props.match.params.index, 10);
   const [products, setProducts] = useState([]);
-  const [proPerPage] = useState(9);
+  const [proPerPage] = useState(12);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -93,11 +93,11 @@ export default function CategoryDisplay(props) {
   return (
     <div>
       <NavBar/>
-      {loading ? <Loading /> :(
+      {loading ? <div style={{ paddingTop: "170px", paddingBottom: "80px" }}><Loading /></div> :(
         <Paper>
           <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
             <Categories value= {index} />
-            <h2 style={{color:"green", textAlign:"center"}} ><b>{category.toUpperCase()}</b> </h2>
+            <h3 style={{color: "#512da8", textAlign:"center"}} ><b>{category.toUpperCase()}</b> </h3>
             <div className={classes.container}>
               <GridContainer>
                 {currentPro.map(pro =>(
@@ -107,17 +107,17 @@ export default function CategoryDisplay(props) {
                         <img style={{height: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                       </CardMedia>
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">                                                   
+                        <Typography gutterBottom variant="h6" component="h3">                                                   
                           <Link to={"/Display/" + pro._id} target="_blank">
                             {pro.name}
                           </Link>                                               
                         </Typography>                                               
-                        <Typography variant="body2" color="textSecondary" component="p">
+                        <Typography variant="body" color="textSecondary" component="h5">
                           <b>£: {pro.price}</b>
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component="h5" style={{marginLeft:"10px"}}>
                       {pro.description}
                     </Typography>
                   </GridItem>

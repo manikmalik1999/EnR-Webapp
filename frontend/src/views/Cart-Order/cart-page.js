@@ -14,16 +14,32 @@ import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import image from "assets/img/bg7.jpg";
 import Footer from "components/Footer/Footer.js";
-import Categories from "components/Header/CategoryBar.js"
+import Categories from "components/Header/CategoryBar.js";
 // import styles from "assets/jss/material-kit-react/views/loginPage.js";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import Typography from '@material-ui/core/Typography';
 // @material-ui/core components
 
 // @material-ui/icons
 
 // core components
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
+import cimg from 'assets/img/empty_cart.png';
+
+function Ecart () {
+  const Home = () => {
+    window.location.href = "/";
+  }
+  return (
+    <div className="container-fluid" >
+      <Typography color="textPrimary" style={{textAlign: "center"}} variant="h2" gutterBottom>Your Cart is empty</Typography>
+  <img style={{width:"14vw", display:"block", marginLeft:"auto", marginRight:"auto"}} src={cimg} alt="Empty-Cart" />
+  <Typography color="textSecondary" style={{textAlign: "center"}} variant="h5" gutterBottom>Add items to cart now!.</Typography>
+  <Button variant="contained" style={{display:"block", marginLeft:"auto", marginRight:"auto"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
+  </div>
+  );
+}
 
 const dashboardRoutes = [];
 
@@ -137,6 +153,7 @@ export default function CartDisplay(props) {
       <div style={{ marginTop:"12vh"}} className={classNames(classes.main, classes.mainRaised)}>
             {/* <Categories/> */}
         <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Cart</b> ({count})</h4>
+        {count ? (
         <div className={classes.container}>
                 <CartDeleteResponse/>
             {products.map(pro =>(
@@ -171,11 +188,9 @@ export default function CartDisplay(props) {
                   <Button variant="contained" color="secondary">Total Amount : {totalAmount}</Button>
                 </StripeCheckout>
 
-        </div>
+        </div>):<Ecart />}
       </div>
- 
       <Footer/>
-   
     </div>
   );
 }
