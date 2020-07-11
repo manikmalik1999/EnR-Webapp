@@ -220,6 +220,8 @@ export default function SingleProd(props) {
   useEffect(() => {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
       .then(res => {
+        console.log("-->here") ;
+        console.log(res.data.product) ;
         setProduct(res.data.product);
         setLoading(false);
       })
