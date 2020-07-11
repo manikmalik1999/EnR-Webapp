@@ -54,7 +54,7 @@ export default function SellerProductDisplay(props) {
     const handleDelete =(e)=>{
         axios({
             method: 'delete',
-            url: "https://limitless-lowlands-36879.herokuapp.com/products"+ e.target.id,
+            url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ e.target.id,
             headers: {
                 'Authorization': 'Bearer '+Token,
             } 

@@ -250,6 +250,7 @@ export default function SingleProd(props) {
   const handleChange = (e) => {
     setQuantity(e.target.value);
   }
+  
   const QuantityResponse = () => {
     if (quantity > product.quantity) {
       return (<SnackbarContent
@@ -303,6 +304,41 @@ export default function SingleProd(props) {
 
     })
   }
+/////////////////////////////////////////////////////////////////////////////
+
+  const HandleWhishlist =()=>{
+    axios({
+      method: 'post',
+      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+      headers: {
+        'Authorization': 'Bearer ' + Token,
+      },
+      data: {
+        productId: ID,
+      }
+
+    }).then(res => {
+      console.log(res);
+      if (res.data.status === 201) {
+        setCartRes({
+          message: res.data.message,
+          color: "success"
+        })
+      }
+      else if (res.data.status === 401) {
+        window.location.href = "/login-page";
+      }
+      else {
+        setCartRes({
+          message: res.data.message,
+          color: "danger"
+        })
+      }
+
+    })
+  }
+
+
   const HandleCartResponse = () => {
     if (cartResponse.message) {
       return (<SnackbarContent
@@ -389,8 +425,8 @@ export default function SingleProd(props) {
                         <Button onClick={HandleCart} size="small" variant="contained" style={{ width: "100%", backgroundColor: "#00897b", color: "white", padding: "6px" }}>Add to Cart</Button>
                       </Grid>
                       <Grid xs></Grid>
-                      <Grid item xs={12} lg={6}>
-                        <Button variant="contained" size="small" style={{ width: "100%", backgroundColor: "#00897b", color: "white", padding: "6px" }}>Add to Wishlist</Button>
+                      <Grid item xs={12} lg={6} >
+                        <Button onClick={HandleWhishlist} variant="contained" size="small" style={{ width: "100%", backgroundColor: "#512da8", color: "white", padding: "6px" }}>Add to Wishlist</Button>
                       </Grid>
                     </Grid>
                     <hr />

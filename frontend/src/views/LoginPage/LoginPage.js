@@ -82,6 +82,18 @@ export default function SignUp(props) {
                }
         })
 }
+const responseSuccessGoogle =(response)=>{
+  axios({
+    method: 'post',
+    url: "https://limitless-lowlands-36879.herokuapp.com/users/google/login/",
+    headers: {}, 
+    data: {
+        tokenId: response.tokenId
+    }
+  }).then(res=>{
+    console.log(res)
+  })
+}
 const HandleLoginFaliure=()=>{
   if(loginFal === true){
     return(<SnackbarContent
@@ -133,9 +145,7 @@ const HandleLoginFaliure=()=>{
                             <i className={"fab fa-google-plus-g"} />
                           </Button>
                           )}
-                          onSuccess={(e)=>{ 
-                           window.location.href = "/";
-                          }}
+                          onSuccess={responseSuccessGoogle}
                           onFailure={(e)=>{ 
                             setGoogav(false);
                             ResponseGoogle(1);
