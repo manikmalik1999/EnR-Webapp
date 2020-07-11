@@ -20,7 +20,7 @@ const adminRoutes = require("./api/routes/admin");
 const mentorRoutes = require("./api/routes/mentors");
 const categoryRoutes = require("./api/routes/categories")
 const reviewRoutes = require("./api/routes/Review.js")
-
+const wishlistRoutes = require("./api/routes/wishlist.js")
 mongoose.connect('mongodb+srv://malikmanik:4xkJc1XRpCdjSzOm@cluster0-wqaaz.gcp.mongodb.net/test?retryWrites=true&w=majority', 
 { useNewUrlParser: true,  
   useUnifiedTopology: true 
@@ -64,7 +64,7 @@ app.use("/sellers", sellerRoutes);
 app.use("/admin", adminRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/reviews", reviewRoutes);
-
+app.use("/wishlist", wishlistRoutes);
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('frontend/build'));
