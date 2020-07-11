@@ -26,6 +26,7 @@ import Typography from '@material-ui/core/Typography';
 // core components
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import cimg from 'assets/img/empty_cart.png';
+import Loading from '../Loading';
 
 function Ecart () {
   const Home = () => {
@@ -53,6 +54,7 @@ export default function CartDisplay(props) {
   const { ...rest } = props;
     const [products, setProducts] = useState([]);
     const [alert, setAlert]= useState([]);
+    const [loading, setLoading] = useState(true);
     if(!Token){
       window.location.href="/login-page";
     }
@@ -71,6 +73,7 @@ export default function CartDisplay(props) {
         count = res.data.count;
         totalAmount = res.data.Price;
         setProducts(res.data.cart);
+        setLoading(false);
       })
       }, [])
     
@@ -149,7 +152,7 @@ export default function CartDisplay(props) {
   return (
     <div>
       <NavBar/>
-
+      {loading ? <Loading /> :(
       <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
             {/* <Categories/> */}
         <h4 style={{color:"green", marginLeft:"1vw"}} ><b>My Cart</b> ({count})</h4>
@@ -169,7 +172,7 @@ export default function CartDisplay(props) {
                             </Link>
                              <p style={{color:"black"}}>Quantity: {pro.quantity}</p>
                             <Link style={{color:"#f44336"}}to={"/Display/" + pro.productId} target="_blank">
-                                INR: {pro.price}
+                              £: {pro.price}
                             </Link>
                             <Button  onClick={()=> handleCartRemove(pro._id)} style={{display:"inline", marginLeft:"5vw"}} variant="contained" color="primary" >Remove from Cart</Button>
                     </Grid>
@@ -188,8 +191,9 @@ export default function CartDisplay(props) {
                   <Button variant="contained" color="secondary">Total Amount : {totalAmount}</Button>
                 </StripeCheckout>
 
-        </div>):<Ecart />}
+            </div>):<Ecart />}
       </div>
+      )}
       <Footer/>
     </div>
   );
