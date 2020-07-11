@@ -11,7 +11,8 @@ router.get('/',SellerAuth, (req, res, next) => {
     let revenue =0;
   Order.find({})
   .select('product _id userId quantity date')
-  .populate('product','name _id price')
+  .populate('product','name _id price category')
+  .populate('userId','name email')
   .exec()
   .then(docs =>{
       docs.forEach(element => {
@@ -126,23 +127,23 @@ router.post('/',checkAuth, (req, res, next) => {
         
           });
 
-// router.delete('/:orderId', checkAuth,(req, res, next) => {
-//     Order.remove({_id: req.params.orderId}).exec()
-//     .then(result=>{
-//         res.status(200).json({
-//             message: "Order Deleted",
-//             request: {
-//                 type: "POST",
-//                 url: "https://limitless-lowlands-36879.herokuapp.com/orders",
-//                 body: {productId: 'ID', quantity:'Number'} 
-//             }
-//         })
-//     })
-//     .catch(err=>{
-//         res.status(500).json({
-//             error: err
-//         });
-//     });
-//     });
+router.delete('/:orderId', checkAuth,(req, res, next) => {
+    Order.remove({_id: req.params.orderId}).exec()
+    .then(result=>{
+        res.status(200).json({
+            message: "Order Deleted",
+            request: {
+                type: "POST",
+                url: "https://limitless-lowlands-36879.herokuapp.com/orders",
+                body: {productId: 'ID', quantity:'Number'} 
+            }
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            error: err
+        });
+    });
+    });
 
 module.exports = router;
