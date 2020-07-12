@@ -27,6 +27,15 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { roseColor } from 'assets/jss/material-kit-react';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+
+
+const dashboardRoutes = [];
+
+const usStyles = makeStyles(styles);
+const Token = sessionStorage.getItem('TokenKey');
+console.log(Token);
+let count = 0;
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: roseColor,
@@ -52,13 +61,35 @@ const useStyles = makeStyles({
   },
 });
 
-function CustomizedTables() {
+
+function Ecart () {
+  const Home = () => {
+    window.location.href = "/";
+  }
+  return (
+    <div className="container-fluid" style={{paddingBottom:"40px"}}>
+      <img style={{width:"30vw", display:"block", marginLeft:"auto", marginRight:"auto"}} src={wimg} alt="Empty-Wishlist" />
+      <Button variant="contained" style={{display:"block", marginLeft:"auto", marginRight:"auto"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
+    </div>
+  );
+}
+
+export default function WishlistDisplay() {
   const classes = useStyles();
+  const classe = usStyles();
   const [products, setProducts] = useState([]);
+  const [alert, setAlert]= useState([]);
+  const [cartResponse, setCartRes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  if(!Token){
+    window.location.href="/login-page";
+  }
+
   useEffect(() => {
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
       headers: {
         'Authorization': 'Bearer '+Token,
       } 
@@ -68,15 +99,15 @@ function CustomizedTables() {
         window.location.href="/login-page";
       }
       count = res.data.count;
-      totalAmount = res.data.Price;
-      setProducts(res.data.cart);
+      setProducts(res.data.wishlist);
+      setLoading(false);
     })
   }, [])
 
-  const handleCartRemove=(e)=>{
+  const handleRemove=(e)=>{
     axios({
       method: 'delete',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e,
+      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/" + e,
       headers: {
         'Authorization': 'Bearer '+Token,
       } 
@@ -86,7 +117,7 @@ function CustomizedTables() {
         window.location.href="/login-page";
       }
       else if(res.data.status === 200){
-        window.location.href ="/cart-page";
+        window.location.href ="/wishlist";
       }
       else{
         setAlert({
@@ -96,27 +127,8 @@ function CustomizedTables() {
     })
   }
 
-  const CartDeleteResponse=()=>{
-    if(alert.status === 500){
-      return(<SnackbarContent
-          message={
-            <span>
-              Something Went Wrong
-            </span>
-          }
-          close
-          color="warning"
-          icon="info_outline"
-        />);
-      }
-      else{return null;}
-    }
-
-  const HandleCart = (e) => {
-    if (quantity > product.quantity) {
-      alert("Set Appropriate Quantity")
-      return;
-    }
+  const HandleCart = (id) => {
+    console.log(id);
     axios({
       method: 'post',
       url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
@@ -124,11 +136,10 @@ function CustomizedTables() {
         'Authorization': 'Bearer ' + Token,
       },
       data: {
-        productId: ID,
-        quantity: quantity,
-      }    
-    })
-    .then(res => {
+        productId: id,
+      }
+
+    }).then(res => {
       console.log(res);
       if (res.data.status === 201) {
         setCartRes({
@@ -145,9 +156,27 @@ function CustomizedTables() {
           color: "danger"
         })
       }
+
     })
   }
-  const HandleCartResponse = () => {
+
+  const DeleteResponse=()=>{
+    if(alert.status === 500){
+      return(<SnackbarContent
+          message={
+            <span>
+              Something Went Wrong
+            </span>
+          }
+          close
+          color="warning"
+          icon="info_outline"
+        />);
+      }
+      else{return null;}
+    }
+
+  const HandleWishResponse = () => {
     if (cartResponse.message) {
       return (<SnackbarContent
         message={
@@ -165,7 +194,15 @@ function CustomizedTables() {
     }
   }
 
+
   return (
+    <div>
+      <NavBar/>
+        <div style={{ marginTop:"10vh"}} className={classNames(classe.main, classe.mainRaised)}>
+          <h4 style={{color:"green", marginLeft:"1vw"}} ><b>Wishlist</b> ({count})</h4>
+    <HandleWishResponse />
+    <DeleteResponse />
+    {loading ? <Loading /> : (count ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -184,9 +221,9 @@ function CustomizedTables() {
             <StyledTableCell align="center"><Link to={"/Display/" + pro.productId} target="_blank">{pro.name}</Link></StyledTableCell>
             <StyledTableCell align="center">{pro.price}</StyledTableCell>
             <StyledTableCell align="center">{pro.quantity}</StyledTableCell>
-            <StyledTableCell align="center"><IconButton color="primary" aria-label="add to shopping cart">
+            <StyledTableCell align="center"><IconButton onClick={() => HandleCart(pro._id)} color="primary" aria-label="add to shopping cart">
         <AddShoppingCartIcon />
-      </IconButton>  <IconButton style={{marginLeft:"8px"}} aria-label="delete">
+      </IconButton>  <IconButton onClick={() => handleRemove(pro._id)} style={{marginLeft:"8px"}} aria-label="delete">
         <DeleteIcon />
       </IconButton></StyledTableCell>
           </StyledTableRow>
@@ -194,194 +231,9 @@ function CustomizedTables() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
-}
-
-
-function Ecart () {
-  const Home = () => {
-    window.location.href = "/";
-  }
-  return (
-    <div className="container-fluid" style={{paddingBottom:"40px"}}>
-      <Typography color="textPrimary" style={{textAlign: "center"}} variant="h2" gutterBottom>Your Cart is empty</Typography>
-      <img style={{width:"14vw", display:"block", marginLeft:"auto", marginRight:"auto"}} src={wimg} alt="Empty-Cart" />
-      <Typography color="textSecondary" style={{textAlign: "center"}} variant="h5" gutterBottom>Add items to cart now!</Typography>
-      <Button variant="contained" style={{display:"block", marginLeft:"auto", marginRight:"auto"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
+    ): <Ecart />)}
     </div>
-  );
-}
-
-const dashboardRoutes = [];
-
-const usStyles = makeStyles(styles);
-const Token = sessionStorage.getItem('TokenKey');
-console.log(Token);
-let count = 0;
-let totalAmount =0;
-export default function WishlistDisplay(props) {
-  const classes = usStyles();
-  const { ...rest } = props;
-  const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState([]);
-  const [alert, setAlert]= useState([]);
-  const ID = props.match.params.productID;
-  const [cartResponse, setCartRes] = useState([]);
-  const [quantity, setQuantity] = useState(0);
-  const [loading, setLoading] = useState(true);
-  if(!Token){
-    window.location.href="/login-page";
-  }
-
-  useEffect(() => {
-    axios({
-      method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
-      headers: {
-        'Authorization': 'Bearer '+Token,
-      } 
-    })
-    .then(res =>{
-      if(res.data.status === 401){
-        window.location.href="/login-page";
-      }
-      count = res.data.count;
-      totalAmount = res.data.Price;
-      setProducts(res.data.cart);
-      setLoading(false);
-    })
-  }, [])
-    
-  const handleCartRemove=(e)=>{
-    axios({
-      method: 'delete',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e,
-      headers: {
-        'Authorization': 'Bearer '+Token,
-      } 
-    })
-    .then(res =>{
-      if(res.data.status === 401){
-        window.location.href="/login-page";
-      }
-      else if(res.data.status === 200){
-        window.location.href ="/cart-page";
-      }
-      else{
-        setAlert({
-          status: res.data.status,
-        })
-      }
-    })
-  }
-
-  const CartDeleteResponse=()=>{
-    if(alert.status === 500){
-      return(<SnackbarContent
-          message={
-            <span>
-              Something Went Wrong
-            </span>
-          }
-          close
-          color="warning"
-          icon="info_outline"
-        />);
-      }
-      else{return null;}
-    }
-
-  const HandleCart = (e) => {
-    if (quantity > product.quantity) {
-      alert("Set Appropriate Quantity")
-      return;
-    }
-    axios({
-      method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
-      headers: {
-        'Authorization': 'Bearer ' + Token,
-      },
-      data: {
-        productId: ID,
-        quantity: quantity,
-      }    
-    })
-    .then(res => {
-      console.log(res);
-      if (res.data.status === 201) {
-        setCartRes({
-          message: res.data.message,
-          color: "success"
-        })
-      }
-      else if (res.data.status === 401) {
-        window.location.href = "/login-page";
-      }
-      else {
-        setCartRes({
-          message: res.data.message,
-          color: "danger"
-        })
-      }
-    })
-  }
-  const HandleCartResponse = () => {
-    if (cartResponse.message) {
-      return (<SnackbarContent
-        message={
-          <span>
-            {cartResponse.message}
-          </span>
-        }
-        close
-        color={cartResponse.color}
-        icon="info_outline"
-      />);
-    }
-    else {
-      return null;
-    }
-  }
-
-  return (
-    <div>
-      <NavBar/>
-      {loading ? <Loading /> :(
-        <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
-          {/* <Categories/> */}
-          <h4 style={{color:"green", marginLeft:"1vw"}} ><b>Wishlist</b> ({count})</h4>
-          {count ? (
-            <div className={classes.container}>
-              <CartDeleteResponse/>
-              {products.map(pro =>(
-                <div key= {pro._id}  style={{margin:"2vh"}} >
-                  <Grid className ="element"  container spacing={3} >
-                    <Grid item xs={3}>
-                      <img style={{height: "30vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
-                    </Grid>
-                    <hr/>
-                    <Grid item xs style={{textAlign:"top"}}>
-                      <Link to={"/Display/" + pro.productId} target="_blank">
-                        <h4>{pro.name}</h4>
-                      </Link>
-                      <Link style={{color:"#f44336"}}to={"/Display/" + pro.productId} target="_blank">
-                        £: {pro.price}
-                      </Link>
-                      <h5 style={{color:"black"}}>Quantity: {pro.quantity}</h5>
-                      <Button  onClick={()=> handleCartRemove(pro._id)} style={{display:"inline", marginLeft:"5vw"}} variant="contained" color="primary" >Move to cart</Button>
-                      <Button  onClick={()=> HandleCart(pro._id)} style={{ marginLeft:"5vw"}} variant="contained" color="primary" >Remove</Button>
-                    </Grid>
-                  </Grid> 
-                  <hr/>
-                </div>
-              ))}
-            </div>):
-          <Ecart />}
-        </div>
-      )}
-      <CustomizedTables />
-      <Footer/>
+    <Footer/>
     </div>
   );
 }
