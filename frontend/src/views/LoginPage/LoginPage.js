@@ -92,6 +92,7 @@ const responseSuccessGoogle =(response)=>{
     }
   }).then(res=>{
     console.log(res)
+    sessionStorage.setItem('TokenKey', token);
     window.location.href="/";
   })
 }
