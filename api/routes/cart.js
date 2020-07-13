@@ -9,12 +9,14 @@ const product = require("../models/product");
   router.post('/',checkAuth, (req, res, next) => {
     const {userId} = req.userData;
       console.log(req.body.productId);
-      User.findById(userId)
-      .then(user =>{
-          if (!user){
-              return res.status(404).json({
-                  message: "User not found"
-              });
+      Cart.find({userId: userId, productId: req.body.productId})
+      .then(result =>{
+        if(result.length>=1){
+            res.json({
+                  
+                  message: "Already added to cart"
+              }).status(401);
+               return;
           }
           else{
               product.findById(req.body.productId)
@@ -50,7 +52,7 @@ const product = require("../models/product");
                     });
           return cart.save();
               }).then(result =>{
-                console.log(result);
+                // console.log(result);
                 res.status(201).json({
                     message:"Added to cart",
                     status: 201

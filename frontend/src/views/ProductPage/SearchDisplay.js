@@ -70,7 +70,8 @@ export default function SearchDisplay(props) {
                                 <CardMedia
                                   title={pro.name}
                                 >
-                                   <img style={{height: "20vh", width: "auto", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                                  {/* "https://limitless-lowlands-36879.herokuapp.com/products/image/" + pro.image */}
+                                   <img style={{height: "20vh", width: "auto", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image } />
                                 </CardMedia>
                                 <CardContent>
                                   <Typography gutterBottom variant="h5" component="h2">

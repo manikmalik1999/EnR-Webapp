@@ -57,7 +57,6 @@ const product = require("../models/product");
   
   router.get('/', checkAuth, (req, res, next) => {
       const {userId} = req.userData;
-      let totalAmount = 0;
     Wishlist.find({userId: userId})
     .exec()
     .then(cart =>{
@@ -70,10 +69,6 @@ const product = require("../models/product");
             count: cart.length,
             userId: userId,
             wishlist: cart,
-            request: {
-                type: 'GET',
-                url: "https://limitless-lowlands-36879.herokuapp.com/orders"
-            }
         })
 
     }).catch(err=>{

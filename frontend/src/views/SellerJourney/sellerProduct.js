@@ -17,6 +17,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -34,7 +35,7 @@ const Token = sessionStorage.getItem('TokenSeller');
 export default function SellerProductDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
-
+    const [response, setResponse]=useState(0);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -52,14 +53,17 @@ export default function SellerProductDisplay(props) {
       }, [])
 
     const handleDelete =(e)=>{
+      console.log(e.currentTarget.id);
+      // alert(e.currentTarget.id);
         axios({
             method: 'delete',
-            url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ e.target.id,
+            url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ e.currentTarget.id,
             headers: {
                 'Authorization': 'Bearer '+Token,
             } 
         }).then(res =>{
-                alert(res.data.message);
+          if(res.status === 401){window.location.href="/seller-login";}
+                setResponse(res.status);
           })
     }
 
@@ -70,7 +74,33 @@ export default function SellerProductDisplay(props) {
         window.location.href="/seller-edit/"+ID;}
         // alert(e.target.id);
     }
-    
+    const HandleDeleteResponse=(e)=>{
+      if(response === 500){
+    return( <SnackbarContent
+        message={
+          <span>
+          Something Went Wrong
+          </span>
+        }
+        close
+        color="warning"
+        icon="info_outline"
+      />)}
+      else if(response === 200){
+        return( <SnackbarContent
+          message={
+            <span>
+            Product Deleted
+            </span>
+          }
+          close
+          color="danger"
+          icon="info_outline"
+        />)
+      }
+      else 
+      return null;
+    }
     // let filterpro = products.filter(
     //     (e)=>{
     //         return( e.category.toUpperCase().includes(category.toUpperCase()) && e.approved.toUpperCase().includes("TRUE"));
@@ -78,11 +108,12 @@ export default function SellerProductDisplay(props) {
     // )
   return (
     <div>
-      <NavBar/>
+      <NavBar value={1} />
 
       <div style={{ marginTop:"0vh"}} className={classNames(classes.main, classes.mainRaised)}>
         <h4 style={{color:"green", marginLeft:"1vw"}} ><b></b> </h4>
         <div className={classes.container}>
+        <HandleDeleteResponse/>
                     <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>

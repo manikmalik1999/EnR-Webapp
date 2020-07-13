@@ -206,13 +206,14 @@ export default function SingleProd(props) {
   const [product, setProduct] = useState([]);
   const ID = props.match.params.productID;
   const [cartResponse, setCartRes] = useState([]);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [reviews, setReviews] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
       .then(res => {
+        console.log(res.data.product);
         setProduct(res.data.product);
         setLoading(false);
       })
@@ -383,7 +384,7 @@ export default function SingleProd(props) {
                     <h4 style={{ fontSize: "1.5vw", fontWeight: "bold" }}>£: {pro.price}</h4>
                     <span htmlFor="age-native-simple" style={{ marginRight: "16px" }}>Quantity</span>
                     <Select native value={quantity} style={{ textDecoration: "none" }} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
-                      <option value={0}>0</option>
+                      {/* <option value={0}>0</option> */}
                       <option value={1}>1</option>
                       <option value={2}>2</option>
                       <option value={3}>3</option>

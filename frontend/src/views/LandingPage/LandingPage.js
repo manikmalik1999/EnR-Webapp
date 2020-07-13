@@ -100,37 +100,7 @@ export default function LandingPage(props) {
      <div style={{ marginTop:"10vh"}}>
      <Categories />
      <Paper square>
-      {/* <Header
-        color="info"
-        routes={dashboardRoutes}
-        brand="EnR E-COMMERCE"
-        rightLinks={<HeaderLinks/>}
-        fixed
-        changeColorOnScroll={{
-          height: 400,
-          color: "white"
-        }}
-        {...rest}
-      /> 
-       <Parallax filter image={require("assets/img/Landing-bg1.jpg")}>
-        <div className={classes.container}>
-          
-              <h1 className={classes.title}>Your Shopping Starts With Us.</h1>
-              <h4>
-                EnR brings to you a state of the art solution for all your shopping needs
-              </h4>
-              <br /> 
-              <MyCarousel />             
-        </div>
-      </Parallax>*/}
-      
-      {/*<div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
-      
-        <div className={classes.container}>
-          <ProductSection />
-          
-        </div>
-      </div>*/}
+
       <Caro /><br/>
       <GridContainer>
       <GridItem xs={6} md={3}>

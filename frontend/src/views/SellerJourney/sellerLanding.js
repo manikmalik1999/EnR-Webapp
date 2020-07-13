@@ -50,7 +50,8 @@ export default function LandingPage(props) {
 
     const [name, setName]= useState("");
     const [category, setCategory]= useState("");
-    const [proimage, setImage] = useState("");
+    const [proimage, setImage] = useState([]);
+    const [response, setResponse]=useState(0);
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [quantity, setQuantity] = useState("");
@@ -62,11 +63,42 @@ export default function LandingPage(props) {
   const { ...rest } = props;
 
   const HandleSubmitResponse=(e)=>{
-return null;
+    if(response === 500){
+   return( <SnackbarContent
+      message={
+        <span>
+         Something Went Wrong
+        </span>
+      }
+      close
+      color="danger"
+      icon="info_outline"
+    />)}
+    else if(response === 201){
+      return( <SnackbarContent
+        message={
+          <span>
+           Product Added
+          </span>
+        }
+        close
+        color="success"
+        icon="info_outline"
+      />)
+    }
+    else 
+    return null;
   }
 const handleAdding=(e)=>{
+ 
+  console.log(proimage);
+
+ 
     var formData = new FormData()
-    formData.append('productImage', proimage)
+   for(let i=0 ; i<3; i++){
+      formData.append('productImage', proimage[i]);
+   }
+    // formData.append('productImage', proimage);
     // let data ={
     //         name: name,
     //         description: description,
@@ -92,13 +124,17 @@ const handleAdding=(e)=>{
           },
           
       }).then(res =>{
-            alert(res.data.message);
+
+        console.log(res.data.message);
+        console.log(res.status);
+        setResponse(res.status);
+            // alert(res.data.message);
            
         })
 }
   return (
     <div>
-     <SellerNav/>
+     <SellerNav />
      
      <div
         className={classes.pageHeader}
@@ -210,8 +246,9 @@ const handleAdding=(e)=>{
                     />  
 
                      <div className="form-group">
-                            <input type="file" onChange={e=>{setImage(e.target.files[0])}} />
+                            <input type="file"  multiple onChange={e=>{ setImage(...proimage, e.target.files)}} />
                     </div>
+                    {/* setImage(e.target.files) */}
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button variant="outlined" color="success" size="sm" onClick={handleAdding}>

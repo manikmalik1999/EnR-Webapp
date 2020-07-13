@@ -109,7 +109,7 @@ router.get("/approve/:message/:productId",SellerAuth, (req, res, next) => {
     } })
       .exec()
       .then(result => {
-        console.log(result);
+        // console.log(result);
          res.status(200).json({
           message: 'message recieved',
         //   request: {

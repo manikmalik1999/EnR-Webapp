@@ -11,7 +11,9 @@ const productSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Seller', required: true
     },
-    image: {type: String, required: false},
+    image: {type: String, default:"uploads/default-image.jpg"},
+    image2: {type: String, default:"uploads/default-image.jpg"},
+    image3: {type: String, default:"uploads/default-image.jpg"},
     approved: {type: String, default: "pending"}
 });
 

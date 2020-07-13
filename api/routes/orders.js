@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const SellerAuth = require("../Middleware/check-auth-sellers")
-
+const Cart = require("../models/cart");
 const Order = require("../models/order");
 const Product = require("../models/product")
 const checkAuth = require("../Middleware/check-auth")
@@ -33,6 +33,7 @@ router.get('/',SellerAuth, (req, res, next) => {
 
 router.post('/',checkAuth, (req, res, next) => {
     console.log(req.body.productId);
+    const {userId}= req.userData;
     Product.findById(req.body.productId)
     .then(product =>{
         if (!product){
@@ -41,7 +42,7 @@ router.post('/',checkAuth, (req, res, next) => {
             });
             return;
         }
-       const {userId}= req.userData;
+       
        console.log(userId);
                    // name: req.body.element.name,
             // description: req.body.element.description,
@@ -63,6 +64,10 @@ router.post('/',checkAuth, (req, res, next) => {
         res.status(201).json({
             message:"Order Created",
         });
+        Cart.deleteMany({userId: userId})
+        .catch(err=>{
+            console.log(err);
+        })
     })
     .catch(err=>{
         console.log(err);

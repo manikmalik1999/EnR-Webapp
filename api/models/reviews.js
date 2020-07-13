@@ -11,7 +11,8 @@ const reviewSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId , 
         ref: 'Product', required: true
     },
-    comments: {type: String, required: false}
+    comments: {type: String, required: false},
+    date: { type: Date, default: Date.now },
 
 
 });

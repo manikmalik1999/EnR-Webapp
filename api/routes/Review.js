@@ -10,8 +10,8 @@ const product = require('../models/product');
 // Handle incoming GET requests to /orders
 router.get('/', (req, res, next) => {
   Review.find()
-  .select('product _id userId value comments')
-  .populate('product','name _id price')
+  .select('product _id userId value comments date')
+  .populate('product','')
   .populate('user', 'name _id')
   .exec()
   .then(docs =>{
@@ -30,7 +30,7 @@ router.get('/', (req, res, next) => {
 router.post('/',checkAuth, (req, res, next) => {
   
     const {userId}= req.userData;  
-        Review.find({user: userId })
+        Review.find({user: userId , product: req.body.productId})
         .exec()
         .then(result =>{
             if(result.length>=1){
@@ -77,7 +77,7 @@ router.post('/',checkAuth, (req, res, next) => {
         const productId = req.params.productId;
         
         Review.find({product: productId})
-        .select('value user comments')
+        .select('value user comments date')
         .populate('user','name')
         .exec()
         .then(review =>{

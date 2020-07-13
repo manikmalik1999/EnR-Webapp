@@ -99,6 +99,7 @@ export default function CartDisplay(props) {
                     quantity: element.quantity
                 }
               }).then(res =>{
+                window.location.reload();
                 console.log(res);
               })
             })

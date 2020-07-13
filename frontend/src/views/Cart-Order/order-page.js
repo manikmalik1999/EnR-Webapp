@@ -112,7 +112,7 @@ export default function OrderDisplay(props) {
                             </Link>
                              <p style={{color:"black"}}>Quantity: {pro.quantity}</p>
                             <Link style={{color:"#f44336"}}to={"/Display/" + pro.productId} target="_blank">
-                                INR: {pro.product.price}
+                            £: {pro.product.price}
                             </Link>
                           <Button variant="contained" color="primary" style={{display:"inline", marginLeft:"20vw"}} onClick={handleOpen}>Add Review</Button>
                     </Grid>

@@ -5,14 +5,50 @@ const checkAuth = require("../Middleware/check-auth")
 const Product = require("../models/product");
 const multer = require('multer');
 const SellerAuth = require("../Middleware/check-auth-sellers")
+let conn= mongoose.connection;
+let GridFsStorage = require('multer-gridfs-storage');
+let Grid = require('gridfs-stream');
+const crypto = require('crypto');
+const path = require('path');
 
-const storage = multer.diskStorage({
-  destination : function(req, file , cb){
-    cb(null, './uploads');
+// Grid.mongo = mongoose.mongo;
+let gfs;
+conn.once('open', ()=>{
+   gfs = Grid(conn.db, mongoose.mongo);
+   gfs.collection('uploads');
+})
+// Grid.mongo = mongoose.mongo;
 
-  },
-  filename : function (req, file, cb){
-      cb(null, Date.now() + file.originalname)
+
+
+// const storage = multer.diskStorage({
+//   destination : function(req, file , cb){
+//     cb(null, './uploads');
+
+//   },
+//   filename : function (req, file, cb){
+//       cb(null, Date.now() + file.originalname)
+//   }
+// });
+const storage = GridFsStorage({
+  // gfs : gfs,
+  url: "mongodb+srv://malikmanik:4xkJc1XRpCdjSzOm@cluster0-wqaaz.gcp.mongodb.net/test?retryWrites=true&w=majority",
+  options: { useUnifiedTopology: true },
+
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = buf.toString('hex') + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketName: 'uploads'
+        };
+        resolve(fileInfo);
+      });
+    });
   }
 });
 
@@ -26,7 +62,7 @@ const upload = multer({storage: storage,
    fileFilter: fileFilter
   });
 
-
+ 
 router.get("/", (req, res, next) => {
   Product.find()
   .select('')
@@ -53,10 +89,11 @@ router.get("/", (req, res, next) => {
 });
 
 
-router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => {
-  console.log(req.data);
-  console.log(req.file);
+router.post("/", SellerAuth, upload.array('productImage',3), (req, res, next) => {
+  // console.log(req.data);
+  console.log(req.files);
   const{userId}= req.userData;
+  console.log("iserrorheere")
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -65,9 +102,12 @@ router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => 
     price: req.body.price,
     category: req.body.category,
     sellerId: userId,
-    image: req.file.path,
+    image: "products/image/"+ req.files[0].filename,
+    image2: "products/image/"+ req.files[1].filename,
+    image3: "products/image/"+ req.files[2].filename,
     approved: req.body.approved
   });
+  console.log("is it here?")
   product
     .save()
     .then(result => {
@@ -79,7 +119,7 @@ router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => 
           description: result.description,
           _id: result._id,
           quantity: result.quantity,
-         
+          image: result.image,
 
           request: {
             type: 'GET',
@@ -89,10 +129,11 @@ router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => 
       });
     })
     .catch(err => {
+      console.log("where is it?")
       console.log(err);
-      res.status(500).json({
-        error: err
-      });
+      res.json({
+        message: err
+      }).status(500);
     });
 });
 
@@ -100,7 +141,7 @@ router.post("/", SellerAuth, upload.single('productImage'), (req, res, next) => 
 router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
-  .select('name price _id quantity category sellerId description image')
+  .select('name price _id quantity category sellerId description image image2 image3')
   .populate('sellerId', 'name')
     .exec()
     .then(doc => {
@@ -125,6 +166,31 @@ router.get("/:productId", (req, res, next) => {
       res.status(500).json({ error: err });
     });
 });
+
+
+
+router.get("/image/:filename", (req, res, next )=>{
+  gfs.files.findOne({filename: req.params.filename }, (err, file)=>{
+    console.log(file);
+    if(!file || file.length===0){
+      return res.json({
+        message:"No file exists"
+      }).status(404);
+    }
+//check if image
+if(file.contentType === 'image/jpeg' || file.contentType === 'image/png'){
+  //read output to browser
+const readstream = gfs.createReadStream(file.filename);
+readstream.pipe(res);
+}else{
+  res.status(404).json({
+    message: "Not an image"
+  });
+}
+
+  })
+});
+
 
 router.patch("/:productId",SellerAuth, (req, res, next) => {
   const id = req.params.productId;
@@ -163,12 +229,39 @@ router.patch("/:productId",SellerAuth, (req, res, next) => {
       });
     });
 });
-
+//,SellerAuth
 router.delete("/:productId",SellerAuth, (req, res, next) => {
-  
+
   const id = req.params.productId;
+  Product.findById(id)
+  .exec()
+  .then(product=>{
+    console.log(product);
+    let filename1= product.image.substring(15);
+    let filename2= product.image2.substring(15);
+    let filename3= product.image3.substring(15);
+    console.log(filename1, " ", filename2, " ", filename3);
+    gfs.remove({filename: filename1,  root: 'uploads'}, (err)=> {
+      if (err) console.log('faliure');
+     else console.log('success');
+    });
+    gfs.remove({filename: filename2,  root: 'uploads'}, (err)=> {
+      if (err) console.log('faliure');
+      else console.log('success');
+    });
+    gfs.remove({filename: filename3, root: 'uploads'}, (err)=> {
+      if (err) console.log('faliure');
+     else console.log('success');
+    });
+  }).catch(err=>{
+    res.status(500).json({
+      message:"Images not deleted"
+    })
+  });
+
+  
   console.log(id);
-  Product.remove({ _id: id })
+  Product.deleteOne({ _id: id })
     .exec()
     .then(response=> {
       res.status(200).json({
@@ -182,9 +275,9 @@ router.delete("/:productId",SellerAuth, (req, res, next) => {
         );
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({
-        error: err
+        error: err,
+        message:" something is wrong"
       });
     });
 });
