@@ -92,6 +92,7 @@ const responseSuccessGoogle =(response)=>{
     }
   }).then(res=>{
     console.log(res)
+    window.location.href="/";
   })
 }
 const HandleLoginFaliure=()=>{
