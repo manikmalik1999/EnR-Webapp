@@ -37,6 +37,12 @@ import TextField from '@material-ui/core/TextField';
 // Sections for this page
 // import ProductSection from "./Sections/ProductSection.js";
 import SellerNav from "components/Header/sellerNav"
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+import DescriptionIcon from '@material-ui/icons/Description';
+import CategoryIcon from '@material-ui/icons/Category';
+import MoneyIcon from '@material-ui/icons/Money';
+import AllInboxIcon from '@material-ui/icons/AllInbox';
 // import TeamSection from "./Sections/TeamSection.js";
 // import WorkSection from "./Sections/WorkSection.js";
 import image from "assets/img/SellerLanding.jpg";
@@ -48,37 +54,40 @@ const Token = sessionStorage.getItem('TokenSeller');
 // console.log(Token);
 export default function LandingPage(props) {
 
-    const [name, setName]= useState("");
-    const [category, setCategory]= useState("");
-    const [proimage, setImage] = useState([]);
-    const [response, setResponse]=useState(0);
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [quantity, setQuantity] = useState("");
-    const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-    setTimeout(function() {
-      setCardAnimation("");
-    }, 700);
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [proimage, setImage] = useState([]);
+  const [response, setResponse] = useState(0);
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [loading,setLoading] = useState(false) ;
+  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  setTimeout(function () {
+    setCardAnimation("");
+  }, 700);
   const classes = useStyles();
   const { ...rest } = props;
 
-  const HandleSubmitResponse=(e)=>{
-    if(response === 500){
-   return( <SnackbarContent
-      message={
-        <span>
-         Something Went Wrong
-        </span>
-      }
-      close
-      color="danger"
-      icon="info_outline"
-    />)}
-    else if(response === 201){
-      return( <SnackbarContent
+  const HandleSubmitResponse = (e) => {
+
+    if (response === 500) {
+      return (<SnackbarContent
         message={
           <span>
-           Product Added
+            Something Went Wrong
+        </span>
+        }
+        close
+        color="danger"
+        icon="info_outline"
+      />)
+    }
+    else if (response === 201) {
+      return (<SnackbarContent
+        message={
+          <span>
+            Product Added
           </span>
         }
         close
@@ -86,27 +95,17 @@ export default function LandingPage(props) {
         icon="info_outline"
       />)
     }
-    else 
-    return null;
+    else
+      return null;
   }
-const handleAdding=(e)=>{
- 
-  console.log(proimage);
 
- 
+  const handleAdding = (e) => {
+    setLoading(true) ;
+    console.log(proimage);
     var formData = new FormData()
-   for(let i=0 ; i<3; i++){
+    for (let i = 0; i < 3; i++) {
       formData.append('productImage', proimage[i]);
-   }
-    // formData.append('productImage', proimage);
-    // let data ={
-    //         name: name,
-    //         description: description,
-    //         quantity: quantity,
-    //         price: price,
-    //         category: category,
-    //         sellerId: ID
-    // }
+    }
     formData.append('name', name);
     formData.append('description', description);
     formData.append('quantity', quantity);
@@ -114,156 +113,164 @@ const handleAdding=(e)=>{
     formData.append('category', category);
     console.log(formData);
     axios({
-        method: 'post',
-        
-        url: "https://limitless-lowlands-36879.herokuapp.com/products",
-        data: formData,
-        headers: {
-            'Authorization': 'Bearer '+Token,
-            'Content-Type': 'multipart/form-data'
-          },
-          
-      }).then(res =>{
+      method: 'post',
 
-        console.log(res.data.message);
-        console.log(res.status);
-        setResponse(res.status);
-            // alert(res.data.message);
-           
-        })
-}
+      url: "https://limitless-lowlands-36879.herokuapp.com/products",
+      data: formData,
+      headers: {
+        'Authorization': 'Bearer ' + Token,
+        'Content-Type': 'multipart/form-data'
+      },
+    }).then(res => {
+      setLoading(false) ;
+      setResponse(res.status);
+      console.log(res.data.message);
+      console.log(res.status);
+    })
+    .catch(err => {
+      alert("add some data first") ;
+      setLoading(false) ;
+      console.log(err) ;
+    })
+  }
+  let loader = null;
+  if (loading) {
+    loader = <div style={{ width: "50%", margin: "auto" }}><LinearProgress color="primary" /></div>
+  }
   return (
     <div>
-     <SellerNav />
-     
-     <div
-        className={classes.pageHeader}
+      <SellerNav />
+      <div
         style={{
-          backgroundImage: "url(" + image + ")",
-          // backgroundColor:"#fafafa",
           backgroundSize: "cover",
-          backgroundPosition: "top center"
+          backgroundColor:"#107869"
+          // background: 'linear-gradient(rgba(0,0,0,0.05),rgba(0,0,0,0.1)) , url() no-repeat center center',
+          // backgroundImage: "url(" + image + ")",
+          // // backgroundColor:"#fafafa",
+          // backgroundSize: "cover",
+          // backgroundPosition: "top center"
         }}
+      // className={classes.container}
       >
-        <div className={classes.container}>
-          <HandleSubmitResponse/>
+        <div style={{ paddingTop: "32px", zIndex: "200" }}>
+          <HandleSubmitResponse />
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
-              <Card className={classes[cardAnimaton]}>
+              <Card className={classes[cardAnimaton]} style={{ boxShadow: "2px 4px 12px #1A5653",background:"#B1D8B7" }}>
                 <form className={classes.form}>
-                  <CardHeader color="success" className={classes.cardHeader}>
-                    <h4>ADD Product</h4>
-
+                  <CardHeader style={{ background: "#022D41", borderTopLeftRadius: "14px", borderBottomRightRadius: "14px" }} className={classes.cardHeader}>
+                    <h4 style={{ color: "white" }}>Add Product</h4>
                   </CardHeader>
                   <p className={classes.divider}></p>
                   <CardBody>
-                  <TextField
+                    <TextField
                       label="Name"
                       id="name"
                       type="text"
                       fullWidth
-                      style={{paddingBottom:'10%'}}
+                      style={{ paddingBottom: '10%' }}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <PersonIcon style={{color:"#4caf50"}} />
+                            <PersonIcon style={{ color: "#107869" }} />
                           </InputAdornment>
                         )
                       }}
-                    
-                      value ={name}
-                      onChange={e =>{setName(e.target.value)}}  
+
+                      value={name}
+                      onChange={e => { setName(e.target.value) }}
                     />
 
-                <TextField
+                    <TextField
                       label="Description"
                       id="description"
                       type="text"
                       fullWidth
-                      style={{paddingBottom:'10%'}}
+                      style={{ paddingBottom: '10%' }}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <PersonIcon style={{color:"#4caf50"}} />
+                            <DescriptionIcon style={{ color: "#107869" }} />
                           </InputAdornment>
                         )
                       }}
-                    
-                      value ={description}
-                      onChange={e =>{setDescription(e.target.value)}}  
-                    />  
-                <TextField
+
+                      value={description}
+                      onChange={e => { setDescription(e.target.value) }}
+                    />
+                    <TextField
                       label="category"
                       id="category"
                       type="text"
                       fullWidth
-                      style={{paddingBottom:'10%'}}
+                      style={{ paddingBottom: '10%' }}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <PersonIcon style={{color:"#4caf50"}} />
+                            <CategoryIcon style={{ color: "#107869" }} />
                           </InputAdornment>
                         )
                       }}
-                    
-                      value ={category}
-                      onChange={e =>{setCategory(e.target.value)}}  
-                    />  
-                <TextField
+
+                      value={category}
+                      onChange={e => { setCategory(e.target.value) }}
+                    />
+                    <TextField
                       label="Price"
                       id="price"
                       type="number"
                       fullWidth
-                      style={{paddingBottom:'10%'}}
+                      style={{ paddingBottom: '10%' }}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <PersonIcon style={{color:"#4caf50"}} />
+                            <MoneyIcon style={{ color: "#107869" }} />
                           </InputAdornment>
                         )
                       }}
-                    
-                      value ={price}
-                      onChange={e =>{setPrice(e.target.value)}}  
-                    />  
-                    
+
+                      value={price}
+                      onChange={e => { setPrice(e.target.value) }}
+                    />
+
                     <TextField
                       label="Quantity"
                       id="price"
                       type="number"
                       fullWidth
-                      style={{paddingBottom:'10%'}}
+                      style={{ paddingBottom: '10%' }}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <PersonIcon style={{color:"#4caf50"}} />
+                            <AllInboxIcon style={{ color: "#107869" }} />
                           </InputAdornment>
                         )
                       }}
-                    
-                      value ={quantity}
-                      onChange={e =>{setQuantity(e.target.value)}}  
-                    />  
 
-                     <div className="form-group">
-                            <input type="file"  multiple onChange={e=>{ setImage(...proimage, e.target.files)}} />
+                      value={quantity}
+                      onChange={e => { setQuantity(e.target.value) }}
+                    />
+
+                    <div className="form-group">
+                      <input type="file" multiple onChange={e => { setImage(...proimage, e.target.files) }} />
                     </div>
                     {/* setImage(e.target.files) */}
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button variant="outlined" color="success" size="sm" onClick={handleAdding}>
+                    <Button variant="outlined" color="success" style={{background:"#107869"}} size="sm" onClick={handleAdding}>
                       Add
                     </Button>
                   </CardFooter>
+                  <div style={{margin:"12px auto"}}>
+                    {loader}
+                  </div>
                 </form>
               </Card>
             </GridItem>
           </GridContainer>
         </div>
-        <Footer whiteFont />
+        <Footer color="#022D41" />
       </div>
-      
-
     </div>
   );
 }

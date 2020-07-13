@@ -1,5 +1,5 @@
-import React,{useState, useEffect} from 'react';
-import axios from 'axios'; 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     height: '100%',
     position: 'relative',
-    color:"white",
+    color: "white",
     display: 'inline',
     alignItems: 'center',
     justifyContent: 'center',
@@ -90,56 +90,56 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Token = sessionStorage.getItem('TokenKey');
-let count =0;
+let count = 0;
 let account = "none";
 export default function PrimarySearchAppBar(props) {
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const {value} = props;
-  const [search, setSearch]= useState(value);
-  const [display, setDisplay]=useState("");
-  const [name, setName]= useState("")
+  const { value } = props;
+  const [search, setSearch] = useState(value);
+  const [display, setDisplay] = useState("");
+  const [name, setName] = useState("")
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  
+
   useEffect(() => {
     axios({
-        method: 'get',
-        url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
-        headers: {
-            'Authorization': 'Bearer '+Token,
-        } 
+      method: 'get',
+      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+      headers: {
+        'Authorization': 'Bearer ' + Token,
+      }
 
-      })
-  .then(res =>{
-    console.log(res);
-    if(res.data.status === 401){
-        count =0;
-    }
-    else if(res.status=== 404)
-        count = 0;
-    else {
-      count = res.data.count;
-      account = "";
-      setDisplay("none");
-      axios({
-        method: 'get',
-        url: "https://limitless-lowlands-36879.herokuapp.com/users/"+ res.data.userId,
-        headers: {
-            'Authorization': 'Bearer '+Token,
-        } 
-
-      }).then(res=>{
+    })
+      .then(res => {
         console.log(res);
-        
-          setName(res.data.users.name);
-         
-      })
-    }
+        if (res.data.status === 401) {
+          count = 0;
+        }
+        else if (res.status === 404)
+          count = 0;
+        else {
+          count = res.data.count;
+          account = "";
+          setDisplay("none");
+          axios({
+            method: 'get',
+            url: "https://limitless-lowlands-36879.herokuapp.com/users/" + res.data.userId,
+            headers: {
+              'Authorization': 'Bearer ' + Token,
+            }
 
-  })
+          }).then(res => {
+            console.log(res);
+
+            setName(res.data.users.name);
+
+          })
+        }
+
+      })
   }, [])
 
 
@@ -156,35 +156,35 @@ export default function PrimarySearchAppBar(props) {
     handleMobileMenuClose();
   };
 
-const handleSignOut =()=>{
-  sessionStorage.removeItem('TokenKey');
-  window.location.href ="/";
+  const handleSignOut = () => {
+    sessionStorage.removeItem('TokenKey');
+    window.location.href = "/";
 
-}
+  }
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  const handleSearch =(e)=>{
-    window.location.href="/search/"+ search;
+  const handleSearch = (e) => {
+    window.location.href = "/search/" + search;
   }
-  const HandleEnter =(e)=>{
-   
-    if(e.keyCode===13){
-      window.location.href="/search/"+ search;
+  const HandleEnter = (e) => {
+
+    if (e.keyCode === 13) {
+      window.location.href = "/search/" + search;
     }
   }
-  const handleLoginclick =(e)=>{
-    window.location.href="/login-page";
+  const handleLoginclick = (e) => {
+    window.location.href = "/login-page";
   }
-  const handleSignupclick =(e)=>{
-    window.location.href="/sign-up";
+  const handleSignupclick = (e) => {
+    window.location.href = "/sign-up";
   }
-const HandleCart = (e)=>{
-  window.location.href="/cart-page";
-}
-const HandleOrder =(e)=>{
-  window.location.href="/order-page";
-}
+  const HandleCart = (e) => {
+    window.location.href = "/cart-page";
+  }
+  const HandleOrder = (e) => {
+    window.location.href = "/order-page";
+  }
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -195,7 +195,7 @@ const HandleOrder =(e)=>{
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-      style={{display: account}}
+      style={{ display: account }}
     >
       <MenuItem onClick={HandleOrder}>My Orders</MenuItem>
       <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
@@ -212,45 +212,46 @@ const HandleOrder =(e)=>{
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      style={{width:"600px"}}
     >
       <MenuItem>
-      <div className={classes.search}>
-                    <InputBase
-                    value={search}
-                    placeholder="Search for products"
-                    onChange={ e =>{setSearch(e.target.value)}}
-                    classes={{
-                      root: classes.inputRoot,
-                      input: classes.inputInput,
-                    }}
-                    onKeyDown={(e)=>HandleEnter(e)}
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-                  </div>
+        <div className={classes.search}>
+          <InputBase
+            value={search}
+            placeholder="Search for products"
+            onChange={e => { setSearch(e.target.value) }}
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            onKeyDown={(e) => HandleEnter(e)}
+            inputProps={{ 'aria-label': 'search' }}
+          />
+        </div>
       </MenuItem>
-      <MenuItem style={{display: display}} onClick={handleSignupclick} >
+      <MenuItem style={{ display: display }} onClick={handleSignupclick} >
         <IconButton aria-label="Sign-Up" color="inherit">
-            <PersonAddIcon/>
+          <PersonAddIcon />
         </IconButton>
         <p>Sign-Up</p>
       </MenuItem>
-      <MenuItem  style={{display: display }} onClick={handleLoginclick}>
+      <MenuItem style={{ display: display }} onClick={handleLoginclick}>
         <IconButton aria-label="login" color="inherit">
-            <LockOpenIcon/>
+          <LockOpenIcon />
         </IconButton>
         <p>login</p>
       </MenuItem>
-       <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
         >
-        <AccountCircle style={{display: account}} />
-                  <t >{name}</t>
+          <AccountCircle style={{ display: account }} />
+          <p >{name}</p>
         </IconButton>
-        <p style={{display: display }} >Profile</p>
+        <p style={{ display: display }} >Profile</p>
       </MenuItem>
       <MenuItem onClick={HandleCart}>
         <IconButton aria-label="show cart" color="inherit">
@@ -263,10 +264,10 @@ const HandleOrder =(e)=>{
 
     </Menu>
   );
-//className={classes.grow}
+  //className={classes.grow}
   return (
     <div className={classes.grow} >
-      <AppBar style={{backgroundColor:"#673ab7"}} position="fixed">
+      <AppBar style={{ backgroundColor: "#21B6A8" }} position="fixed">
         <Toolbar>
           <IconButton
             edge="start"
@@ -275,50 +276,50 @@ const HandleOrder =(e)=>{
             aria-label="open drawer"
             href="/"
           >
-              {/* <MenuIcon/> */}
-           <img  style={{height: "7vh", width: "auto"}} src={logo}/>
+            {/* <MenuIcon/> */}
+            <img style={{ height: "7vh", width: "auto" }} src={logo} />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             EnR E-Commerce
           </Typography>
-          
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
-                 <div className={classes.search}>
-                    <InputBase
-                    value={search}
-                    placeholder="Search for products"
-                    onChange={ e =>{setSearch(e.target.value)}}
-                    classes={{
-                      root: classes.inputRoot,
-                      input: classes.inputInput,
-                    }}
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-                  <div className={classes.searchIcon}>
-                  <IconButton onClick={handleSearch}>
-                    <SearchIcon style={{color:"white"}}/>
-                  </IconButton>
-                  </div>
-                  </div>
-            <Button  style={{background:"white", marginRight:"1vw", height:"5vh", marginTop:"1vh", display: display}} href="/login-page">
+            <div className={classes.search}>
+              <InputBase
+                value={search}
+                placeholder="Search for products"
+                onChange={e => { setSearch(e.target.value) }}
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+              <div className={classes.searchIcon}>
+                <IconButton onClick={handleSearch}>
+                  <SearchIcon style={{ color: "white" }} />
+                </IconButton>
+              </div>
+            </div>
+            <Button style={{ background: "white", marginRight: "1vw", height: "5vh", marginTop: "1vh", display: display }} href="/login-page">
               Login
             </Button>
-            <Button style={{background:"white", marginRight:"1vw",height:"5vh",  marginTop:"1vh", display: display}} href="/sign-up">
+            <Button style={{ background: "white", marginRight: "1vw", height: "5vh", marginTop: "1vh", display: display }} href="/sign-up">
               Sign-up
             </Button>
-          <Tooltip title={"Hi "+ name}>
-          <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle style={{display: account}} />
-            </IconButton>
+            <Tooltip title={"Hi " + name}>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle style={{ display: account }} />
+              </IconButton>
             </Tooltip>
             {/* <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -326,11 +327,11 @@ const HandleOrder =(e)=>{
               </Badge>
             </IconButton> */}
             <Tooltip title="cart">
-            <IconButton aria-label="show user's cart" color="inherit" onClick={HandleCart}>
-              <Badge badgeContent={count} color="secondary">
-              <ShoppingCartIcon/>
-              </Badge>
-            </IconButton>
+              <IconButton aria-label="show user's cart" color="inherit" onClick={HandleCart}>
+                <Badge badgeContent={count} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
             </Tooltip>
           </div>
           <div className={classes.sectionMobile}>

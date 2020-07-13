@@ -33,7 +33,6 @@ const dashboardRoutes = [];
 
 const usStyles = makeStyles(styles);
 const Token = sessionStorage.getItem('TokenKey');
-console.log(Token);
 let count = 0;
 
 const StyledTableCell = withStyles((theme) => ({

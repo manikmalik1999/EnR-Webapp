@@ -1,5 +1,5 @@
-import React,{useState, useEffect} from 'react';
-import axios from 'axios'; 
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import NavBar from "components/Header/Navbar";
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -11,7 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 // import Link from '@material-ui/core/Link';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import image from "assets/img/bg7.jpg";
 import Footer from "components/Footer/Footer.js";
@@ -35,66 +35,66 @@ export default function SearchDisplay(props) {
   const { ...rest } = props;
 
   const search = props.match.params.searchquery;
-    const [products, setProducts] = useState([]);
- 
-    useEffect(() => {
-        axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
-      .then(res =>{
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+      .then(res => {
         console.log(res);
         setProducts(res.data.products);
       })
-      }, [])
-    
-    let filterpro = products.filter(
-        (e)=>{
-            return ( e.name.toUpperCase().includes(search.toUpperCase()) && e.approved.toUpperCase().includes("TRUE")) ;
-        }
-    )
+  }, [])
+
+  let filterpro = products.filter(
+    (e) => {
+      return (e.name.toUpperCase().includes(search.toUpperCase()) && e.approved.toUpperCase().includes("TRUE"));
+    }
+  )
   return (
     <div>
-      <NavBar value={search}/>
+      <NavBar value={search} />
 
-      <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
-            <Categories/>
-        <h4 style={{color:"green", marginLeft:"1vw"}} >Search Results for "{search}"</h4>
-       <Container >
-       <Grid className ="element"  container spacing={1} style={{display: "flex" }}>
-            {filterpro.map(pro =>(
-                <div key= {pro._id}  style={{margin:"2vh"}}>
-             
-                    <Grid item xs>
-                      {/* className={classes.root} */}
-                      {/* className={classes.media} */}
-                          <Card style={{maxWidth:"25vw", minWidth:"15vw"}}> 
-                              <CardActionArea>
-                                <CardMedia
-                                  title={pro.name}
-                                >
-                                  {/* "https://limitless-lowlands-36879.herokuapp.com/products/image/" + pro.image */}
-                                   <img style={{height: "20vh", width: "auto", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image } />
-                                </CardMedia>
-                                <CardContent>
-                                  <Typography gutterBottom variant="h5" component="h2">
-                                      
-                                      <Link to={"/Display/" + pro._id} target="_blank">
-                                          {pro.name}
-                                      </Link>
-                                  
-                                  </Typography>
-                                  <Typography variant="body2" color="textSecondary" component="p">
-                                        {pro.description}
-                                  </Typography>
-                                  <Typography variant="body2" color="textSecondary" component="p">
-                                    
-                                        <b>INR: {pro.price}</b>
-                                  </Typography>
-                                </CardContent>
-                              </CardActionArea>
+      <div style={{ marginTop: "10vh" }} className={classNames(classes.main, classes.mainRaised)}>
+        <Categories />
+        <h4 style={{ color: "green", marginLeft: "1vw" }} >Search Results for "{search}"</h4>
+        <Container >
+          <Grid className="element" container spacing={1} style={{ display: "flex" }}>
+            {filterpro.map(pro => (
+              <div key={pro._id} style={{ margin: "2vh" }}>
 
-                            </Card>
-                       
-                    </Grid>
-                    {/* <hr/>
+                <Grid item xs>
+                  {/* className={classes.root} */}
+                  {/* className={classes.media} */}
+                  <Card style={{ maxWidth: "25vw", minWidth: "15vw" }}>
+                    <CardActionArea>
+                      <CardMedia
+                        title={pro.name}
+                      >
+                        {/* "https://limitless-lowlands-36879.herokuapp.com/products/image/" + pro.image */}
+                        <img style={{ height: "20vh", width: "auto", marginLeft: "auto", marginRight: "auto", display: "block" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                      </CardMedia>
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+
+                          <Link to={"/Display/" + pro._id} target="_blank">
+                            {pro.name}
+                          </Link>
+
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                          {pro.description}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+
+                          <b>INR: {pro.price}</b>
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+
+                  </Card>
+
+                </Grid>
+                {/* <hr/>
                     <Grid item xs style={{textAlign:"top"}}>
                             <Link to={"/Display/" + pro._id} target="_blank">
                                 {pro.name}
@@ -105,17 +105,17 @@ export default function SearchDisplay(props) {
                             </Link>
 
                     </Grid> */}
-                    
-               
-     
-                </div>
-                ))}
-        </Grid>
-</Container>
+
+
+
+              </div>
+            ))}
+          </Grid>
+        </Container>
       </div>
- 
-      <Footer/>
-   
+
+      <Footer />
+
     </div>
   );
 }
@@ -164,13 +164,13 @@ export default function SearchDisplay(props) {
 //         setProducts(res.data.products);
 //       })
 //       }, [])
-    
+
 //     let filterpro = products.filter(
 //         (e)=>{
 //             return e.name.toUpperCase().includes(search.toUpperCase()) ;
 //         }
 //     )
-      
+
 //     return(
 //         <>
 //         <div
@@ -182,16 +182,16 @@ export default function SearchDisplay(props) {
 //         zIndex: 1,
 //         }}
 //       >
-        
+
 //         <div>
 //             <NavBar value={search}/>
 //        </div>
 //        <Container style={{flexGrow: 1, position:"relative", marginTop:"9.5vh",marginLeft:"9.5vh",marginRight:"9.5vh", zIndex: 12, background:"white", borderRadius:"1vw"}}>
-       
+
 //         <h4>Search Results for "{search}"</h4>
 //             {filterpro.map(pro =>(
 //                 <div key= {pro._id}  style={{margin:"2vh"}} >
-                    
+
 //                 <Grid className ="element"  container spacing={3} >
 //                     <Grid item xs={3}>
 //                         <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
@@ -207,7 +207,7 @@ export default function SearchDisplay(props) {
 //                             </Link>
 
 //                     </Grid>
-                    
+
 //                 </Grid>
 //                     <hr/>
 //                 </div>
@@ -217,7 +217,7 @@ export default function SearchDisplay(props) {
 //         <div style={{position: "absolute", bottom: 0}}>
 //         <Footer/>
 //         </div>
-       
+
 //         </div>
 //         </>
 //     )

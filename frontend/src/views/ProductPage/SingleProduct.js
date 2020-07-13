@@ -120,30 +120,38 @@ function SectionCarousel(props) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 400,
+    speed: 100,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true
   };
   return (
-    <GridContainer>
+    <GridContainer justify="center" alignItems="center" style={{height:"100%"}}>
       <GridItem xs={12}>
         <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "100%", height: "auto", maxHeigt: "450px" }}>
           <Carousel {...settings} style={{ padding: "12px" }}>
-            <div>
+            <div style={{margin:"auto"}}>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img}
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img1}
                 alt="First slide"
                 className="slick-image"
-                style={{ float: "left", height: "auto", width: "23vw" }}
+                style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
               />
             </div>
             <div>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img}
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img2}
                 alt="First slide"
                 className="slick-image"
-                style={{ float: "left", height: "auto", width: "23vw" }}
+                style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
+              />
+            </div>
+            <div>
+              <img
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img3}
+                alt="First slide"
+                className="slick-image"
+                style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
               />
             </div>
           </Carousel>
@@ -220,12 +228,8 @@ export default function SingleProd(props) {
   useEffect(() => {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
       .then(res => {
-<<<<<<< HEAD
-        console.log(res.data.product);
-=======
         console.log("-->here") ;
         console.log(res.data.product) ;
->>>>>>> a49425fe8298291449adf1eb5ee19cac46f8d78c
         setProduct(res.data.product);
         setLoading(false);
       })
@@ -375,12 +379,12 @@ export default function SingleProd(props) {
                 <QuantityResponse />
                 <HandleCartResponse />
                 <Grid className="element" container spacing={3} alignContent="center" style={{ borderBottom: "1px solid lightgrey", marginBottom:"12px" }} >
-                  <Grid item xs={10} lg={4} style={{ float: "left", marginLeft: "auto", marginRight: "auto" }}>
-                    <SectionCarousel img={pro.image} />
+                  <Grid item xs={12} lg={5} style={{ float: "left", marginLeft: "auto", marginRight: "auto" }}>
+                    <SectionCarousel img1={pro.image} img2={pro.image2} img3={pro.image3} />
                   </Grid>
-                  <Grid item xs={12} lg={1}></Grid>
+                  {/* <Grid item xs={12} lg={1}></Grid> */}
                   {/* <div className="center" style={{ display: "inline", margin: "0", position: "relative", left: "3.5vw", right: "4vw" }}>
-                    <Button onClick={HandleCart} size="small" variant="contained" style={{ backgroundColor: "#00e676", marginRight: "0.8vw", fontSize: "1.4vw" }}>Cart</Button>
+                    <Button onClick={HandleCart}  size="small" variant="contained" style={{ backgroundColor: "#00e676", marginRight: "0.8vw", fontSize: "1.4vw" }}>Cart</Button>
                     <Button variant="contained" size="small" style={{ backgroundColor: "#33eb91", fontSize: "1.4vw" }}>Wishlist</Button>
                   </div> */}
                   <Grid item xs={12} lg={6} style={{ color: "black", marginLeft: "1vw" }} >
@@ -394,10 +398,10 @@ export default function SingleProd(props) {
                       : <Chip color="secondary" style={{ marginLeft: "16px" }} label={"Un-Rated"} onClick={handleClick} clickable size="small" icon={<StarRateIcon style={{ color: "yellow" }} />} />}
 
                     <br></br>
-                    <h4 style={{ fontSize: "1.5vw", fontWeight: "bold" }}>£: {pro.price}</h4>
-                    <span htmlFor="age-native-simple" style={{ marginRight: "16px" }}>Quantity</span>
+                    <h4 style={{ fontSize: "28px", fontWeight: "bold" }}>£: {pro.price}</h4>
+                    {/* <span htmlFor="age-native-simple" style={{ marginRight: "16px" }}>Quantity</span>
                     <Select native value={quantity} style={{ textDecoration: "none" }} onChange={handleChange} open={open} onClose={handleClose} onOpen={handleOpen}>
-                      {/* <option value={0}>0</option> */}
+                      <option value={0}>0</option>
                       <option value={1}>1</option>
                       <option value={2}>2</option>
                       <option value={3}>3</option>
@@ -430,7 +434,7 @@ export default function SingleProd(props) {
                       </Grid>
                       <Grid xs></Grid>
                       <Grid item xs={12} lg={6} >
-                        <Button onClick={HandleWhishlist} variant="contained" size="small" style={{ width: "100%", backgroundColor: "#512da8", color: "white", padding: "6px" }}>Add to Wishlist</Button>
+                        <Button onClick={HandleWhishlist} variant="contained" size="small" style={{ width: "100%", backgroundColor: "#00897b", color: "white", padding: "6px" }}>Add to Wishlist</Button>
                       </Grid>
                     </Grid>
                     <hr />
