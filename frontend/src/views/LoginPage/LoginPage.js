@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -115,6 +116,9 @@ const HandleLoginFaliure=()=>{
   }
 }
 
+const responseFacebook =()=>{
+
+}
   return (
     <div>
       
@@ -165,15 +169,45 @@ const HandleLoginFaliure=()=>{
                       >
                         <i className={"fab fa-twitter"} />
                       </Button> */}
-                      <Button
+                      <FacebookLogin
+                        appId="1088597931155576"
+                        autoLoad
+                        callback={responseFacebook}
+                        render={renderProps => (
+                          <Button
+                          justIcon
+                          color="transparent"
+                          onClick={renderProps.onClick}
+                                >
+                          <i className={"fab fa-facebook"} />
+                        </Button>
+                        )}
+                      />
+                      {/* <FacebookLogin
+                      appId="1088597931155576"
+                      autoLoad 
+                      callback={responseFacebook}
+                      render={renderProps => (
+                        <Button
                         justIcon
                         href="#pablo"
                         target="_blank"
                         color="transparent"
-                        onClick={e => e.preventDefault()}
+                        onClick={renderProps.onClick}
                       >
                         <i className={"fab fa-facebook"} />
                       </Button>
+                      )} */}
+                        {/* /> */}
+                      {/* <Button
+                        justIcon
+                        href="#pablo"
+                        target="_blank"
+                        color="transparent"
+                        onClick={renderProps.onClick}
+                      >
+                        <i className={"fab fa-facebook"} />
+                      </Button> */}
 
                     </div>
                   </CardHeader>

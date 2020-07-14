@@ -98,7 +98,7 @@ export default function WishlistDisplay() {
         window.location.href="/login-page";
       }
       count = res.data.count;
-      // console.log(res.data);
+      console.log(res.data);
       setProducts(res.data.wishlist);
       setLoading(false);
     })
@@ -215,23 +215,25 @@ export default function WishlistDisplay() {
             <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Wishlist</StyledTableCell>
             <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Product</StyledTableCell>
             <StyledTableCell style={{backgroundColor: "#00897b"}}  align="center">Price&nbsp;(£)</StyledTableCell>
-            <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Quantity&nbsp;</StyledTableCell>
+            {/* <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Quantity&nbsp;</StyledTableCell> */}
             <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
         {products.map(pro =>(
-          <StyledTableRow key={pro.name}>
+    
+          <StyledTableRow style={{padding:"1vw",marginTop:"1vh"}} key={pro.name}>
             <StyledTableCell component="th" scope="row" padding="none" align="center"><img style={{height: "22vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} /></StyledTableCell>
             <StyledTableCell align="center"><Link to={"/Display/" + pro.productId} target="_blank">{pro.name}</Link></StyledTableCell>
             <StyledTableCell align="center">{pro.price}</StyledTableCell>
-            <StyledTableCell align="center">{pro.quantity}</StyledTableCell>
+            {/* <StyledTableCell align="center">{pro.quantity}</StyledTableCell> */}
             <StyledTableCell align="center"><IconButton onClick={() => HandleCart(pro.productId, pro._id)} color="primary" aria-label="add to shopping cart">
         <AddShoppingCartIcon />
       </IconButton>  <IconButton onClick={() => handleRemove(pro._id)} style={{marginLeft:"8px"}} aria-label="delete">
         <DeleteIcon />
       </IconButton></StyledTableCell>
           </StyledTableRow>
+          
         ))}
         </TableBody>
       </Table>

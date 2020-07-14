@@ -88,6 +88,12 @@ export default function CartDisplay(props) {
       })
   }, [])
 const quantityChange =(e)=>{
+  if(e.target.value < 1){
+    setAlert({
+      status: 500,
+    });
+  }
+  else{
   console.log(e.target.value);
   console.log(e.target.id);
   axios({
@@ -108,6 +114,7 @@ const quantityChange =(e)=>{
     });
   }
   })
+}
 }
   const makePayment = (token) => {
     {/*also provide product info  */ }
