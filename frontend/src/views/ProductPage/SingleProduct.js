@@ -41,11 +41,6 @@ import Card from "components/Card/Card.js";
 import Chip from '@material-ui/core/Chip';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import TextField from '@material-ui/core/TextField';
-
-import image1 from "assets/img/1592674003336hockey-Stick.jpg";
-import image2 from "assets/img/bg2.jpg";
-import image3 from "assets/img/bg3.jpg";
-
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -58,7 +53,6 @@ import Close from "@material-ui/icons/Close";
 import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
-import { Paper } from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -120,7 +114,7 @@ function SectionCarousel(props) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 100,
+    speed: 400,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true
@@ -128,31 +122,43 @@ function SectionCarousel(props) {
   return (
     <GridContainer justify="center" alignItems="center" style={{height:"100%"}}>
       <GridItem xs={12}>
-        <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "100%", height: "auto", maxHeigt: "450px" }}>
+        <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "100%" }}>
           <Carousel {...settings} style={{ padding: "12px" }}>
             <div style={{margin:"auto"}}>
+            <GridContainer justify="center" alignItems="center" style={{height:"530px"}}>
+            <GridItem xs={12}>
               <img
                 src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img1}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
               />
+              </GridItem>
+              </GridContainer>
             </div>
             <div>
+            <GridContainer justify="center" alignItems="center" style={{height:"530px"}}>
+            <GridItem xs={12}>
               <img
                 src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img2}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
               />
+              </GridItem>
+              </GridContainer>
             </div>
             <div>
+            <GridContainer justify="center" alignItems="center" style={{height:"530px"}}>
+            <GridItem xs={12}>
               <img
                 src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img3}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
               />
+              </GridItem>
+              </GridContainer>
             </div>
           </Carousel>
         </Card>
