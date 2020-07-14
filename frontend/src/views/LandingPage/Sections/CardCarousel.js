@@ -323,7 +323,12 @@ function Spec() {
   return (
     <Card>
       <Link to={"/Display/" + product._id} target="_blank">
-        <img className={classes.imgCard} style={{ height: "60vh", width: "a60vw", marginLeft: "auto", marginRight: "auto", display: "block" }} src={img5}/*src={"https://limitless-lowlands-36879.herokuapp.com/" + product.image}*/ alt="Card-img" />
+        
+      <GridContainer justify="center" alignItems="center" style={{height:"55vh"}}>
+                      <GridItem xs={12}>
+        <img className={classes.imgCard} style={{ maxHeight: "55vh", width: "a60vw", marginLeft: "auto", marginRight: "auto", display: "block" }} src={img5}/*src={"https://limitless-lowlands-36879.herokuapp.com/" + product.image}*/ alt="Card-img" />
+        </GridItem>
+        </GridContainer>
       </Link>
     </Card>
   );
