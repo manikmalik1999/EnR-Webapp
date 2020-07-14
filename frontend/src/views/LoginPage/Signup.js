@@ -46,7 +46,7 @@ export default function SignUp(props) {
   const responseSuccessGoogle =(response)=>{
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/users/google/login/",
+      url: "http://localhost:5000/users/google/login/",
       headers: {}, 
       data: {
           tokenId: response.tokenId
@@ -77,7 +77,7 @@ export default function SignUp(props) {
   function handleSignup(e){
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.com/users/signup",
+        url: "http://localhost:5000/users/signup",
         headers: {}, 
         data: {
             name: name,  

@@ -178,7 +178,7 @@ const useStyles = makeStyles(styles);
   function Mul(){
     const [products, setProducts] = useState([]);
     useEffect(() => {
-      axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+      axios.get('http://localhost:5000/products')
     .then(res =>{
       console.log(res);
       setProducts(res.data.products);
@@ -240,7 +240,7 @@ const useStyles = makeStyles(styles);
             <GridItem md={12}>
               <CardActionArea>
                 <CardMedia title={pro.name} >
-                  <img style={{height: "37vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                  <img style={{height: "37vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"http://localhost:5000/" + pro.image} />
                 </CardMedia>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -267,7 +267,7 @@ function Spec ()
   const classes = useStyles();
   const [product, setProduct] = useState([]);
     useEffect(() => {
-      axios.get('https://limitless-lowlands-36879.herokuapp.com/products/5efcd5f083ae113688f92ea5')
+      axios.get('http://localhost:5000/products/5efcd5f083ae113688f92ea5')
     .then(res =>{
       console.log('this', res);
       setProduct(res.data.product);
@@ -276,7 +276,7 @@ function Spec ()
     return (
       <Card>
         <Link to={"/Display/" + product._id} target="_blank">
-      <img className={classes.imgCard} style={{height: "60vh", width: "a60vw", marginLeft:"auto", marginRight:"auto", display:"block"}} src={img5}/*src={"https://limitless-lowlands-36879.herokuapp.com/" + product.image}*/ alt="Card-img" />
+      <img className={classes.imgCard} style={{height: "60vh", width: "a60vw", marginLeft:"auto", marginRight:"auto", display:"block"}} src={img5}/*src={"http://localhost:5000/" + product.image}*/ alt="Card-img" />
       </Link>   
     </Card>
     );

@@ -123,7 +123,7 @@ function SectionCarousel(props) {
           <Carousel {...settings} style={{ padding: "12px" }}>
             <div>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img}
+                src={"http://localhost:5000/" + props.img}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw" }}
@@ -131,7 +131,7 @@ function SectionCarousel(props) {
             </div>
             <div>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img}
+                src={"http://localhost:5000/" + props.img}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw" }}
@@ -211,13 +211,13 @@ export default function SingleProd(props) {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
+    axios.get('http://localhost:5000/products/' + ID)
       .then(res => {
         console.log(res.data.product);
         setProduct(res.data.product);
         setLoading(false);
       })
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/' + ID)
+    axios.get('http://localhost:5000/reviews/' + ID)
       .then(res => {
         AvgRev = res.data.avgvalue;
         console.log(res.data);
@@ -266,7 +266,7 @@ export default function SingleProd(props) {
     }
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+      url: "http://localhost:5000/cart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -300,7 +300,7 @@ export default function SingleProd(props) {
   const HandleWhishlist =()=>{
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+      url: "http://localhost:5000/wishlist/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },

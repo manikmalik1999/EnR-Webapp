@@ -38,7 +38,7 @@ export default function SearchDisplay(props) {
     const [products, setProducts] = useState([]);
  
     useEffect(() => {
-        axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+        axios.get('http://localhost:5000/products')
       .then(res =>{
         console.log(res);
         setProducts(res.data.products);
@@ -70,8 +70,8 @@ export default function SearchDisplay(props) {
                                 <CardMedia
                                   title={pro.name}
                                 >
-                                  {/* "https://limitless-lowlands-36879.herokuapp.com/products/image/" + pro.image */}
-                                   <img style={{height: "20vh", width: "auto", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image } />
+                                  {/* "http://localhost:5000/products/image/" + pro.image */}
+                                   <img style={{height: "20vh", width: "auto", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"http://localhost:5000/" + pro.image } />
                                 </CardMedia>
                                 <CardContent>
                                   <Typography gutterBottom variant="h5" component="h2">
@@ -158,7 +158,7 @@ export default function SearchDisplay(props) {
 //     // const classes = useStyles();
 
 //     useEffect(() => {
-//         axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+//         axios.get('http://localhost:5000/products')
 //       .then(res =>{
 //         console.log(res);
 //         setProducts(res.data.products);
@@ -194,7 +194,7 @@ export default function SearchDisplay(props) {
                     
 //                 <Grid className ="element"  container spacing={3} >
 //                     <Grid item xs={3}>
-//                         <img style={{height: "20vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+//                         <img style={{height: "20vh", width: "auto"}} src= {"http://localhost:5000/" + pro.image} />
 //                     </Grid>
 //                     <hr/>
 //                     <Grid item xs style={{textAlign:"top"}}>

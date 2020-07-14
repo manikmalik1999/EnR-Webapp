@@ -116,7 +116,7 @@ const handleAdding=(e)=>{
     axios({
         method: 'post',
         
-        url: "https://limitless-lowlands-36879.herokuapp.com/products",
+        url: "http://localhost:5000/products",
         data: formData,
         headers: {
             'Authorization': 'Bearer '+Token,

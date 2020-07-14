@@ -68,7 +68,7 @@ export default function CategoryDisplay(props) {
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+    axios.get('http://localhost:5000/products')
       .then(res =>{
         console.log(res);
         setProducts(res.data.products);
@@ -104,7 +104,7 @@ export default function CategoryDisplay(props) {
                   <GridItem xs={6} md={4} lg={3} style={{marginBottom:"15px"}}>
                     <CardActionArea>
                       <CardMedia title={pro.name} >
-                        <img style={{height: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        <img style={{height: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"http://localhost:5000/" + pro.image} />
                       </CardMedia>
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="h3">                                                   
