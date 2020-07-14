@@ -74,7 +74,7 @@ export default function SimpleTabs() {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "http://localhost:5000/sellers/myinfo",
+      url: "https://limitless-lowlands-36879.herokuapp.comsellers/myinfo",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }

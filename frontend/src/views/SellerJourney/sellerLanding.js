@@ -120,7 +120,7 @@ export default function LandingPage(props) {
     console.log(formData);
     axios({
       method: 'post',
-      url: "http://localhost:5000/products",
+      url: "https://limitless-lowlands-36879.herokuapp.comproducts",
       data: formData,
       headers: {
         'Authorization': 'Bearer ' + Token,

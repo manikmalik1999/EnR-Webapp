@@ -10,7 +10,7 @@ export default function Categories(props) {
     const {value} = props;
   const [val, setVal] = useState(value);
  useEffect(()=>{
-   axios.get("http://localhost:5000/categories")
+   axios.get("https://limitless-lowlands-36879.herokuapp.comcategories")
    .then((result)=>{
      console.log(result);
       setCategories(result.data.categories)

@@ -62,7 +62,7 @@ export default function SellerProductDisplay(props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "http://localhost:5000/sellers/products",
+      url: "https://limitless-lowlands-36879.herokuapp.comsellers/products",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -78,7 +78,7 @@ export default function SellerProductDisplay(props) {
     // alert(e.currentTarget.id);
     axios({
       method: 'delete',
-      url: "http://localhost:5000/products/" + e.currentTarget.id,
+      url: "https://limitless-lowlands-36879.herokuapp.comproducts/" + e.currentTarget.id,
       headers: {
         'Authorization': 'Bearer ' + Token,
       }

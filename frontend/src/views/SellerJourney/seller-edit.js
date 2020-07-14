@@ -73,7 +73,7 @@ export default function LandingPage(props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "http://localhost:5000/products/" + ID,
+      url: "https://limitless-lowlands-36879.herokuapp.comproducts/" + ID,
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -104,7 +104,7 @@ export default function LandingPage(props) {
     else pri = product.price;
     axios({
       method: 'patch',
-      url: "http://localhost:5000/products/" + ID,
+      url: "https://limitless-lowlands-36879.herokuapp.comproducts/" + ID,
       headers: {
         'Authorization': 'Bearer ' + Token,
       },

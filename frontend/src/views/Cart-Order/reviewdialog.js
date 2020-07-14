@@ -46,7 +46,7 @@ export default function FormDialog(props) {
   const handleSubmit= (e)=>{
     axios({
       method: 'post',
-      url: "http://localhost:5000/reviews",
+      url: "https://limitless-lowlands-36879.herokuapp.comreviews",
       headers: {
           'Authorization': 'Bearer '+props.token,
       },

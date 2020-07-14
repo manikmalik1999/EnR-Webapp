@@ -88,7 +88,7 @@ export default function WishlistDisplay() {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "http://localhost:5000/wishlist/",
+      url: "https://limitless-lowlands-36879.herokuapp.comwishlist/",
       headers: {
         'Authorization': 'Bearer '+Token,
       } 
@@ -107,7 +107,7 @@ export default function WishlistDisplay() {
   const handleRemove=(e)=>{
     axios({
       method: 'delete',
-      url: "http://localhost:5000/wishlist/" + e,
+      url: "https://limitless-lowlands-36879.herokuapp.comwishlist/" + e,
       headers: {
         'Authorization': 'Bearer '+Token,
       } 
@@ -133,7 +133,7 @@ export default function WishlistDisplay() {
     console.log(delid);
     axios({
       method: 'post',
-      url: "http://localhost:5000/cart/",
+      url: "https://limitless-lowlands-36879.herokuapp.comcart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -223,7 +223,7 @@ export default function WishlistDisplay() {
         {products.map(pro =>(
     
           <StyledTableRow style={{padding:"1vw",marginTop:"1vh"}} key={pro.name}>
-            <StyledTableCell component="th" scope="row" padding="none" align="center"><img style={{height: "22vh", width: "auto"}} src= {"http://localhost:5000/" + pro.image} /></StyledTableCell>
+            <StyledTableCell component="th" scope="row" padding="none" align="center"><img style={{height: "22vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com" + pro.image} /></StyledTableCell>
             <StyledTableCell align="center"><Link to={"/Display/" + pro.productId} target="_blank">{pro.name}</Link></StyledTableCell>
             <StyledTableCell align="center">{pro.price}</StyledTableCell>
             {/* <StyledTableCell align="center">{pro.quantity}</StyledTableCell> */}

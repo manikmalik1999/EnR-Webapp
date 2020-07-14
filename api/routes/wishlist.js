@@ -87,7 +87,7 @@ const product = require("../models/product");
               status: 200,
             //   request: {
             //       type: "POST",
-            //       url: "http://localhost:5000/orders",
+            //       url: "https://limitless-lowlands-36879.herokuapp.comorders",
             //       body: {productId: 'ID', quantity:'Number'} 
             //   }
           })
