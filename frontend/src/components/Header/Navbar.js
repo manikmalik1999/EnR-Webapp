@@ -107,7 +107,7 @@ export default function PrimarySearchAppBar(props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+      url: "http://localhost:5000/cart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -126,7 +126,7 @@ export default function PrimarySearchAppBar(props) {
           setDisplay("none");
           axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/users/" + res.data.userId,
+            url: "http://localhost:5000/users/" + res.data.userId,
             headers: {
               'Authorization': 'Bearer ' + Token,
             }
@@ -165,7 +165,9 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
   const handleSearch = (e) => {
+    if(search){
     window.location.href = "/search/" + search;
+    }
   }
   const HandleEnter = (e) => {
 

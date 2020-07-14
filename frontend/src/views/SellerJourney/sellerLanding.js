@@ -103,7 +103,7 @@ export default function LandingPage(props) {
     setLoading(true) ;
     console.log(proimage);
     if(proimage.length !=3 || !name || !description || price<=0 || !category || quantity<1){
-      setResponse(500); 
+      setResponse(500);
     }
     else{
       Math.round(quantity);
@@ -115,12 +115,12 @@ export default function LandingPage(props) {
     formData.append('name', name);
     formData.append('description', description);
     formData.append('quantity', quantity);
-    formData.append('price', price);
+    formData.append('price', price.toFixed(2));
     formData.append('category', category);
     console.log(formData);
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/products",
+      url: "http://localhost:5000/products",
       data: formData,
       headers: {
         'Authorization': 'Bearer ' + Token,
@@ -205,7 +205,7 @@ export default function LandingPage(props) {
                       onChange={e => { setDescription(e.target.value) }}
                     />
                     <TextField
-                      label="category"
+                      label="Category"
                       id="category"
                       type="text"
                       fullWidth

@@ -49,7 +49,7 @@ export default function SearchDisplay(props) {
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+    axios.get('http://localhost:5000/products')
       .then(res =>{
         console.log(res);
         setProducts(res.data.products);
@@ -78,16 +78,16 @@ export default function SearchDisplay(props) {
         <Paper>
           <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
             <Categories />
-            <h3 style={{color: "#512da8", textAlign:"center"}} ><b>{search.toUpperCase()}</b> </h3>
+            <h4 style={{color: "#512da8", marginLeft:"2vw"}}>Search Results for: "<b style={{fontSize:"1vw"}}>{search.toUpperCase()}</b>" </h4>
             <div className={classes.container}>
               <GridContainer style={{marginLeft:"10px",marginRight:"8px"}}>
                 {currentPro.map(pro =>(
-                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"25px"}}>
+                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"5vh"}}>
                     <CardActionArea>
                       <CardMedia title={pro.name} >
                       <GridContainer justify="center" alignItems="center" style={{height:"43vh"}}>
                       <GridItem xs={12}>
-                        <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"http://localhost:5000/" + pro.image} />
                         </GridItem>
                         </GridContainer>
                       </CardMedia>
