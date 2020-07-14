@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -9,11 +9,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
+
 import LockIcon from '@material-ui/icons/Lock';
 // core components
-import Header from "components/Header/Header.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
+
 import Footer from "components/Footer/Footer.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
@@ -22,7 +21,6 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
 import TextField from '@material-ui/core/TextField';
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
@@ -169,7 +167,7 @@ const responseFacebook =()=>{
                       >
                         <i className={"fab fa-twitter"} />
                       </Button> */}
-                      <FacebookLogin
+                      {/* <FacebookLogin
                         appId="1088597931155576"
                         autoLoad
                         callback={responseFacebook}
@@ -182,7 +180,7 @@ const responseFacebook =()=>{
                           <i className={"fab fa-facebook"} />
                         </Button>
                         )}
-                      />
+                      /> */}
                       {/* <FacebookLogin
                       appId="1088597931155576"
                       autoLoad 
