@@ -27,7 +27,7 @@ import classNames from "classnames";
 // core components
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import { Paper } from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loading from '../Loading';
 
 const dashboardRoutes = [];
 
@@ -39,25 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const uStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    '& > * + *': {
-      marginLeft: theme.spacing(2),
-    },
-    marginLeft: '50%'
-  },
-}));
-function Loading (){
-  const clas = uStyles();
-  const classes = useStyles();
-  console.log('yes it is');
-  return (
-    <div style={{ marginTop:"12vh"}} className={classNames(clas.root)}>
-      <CircularProgress color="secondary" />
-  </div>
-);}
-
 export default function CategoryDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
@@ -68,7 +49,7 @@ export default function CategoryDisplay(props) {
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    axios.get('http://localhost:5000/products')
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
       .then(res =>{
         console.log(res);
         setProducts(res.data.products);
@@ -93,7 +74,7 @@ export default function CategoryDisplay(props) {
   return (
     <div>
       <NavBar/>
-      {loading ? <div style={{ paddingTop: "170px", paddingBottom: "80px" }}><Loading /></div> :(
+      {loading ? <Loading />:(
         <Paper>
           <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
             <Categories value= {index} />
@@ -104,7 +85,7 @@ export default function CategoryDisplay(props) {
                   <GridItem xs={6} md={4} lg={3} style={{marginBottom:"15px"}}>
                     <CardActionArea>
                       <CardMedia title={pro.name} >
-                        <img style={{height: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"http://localhost:5000/" + pro.image} />
+                        <img style={{height: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                       </CardMedia>
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="h3">                                                   

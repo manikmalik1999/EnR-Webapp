@@ -10,7 +10,7 @@ export default function Categories(props) {
     const {value} = props;
   const [val, setVal] = useState(value);
  useEffect(()=>{
-   axios.get("http://localhost:5000/categories")
+   axios.get("https://limitless-lowlands-36879.herokuapp.com/categories")
    .then((result)=>{
      console.log(result);
       setCategories(result.data.categories)
@@ -19,8 +19,17 @@ export default function Categories(props) {
 
 
   const handleChange = (event, newValue) => {
-    console.log(event.target.innerHTML);
-    window.location.href = "/categories/"+ event.target.innerHTML +"/"+ newValue;
+    // console.log(value) ;
+    // console.log(newValue)
+    let category = "" ;
+    if( event.target.innerHTML[0] === '<' ){
+      let temp = event.target.innerHTML.toString().split(">")[1].split("<")[0] ;
+      // console.log(temp) ;
+      category = temp ;
+    } else {
+      category = event.target.innerHTML ;
+    }
+    window.location.href = "/categories/"+ category +"/" + newValue ;
   }
 
   return (
@@ -37,7 +46,7 @@ export default function Categories(props) {
         orientation="horizontal"
       >
          {categories.map(cat=>(
-        <Tab key= {cat._id} label={cat.category} />
+        <Tab key={cat._id} label={cat.category} />
         ))}
         {/* <Tab label="Health"  />
         <Tab label="Toys" />

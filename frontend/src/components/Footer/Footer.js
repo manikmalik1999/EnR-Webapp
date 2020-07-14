@@ -26,6 +26,11 @@ export default function Footer(props) {
     [classes.a]: true,
     [classes.footerWhiteFont]: whiteFont
   });
+  let clr = {color:"inherit"} ;
+  if( props.color ){
+    clr = {color : props.color} ;
+  }
+  console.log(clr) ;
   return (
     <footer className={footerClasses}>
       <div className={classes.container}>
@@ -35,6 +40,7 @@ export default function Footer(props) {
               <a
                 href="https://engagenreap.com/about"
                 className={classes.block}
+                style={clr}
                 target="_blank"
               >
                 About us
@@ -44,6 +50,7 @@ export default function Footer(props) {
               <a
                 href="https://engagenreap.com/blog"
                 className={classes.block}
+                style={clr}
                 target="_blank"
               >
                 Blog
@@ -53,6 +60,7 @@ export default function Footer(props) {
               <a
                 href="https://engagenreap.com/services"
                 className={classes.block}
+                style={clr}
                 target="_blank"
               >
                 Services
@@ -62,6 +70,7 @@ export default function Footer(props) {
               <a
                 href="/seller-signup"
                 className={classes.block}
+                style={clr}
                 target="_blank"
               >
                 Sell With Us
@@ -69,12 +78,13 @@ export default function Footer(props) {
             </ListItem>
           </List>
         </div>
-        <div className={classes.right}>
+        <div className={classes.right} style={clr}>
           &copy; {1900 + new Date().getYear()} , made with{" "}
           <Favorite className={classes.icon} /> by{" "}
           <a
             href="https://www.linkedin.com/in/manikmalik1999/"
             className={aClasses}
+            style={clr}
             target="_blank"
           >
             EnR
