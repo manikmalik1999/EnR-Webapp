@@ -45,7 +45,7 @@ export default function SignUp(props) {
   function handleSignup(e){
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.comsellers/signup",
+        url: "https://limitless-lowlands-36879.herokuapp.com/sellers/signup",
         headers: {}, 
         data: {
             name: name,  

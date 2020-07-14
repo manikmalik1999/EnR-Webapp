@@ -128,7 +128,7 @@ function SectionCarousel(props) {
             <GridContainer justify="center" alignItems="center" style={{height:"530px"}}>
             <GridItem xs={12}>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com" + props.img1}
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img1}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
@@ -140,7 +140,7 @@ function SectionCarousel(props) {
             <GridContainer justify="center" alignItems="center" style={{height:"530px"}}>
             <GridItem xs={12}>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com" + props.img2}
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img2}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
@@ -152,7 +152,7 @@ function SectionCarousel(props) {
             <GridContainer justify="center" alignItems="center" style={{height:"530px"}}>
             <GridItem xs={12}>
               <img
-                src={"https://limitless-lowlands-36879.herokuapp.com" + props.img3}
+                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img3}
                 alt="First slide"
                 className="slick-image"
                 style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
@@ -232,14 +232,14 @@ export default function SingleProd(props) {
 
   const openn = Boolean(anchorEl);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.comproducts/' + ID)
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
       .then(res => {
         console.log("-->here") ;
         console.log(res.data.product) ;
         setProduct(res.data.product);
         setLoading(false);
       })
-    axios.get('https://limitless-lowlands-36879.herokuapp.comreviews/' + ID)
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/' + ID)
       .then(res => {
         AvgRev = res.data.avgvalue;
         console.log("----> here");
@@ -289,7 +289,7 @@ export default function SingleProd(props) {
     }
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.comcart/",
+      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -323,7 +323,7 @@ export default function SingleProd(props) {
   const HandleWhishlist =()=>{
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.comwishlist/",
+      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },

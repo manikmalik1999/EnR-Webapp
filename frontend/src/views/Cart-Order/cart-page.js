@@ -69,7 +69,7 @@ export default function CartDisplay(props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.comcart/",
+      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -98,7 +98,7 @@ const quantityChange =(e)=>{
   console.log(e.target.id);
   axios({
     method: 'patch',
-    url: "https://limitless-lowlands-36879.herokuapp.comcart/"+ e.target.id,
+    url: "https://limitless-lowlands-36879.herokuapp.com/cart/"+ e.target.id,
     headers: {
       'Authorization': 'Bearer ' + Token,
     },
@@ -120,7 +120,7 @@ const quantityChange =(e)=>{
     {/*also provide product info  */ }
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.compayment",
+      url: "https://limitless-lowlands-36879.herokuapp.com/payment",
       data: {
         amount: totalAmount,
         token: token,
@@ -132,7 +132,7 @@ const quantityChange =(e)=>{
       products.forEach(element => {
         axios({
           method: 'post',
-          url: "https://limitless-lowlands-36879.herokuapp.comorders",
+          url: "https://limitless-lowlands-36879.herokuapp.com/orders",
           headers: {
             'Authorization': 'Bearer ' + Token,
           },
@@ -152,7 +152,7 @@ const quantityChange =(e)=>{
   const handleCartRemove = (e) => {
     axios({
       method: 'delete',
-      url: "https://limitless-lowlands-36879.herokuapp.comcart/" + e,
+      url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e,
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -203,7 +203,7 @@ const quantityChange =(e)=>{
                 <div key={pro._id} style={{ margin: "2vh" }} >
                   <Grid className="element" container spacing={3} >
                     <Grid container item xs={3} style={{ margin: "auto", padding: "auto" }} justify="center">
-                      <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com" + pro.image} />
+                      <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                     </Grid>
                     <hr />
                     <Grid item xs={8} style={{ textAlign: "top", paddingLeft: "32px" }}>

@@ -226,7 +226,7 @@ const useStyles = makeStyles(styles);
 function Mul() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.comproducts')
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
       .then(res => {
         console.log(res);
         setProducts(res.data.products);
@@ -288,7 +288,7 @@ function Mul() {
         <GridItem md={12}>
           <CardActionArea>
             <CardMedia title={pro.name} >
-              <img style={{ height: "37vh", maxWidth: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} src={"https://limitless-lowlands-36879.herokuapp.com" + pro.image} />
+              <img style={{ height: "37vh", maxWidth: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
             </CardMedia>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
@@ -314,7 +314,7 @@ function Spec() {
   const classes = useStyles();
   const [product, setProduct] = useState([]);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.comproducts/5efcd5f083ae113688f92ea5')
+    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/5efcd5f083ae113688f92ea5')
       .then(res => {
         console.log('this', res);
         setProduct(res.data.product);
@@ -326,7 +326,7 @@ function Spec() {
         
       <GridContainer justify="center" alignItems="center" style={{height:"55vh"}}>
                       <GridItem xs={12}>
-        <img className={classes.imgCard} style={{ maxHeight: "55vh", width: "a60vw", marginLeft: "auto", marginRight: "auto", display: "block" }} src={img5}/*src={"https://limitless-lowlands-36879.herokuapp.com" + product.image}*/ alt="Card-img" />
+        <img className={classes.imgCard} style={{ maxHeight: "55vh", width: "a60vw", marginLeft: "auto", marginRight: "auto", display: "block" }} src={img5}/*src={"https://limitless-lowlands-36879.herokuapp.com/" + product.image}*/ alt="Card-img" />
         </GridItem>
         </GridContainer>
       </Link>

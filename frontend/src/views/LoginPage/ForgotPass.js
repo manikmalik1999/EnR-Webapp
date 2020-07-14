@@ -39,7 +39,7 @@ export default function ForgotPass(props) {
     
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.comusers/forgotpass/",
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/forgotpass/",
         headers: {}, 
         data: {
             email: email

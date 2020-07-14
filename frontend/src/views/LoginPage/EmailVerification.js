@@ -4,7 +4,7 @@ export default function Emailverify(props){
     const token= props.match.params.token;
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.comusers/verify/",
+        url: "https://limitless-lowlands-36879.herokuapp.com/users/verify/",
         headers: {}, 
         data: {
             token: token

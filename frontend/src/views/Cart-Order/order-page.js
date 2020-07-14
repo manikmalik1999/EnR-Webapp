@@ -68,7 +68,7 @@ export default function OrderDisplay(props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.comorders/myOrder",
+      url: "https://limitless-lowlands-36879.herokuapp.com/orders/myOrder",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -97,7 +97,7 @@ export default function OrderDisplay(props) {
   const handleSubmit = (e) => {
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.comreviews",
+      url: "https://limitless-lowlands-36879.herokuapp.com/reviews",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -128,7 +128,7 @@ export default function OrderDisplay(props) {
               <div key={pro._id} style={{ margin: "2vh" }} >
                 <Grid className="element" container spacing={3} >
                   <Grid item xs={3}>
-                    <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com" + pro.product.image} />
+                    <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.product.image} />
                   </Grid>
                   <hr />
                   <Grid item xs style={{ textAlign: "top", paddingLeft: "32px" }}>
@@ -165,7 +165,7 @@ export default function OrderDisplay(props) {
 //                 <div key={pro._id} style={{ margin: "2vh" }} >
 //                   <Grid className="element" container spacing={3} >
 //                     <Grid item xs={3}>
-//                       <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com" + pro.product.image} />
+//                       <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.product.image} />
 //                     </Grid>
 //                     <hr />
 //                     <Grid item xs style={{ textAlign: "top" }}>

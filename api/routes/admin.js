@@ -114,7 +114,7 @@ router.get("/approve/:message/:productId",SellerAuth, (req, res, next) => {
           message: 'message recieved',
         //   request: {
         //     type: 'GET',
-        //     url: "https://limitless-lowlands-36879.herokuapp.comproducts/"+ id,
+        //     url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ id,
         //   }
         });
         
@@ -143,7 +143,7 @@ router.get("/approve/:message/:productId",SellerAuth, (req, res, next) => {
           message: 'All products deleted',
           request:{
             type: 'POST',
-            url: 'https://limitless-lowlands-36879.herokuapp.comproducts',
+            url: 'https://limitless-lowlands-36879.herokuapp.com/products',
             body: {name: 'String', quantity: 'Number'}
           }
         }

@@ -94,7 +94,7 @@ const product = require("../models/product");
             cart: cart,
             request: {
                 type: 'GET',
-                url: "https://limitless-lowlands-36879.herokuapp.comorders"
+                url: "https://limitless-lowlands-36879.herokuapp.com/orders"
             }
         })
 
@@ -114,7 +114,7 @@ const product = require("../models/product");
               status: 200,
               request: {
                   type: "POST",
-                  url: "https://limitless-lowlands-36879.herokuapp.comorders",
+                  url: "https://limitless-lowlands-36879.herokuapp.com/orders",
                   body: {productId: 'ID', quantity:'Number'} 
               }
           })
