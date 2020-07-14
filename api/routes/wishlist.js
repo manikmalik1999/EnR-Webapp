@@ -85,11 +85,11 @@ const product = require("../models/product");
           res.status(200).json({
               message: "Removed",
               status: 200,
-              request: {
-                  type: "POST",
-                  url: "https://limitless-lowlands-36879.herokuapp.com/orders",
-                  body: {productId: 'ID', quantity:'Number'} 
-              }
+            //   request: {
+            //       type: "POST",
+            //       url: "https://limitless-lowlands-36879.herokuapp.com/orders",
+            //       body: {productId: 'ID', quantity:'Number'} 
+            //   }
           })
       })
       .catch(err=>{

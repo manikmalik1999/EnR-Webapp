@@ -8,10 +8,12 @@ const product = require("../models/product");
 
   router.post('/',checkAuth, (req, res, next) => {
     const {userId} = req.userData;
+    console.log(userId);
       console.log(req.body.productId);
       Cart.find({userId: userId, productId: req.body.productId})
       .then(result =>{
         if(result.length>=1){
+            console.log("here");
             res.json({
                   
                   message: "Already added to cart"
@@ -22,6 +24,7 @@ const product = require("../models/product");
               product.findById(req.body.productId)
               .then(product =>{
                   if(!product){
+                    console.log("here2");
                     return res.status(404).json({
                         message: "product Not found"
                     });

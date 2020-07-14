@@ -47,7 +47,7 @@ ReactDOM.render(
       <Route path="/seller-edit/:productId" component={sellerEdit} /> 
       <Route path="/seller-landing/" component={sellerLanding} />
       <Route path="/seller-products/" component={sellerDisplay} />
-      <Route path="/wishlist" component={WishlistDisplay} />
+      <Route path="/wishlist-page" component={WishlistDisplay} />
       <Route path="/" component={LandingPage} />
     </Switch>
   </Router>,
