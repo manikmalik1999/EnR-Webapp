@@ -115,7 +115,7 @@ export default function LandingPage(props) {
     formData.append('name', name);
     formData.append('description', description);
     formData.append('quantity', quantity);
-    formData.append('price', price.toFixed(2));
+    formData.append('price', price);
     formData.append('category', category);
     console.log(formData);
     axios({
