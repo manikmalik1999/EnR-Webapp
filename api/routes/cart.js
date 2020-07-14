@@ -123,7 +123,29 @@ const product = require("../models/product");
           }).status(500);
       });
       });
-  
+
+
+      router.patch("/:cartId",checkAuth, (req, res, next) => {
+        const id = req.params.cartId;
+        console.log(id);
+        Cart.updateOne({ _id: id }, { $set:{ 
+          quantity: req.body.quantity, 
+        } })
+          .exec()
+          .then(result => {
+            console.log(result);
+            res.json({
+              message: 'product updated',
+            }).status(200);
+          })
+          .catch(err => {
+            console.log("Entering error")
+            console.log(err);
+            res.status(500).json({
+              error: err
+            });
+          });
+      });
     //   router.get("/", (req, res, next) => {
     //     Cart.find()
     //     .select('')

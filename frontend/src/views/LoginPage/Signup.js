@@ -23,7 +23,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import TextField from '@material-ui/core/TextField';
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
-
+import { GoogleLogin } from 'react-google-login';
 import image from "assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
@@ -34,14 +34,46 @@ export default function SignUp(props) {
   const [password, setPassword] = useState("");
   const [signupcolor, setSignupColor] = useState("warning");
   const [message, setMessage]= useState("");
+  const [loginFal , setLoginFal] = useState(false);
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  
   setTimeout(function() {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
  
-
+  const responseSuccessGoogle =(response)=>{
+    axios({
+      method: 'post',
+      url: "https://limitless-lowlands-36879.herokuapp.com/users/google/login/",
+      headers: {}, 
+      data: {
+          tokenId: response.tokenId
+      }
+    }).then(res=>{
+      console.log(res);
+      window.location.href="/login-page";
+    })
+  }
+  const HandleLoginFaliure=()=>{
+    if(loginFal === true){
+      return(<SnackbarContent
+        message={
+          <span>
+           Something went wrong with Google SignUp
+          </span>
+        }
+        close
+        color="danger"
+        icon="info_outline"
+      />);
+    }
+    else {
+      return null;
+    }
+  }
+  
   function handleSignup(e){
     axios({
         method: 'post',
@@ -97,13 +129,31 @@ else {
         }}
       >
         <div className={classes.container}>
-          <HandleSignupResponse/>
+          <HandleSignupResponse/><HandleLoginFaliure/>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
                     <h4>SIGN UP</h4>
+                    <GoogleLogin
+                          clientId="744225883265-ru7qj83bl7bqsfcarhbp6c6qqqo71e64.apps.googleusercontent.com"
+                          buttonText="Login"
+                          render={renderProps => (
+                            <Button
+                            justIcon
+                            color="transparent"
+                            onClick={renderProps.onClick}
+                              >
+                            <i className={"fab fa-google-plus-g"} />
+                          </Button>
+                          )}
+                          onSuccess={responseSuccessGoogle}
+                          onFailure={(e)=>{ 
+                            setLoginFal(true);
+                          }}
+                          cookiePolicy={'single_host_origin'}
+                        />
                     {/* <div className={classes.socialLine}>
                       <Button
                         justIcon

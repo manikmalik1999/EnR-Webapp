@@ -14,11 +14,62 @@ const client = new OAuth2Client("744225883265-ru7qj83bl7bqsfcarhbp6c6qqqo71e64.a
 router.post('/google/login', (req,res,next)=>{
     const{tokenId}= req.body;
     client.verifyIdToken({idToken: tokenId, audience: "744225883265-ru7qj83bl7bqsfcarhbp6c6qqqo71e64.apps.googleusercontent.com" })
-    .then(res=>{
-        // const {email_verified}
-        console.log(res.payload);
+    .then(result=>{
+        const {email_verified, email, name}= result.payload;
+        if(email_verified){
+            User.find({email: email})
+            .exec()
+            .then(user =>{
+                    if (user.length>=1){
+                            const token = jwt.sign({
+                                    email: user[0].email,
+                                    userId: user[0]._id
+                                }, 
+                            process.env.JWT_KEY,
+                                {
+                                    expiresIn: "1h"
+                                }
+                                );
+                            return res.json({message: "Authorization Successful", token: token}).status(200);
+                    }
+                else{
+                    let password = name+email+process.env.JWT_KEY; 
+                    bcrypt.hash(password, 10, (err, hash)=>{
+                        if (err)
+                        { res.status(500).json({
+                            error: err
+                        });}
+                        else{
+                    const user = new User({
+                        _id: new mongoose.Types.ObjectId(),
+                        name: name,
+                        email: email,
+                        password: password
+                    }); 
+                    user.save()
+                        .then(result =>{
+                            console.log(result);
+                            res.status(201).json({
+                                message: 'User Created'
+                            });
+                         }).catch(err=>{
+                            return res.json({message: "Something Went Wrong"}).status(500);
+                         })
+                    }
+                })
+                }
+            })
+                }
+                else{
+                    return res.json({message: "Something Went Wrong"}).status(500);
+                }
+        // console.log(result.payload);
+    }).catch(err=>{
+        return res.json({message: "Something Went Wrong"}).status(500);
     })
 })
+
+
 router.post('/signup', (req, res, next)=>{
     User.find({email: req.body.email })
     .exec()
