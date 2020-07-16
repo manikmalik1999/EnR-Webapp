@@ -25,6 +25,11 @@ import sellerLanding from "views/SellerJourney/sellerLanding"
 import sellerDisplay from "views/SellerJourney/sellerProduct"
 import sellerEdit from "views/SellerJourney/seller-edit"
 import WishlistDisplay from 'views/Cart-Order/Wishlist'
+import Dashboard from 'views/SellerSection/components/Dashboard-components/Dashboard';
+import PendingProducts from 'views/SellerSection/components/PendingProducts/PendingProducts';
+import SellerAddProduct from 'views/SellerSection/SellerAddProduct';
+import SellerProducts from 'views/SellerSection/sellerProducts';
+import sellerEditProduct from 'views/SellerSection/sellerEditProduct';
 var hist = createBrowserHistory();
 //:searchquery
 ReactDOM.render(
@@ -44,10 +49,13 @@ ReactDOM.render(
       <Route path="/order-page" component={OrderDisplay} />
       <Route path="/seller-login" component={SellerLogin} />
       <Route path="/seller-signup" component={SellerSignup} />
-      <Route path="/seller-edit/:productId" component={sellerEdit} /> 
-      <Route path="/seller-landing/" component={sellerLanding} />
-      <Route path="/seller-products/" component={sellerDisplay} />
+      <Route path="/seller-edit/:productId" component={sellerEditProduct} /> 
+      {/* <Route path="/seller-landing/" component={sellerLanding} /> */}
+      <Route path="/seller-landing/" component={Dashboard} />
+      <Route path="/seller-products/" component={SellerProducts} />
+      <Route path="/seller-add-product/" component={SellerAddProduct} />
       <Route path="/wishlist-page" component={WishlistDisplay} />
+      <Route path="/dashboard/products" exact component={PendingProducts} />
       <Route path="/" component={LandingPage} />
     </Switch>
   </Router>,

@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.Outer{
+    border: none !important;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    display: inline-block;
+    padding-top: 8px ;
+    margin: 8px;
+}
+.Title{
+    font-weight: 700;
+    font-size: 24px ;
+}
+.Desc{
+    font-size: 16px ;
+}
+.Price{
+    font-size: 18px;
+    font-weight: 600;
+}
+.Outer:hover{
+    cursor: grab;
+    transform: translateY(-2px) ;
+    box-shadow: 1px 2px 15px rgb(177, 174, 174) ;
+    transition: all 0.3s;
+}
+.Image{
+    margin: auto;
+    width: auto;
+    height: 280px;
+}
