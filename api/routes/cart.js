@@ -8,10 +8,12 @@ const product = require("../models/product");
 
   router.post('/',checkAuth, (req, res, next) => {
     const {userId} = req.userData;
+    console.log(userId);
       console.log(req.body.productId);
       Cart.find({userId: userId, productId: req.body.productId})
       .then(result =>{
         if(result.length>=1){
+            console.log("here");
             res.json({
                   
                   message: "Already added to cart"
@@ -22,6 +24,7 @@ const product = require("../models/product");
               product.findById(req.body.productId)
               .then(product =>{
                   if(!product){
+                    console.log("here2");
                     return res.status(404).json({
                         message: "product Not found"
                     });
@@ -123,7 +126,29 @@ const product = require("../models/product");
           }).status(500);
       });
       });
-  
+
+
+      router.patch("/:cartId",checkAuth, (req, res, next) => {
+        const id = req.params.cartId;
+        console.log(id);
+        Cart.updateOne({ _id: id }, { $set:{ 
+          quantity: req.body.quantity, 
+        } })
+          .exec()
+          .then(result => {
+            console.log(result);
+            res.json({
+              message: 'product updated',
+            }).status(200);
+          })
+          .catch(err => {
+            console.log("Entering error")
+            console.log(err);
+            res.status(500).json({
+              error: err
+            });
+          });
+      });
     //   router.get("/", (req, res, next) => {
     //     Cart.find()
     //     .select('')

@@ -82,10 +82,14 @@ export default function CategoryDisplay(props) {
             <div className={classes.container}>
               <GridContainer style={{marginLeft:"10px",marginRight:"8px"}}>
                 {currentPro.map(pro =>(
-                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"15px"}}>
+                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"25px"}}>
                     <CardActionArea>
                       <CardMedia title={pro.name} >
-                        <img style={{height: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                      <GridContainer justify="center" alignItems="center" style={{height:"43vh"}}>
+                      <GridItem xs={12}>
+                        <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        </GridItem>
+                        </GridContainer>
                       </CardMedia>
                       <CardContent>
                         <Typography gutterBottom variant="h6" component="h3">                                                   

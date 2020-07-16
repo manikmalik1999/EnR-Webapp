@@ -68,7 +68,7 @@ function Ecart () {
   return (
     <div className="container-fluid" style={{paddingBottom:"40px"}}>
       <img style={{width:"30vw", display:"block", marginLeft:"auto", marginRight:"auto"}} src={wimg} alt="Empty-Wishlist" />
-      <Button variant="contained" style={{display:"block", marginLeft:"auto", marginRight:"auto"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
+      <Button variant="contained" style={{ display: "block",margin:"auto",width:"20%",backgroundColor: "#00897b"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
     </div>
   );
 }
@@ -98,6 +98,7 @@ export default function WishlistDisplay() {
         window.location.href="/login-page";
       }
       count = res.data.count;
+      console.log(res.data);
       setProducts(res.data.wishlist);
       setLoading(false);
     })
@@ -116,7 +117,7 @@ export default function WishlistDisplay() {
         window.location.href="/login-page";
       }
       else if(res.data.status === 200){
-        window.location.href ="/wishlist";
+        window.location.reload();
       }
       else{
         setAlert({
@@ -126,8 +127,10 @@ export default function WishlistDisplay() {
     })
   }
 
-  const HandleCart = (id) => {
+  const HandleCart = (id, delid) => {
+    let quantity = 1;
     console.log(id);
+    console.log(delid);
     axios({
       method: 'post',
       url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
@@ -136,11 +139,13 @@ export default function WishlistDisplay() {
       },
       data: {
         productId: id,
+        quantity: quantity,
       }
 
     }).then(res => {
       console.log(res);
       if (res.data.status === 201) {
+        handleRemove(delid);
         setCartRes({
           message: res.data.message,
           color: "success"
@@ -157,6 +162,7 @@ export default function WishlistDisplay() {
       }
 
     })
+ 
   }
 
   const DeleteResponse=()=>{
@@ -198,34 +204,36 @@ export default function WishlistDisplay() {
     <div>
       <NavBar/>
         <div style={{ marginTop:"10vh"}} className={classNames(classe.main, classe.mainRaised)}>
-          <h4 style={{color:"green", marginLeft:"1vw"}} ><b>Wishlist</b> ({count})</h4>
+          <h4 style={{color:"green", marginLeft:"1vw", padding:"1vw"}} ><b>Wishlist</b> ({count})</h4>
     <HandleWishResponse />
     <DeleteResponse />
     {loading ? <Loading /> : (count ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="center">Wishlist</StyledTableCell>
-            <StyledTableCell align="center">Product</StyledTableCell>
-            <StyledTableCell align="center">Price&nbsp;(£)</StyledTableCell>
-            <StyledTableCell align="center">Quantity&nbsp;</StyledTableCell>
-            <StyledTableCell align="center">Action</StyledTableCell>
+        <TableHead >
+          <TableRow style={{backgroundColor: "#00897b"}}>
+            <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Wishlist</StyledTableCell>
+            <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Product</StyledTableCell>
+            <StyledTableCell style={{backgroundColor: "#00897b"}}  align="center">Price&nbsp;(£)</StyledTableCell>
+            {/* <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Quantity&nbsp;</StyledTableCell> */}
+            <StyledTableCell style={{backgroundColor: "#00897b"}} align="center">Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
         {products.map(pro =>(
-          <StyledTableRow key={pro.name}>
+    
+          <StyledTableRow style={{padding:"1vw",marginTop:"1vh"}} key={pro.name}>
             <StyledTableCell component="th" scope="row" padding="none" align="center"><img style={{height: "22vh", width: "auto"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} /></StyledTableCell>
             <StyledTableCell align="center"><Link to={"/Display/" + pro.productId} target="_blank">{pro.name}</Link></StyledTableCell>
             <StyledTableCell align="center">{pro.price}</StyledTableCell>
-            <StyledTableCell align="center">{pro.quantity}</StyledTableCell>
-            <StyledTableCell align="center"><IconButton onClick={() => HandleCart(pro._id)} color="primary" aria-label="add to shopping cart">
+            {/* <StyledTableCell align="center">{pro.quantity}</StyledTableCell> */}
+            <StyledTableCell align="center"><IconButton onClick={() => HandleCart(pro.productId, pro._id)} color="primary" aria-label="add to shopping cart">
         <AddShoppingCartIcon />
       </IconButton>  <IconButton onClick={() => handleRemove(pro._id)} style={{marginLeft:"8px"}} aria-label="delete">
         <DeleteIcon />
       </IconButton></StyledTableCell>
           </StyledTableRow>
+          
         ))}
         </TableBody>
       </Table>

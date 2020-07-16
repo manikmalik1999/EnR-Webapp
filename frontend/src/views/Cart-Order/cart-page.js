@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
-
+import TextField from '@material-ui/core/TextField';
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import NavBar from "components/Header/Navbar";
 import Grid from '@material-ui/core/Grid';
@@ -62,6 +62,7 @@ export default function CartDisplay(props) {
   const [products, setProducts] = useState([]);
   const [alert, setAlert] = useState([]);
   const [loading, setLoading] = useState(true);
+  // const [quantity, setQuantity]= useState(0);
   if (!Token) {
     window.location.href = "/login-page";
   }
@@ -74,16 +75,47 @@ export default function CartDisplay(props) {
       }
     })
       .then(res => {
+        console.log(res.data);
         if (res.data.status === 401) {
           window.location.href = "/login-page";
         }
         count = res.data.count;
         totalAmount = res.data.Price;
         setProducts(res.data.cart);
+        // setQuantity(res.data.cart.quantity);
         setLoading(false);
+        // setQuantity(res.data.cart.quantity);
       })
   }, [])
-
+const quantityChange =(e)=>{
+  if(e.target.value < 1){
+    setAlert({
+      status: 500,
+    });
+  }
+  else{
+  console.log(e.target.value);
+  console.log(e.target.id);
+  axios({
+    method: 'patch',
+    url: "https://limitless-lowlands-36879.herokuapp.com/cart/"+ e.target.id,
+    headers: {
+      'Authorization': 'Bearer ' + Token,
+    },
+    data:{
+      quantity: e.target.value,
+    }
+  }).then(response=>{
+    if(response.status===200)
+      window.location.reload();
+    else 
+    { setAlert({
+      status: response.status,
+    });
+  }
+  })
+}
+}
   const makePayment = (token) => {
     {/*also provide product info  */ }
     axios({
@@ -178,7 +210,16 @@ export default function CartDisplay(props) {
                       <Link to={"/Display/" + pro.productId} target="_blank" style={{ fontWeight: "400", fontSize: "18px" }}>
                         {pro.name}
                       </Link>
-                      <p style={{ color: "black" }}>Quantity: {pro.quantity}</p>
+                      {/* <p style={{ color: "black" }}>Quantity: {pro.quantity}</p> */}
+                      <TextField
+                      label="Quantity"
+                      id={pro._id}
+                      type="number"
+                      style={{width:"25vw", display:"block", marginTop:"2vh"}}
+                      variant="outlined"
+                      value={pro.quantity}
+                      onChange={quantityChange}
+                    />
                       <Link style={{ color: "#f44336", fontWeight: "400" }} to={"/Display/" + pro.productId} target="_blank">
                         £: {pro.price}
                       </Link>

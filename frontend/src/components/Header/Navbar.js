@@ -185,6 +185,9 @@ export default function PrimarySearchAppBar(props) {
   const HandleOrder = (e) => {
     window.location.href = "/order-page";
   }
+  const HandleWishlist = (e) => {
+    window.location.href = "/wishlist-page";
+  }
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -198,6 +201,7 @@ export default function PrimarySearchAppBar(props) {
       style={{ display: account }}
     >
       <MenuItem onClick={HandleOrder}>My Orders</MenuItem>
+      <MenuItem onClick={HandleWishlist}>My Wishlist</MenuItem>
       <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
     </Menu>
   );

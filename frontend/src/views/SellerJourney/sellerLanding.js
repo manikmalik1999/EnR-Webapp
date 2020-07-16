@@ -102,6 +102,11 @@ export default function LandingPage(props) {
   const handleAdding = (e) => {
     setLoading(true) ;
     console.log(proimage);
+    if(proimage.length !=3 || !name || !description || !price || !category){
+      setResponse(500);
+    }
+    else{
+      console.log("entering");
     var formData = new FormData()
     for (let i = 0; i < 3; i++) {
       formData.append('productImage', proimage[i]);
@@ -114,7 +119,6 @@ export default function LandingPage(props) {
     console.log(formData);
     axios({
       method: 'post',
-
       url: "https://limitless-lowlands-36879.herokuapp.com/products",
       data: formData,
       headers: {
@@ -132,6 +136,7 @@ export default function LandingPage(props) {
       setLoading(false) ;
       console.log(err) ;
     })
+  }
   }
   let loader = null;
   if (loading) {

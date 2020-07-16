@@ -12,9 +12,10 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [
-    "robotics",
-    "lab",
-    "UIET"
+    "e-Commerce",
+    "EnR",
+    "London",
+    "UK"
   ],
   "author": "ManikMalik",
   "license": "MIT",
@@ -34,6 +35,8 @@
     "multer-gridfs-storage": "^4.2.0",
     "nodemailer": "^6.4.8",
     "nodemon": "^1.19.4",
+    "react-facebook-login": "^4.1.1",
+    "react-image-magnify": "^2.7.4",
     "stripe": "^8.67.0",
     "uuid": "^8.2.0"
   },

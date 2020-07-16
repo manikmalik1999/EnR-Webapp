@@ -41,11 +41,6 @@ import Card from "components/Card/Card.js";
 import Chip from '@material-ui/core/Chip';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import TextField from '@material-ui/core/TextField';
-
-import image1 from "assets/img/1592674003336hockey-Stick.jpg";
-import image2 from "assets/img/bg2.jpg";
-import image3 from "assets/img/bg3.jpg";
-
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -58,7 +53,8 @@ import Close from "@material-ui/icons/Close";
 import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link } from 'react-router-dom';
-import { Paper } from '@material-ui/core';
+import './examples.css';
+import ReactImageMagnify from 'react-image-magnify';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -120,7 +116,7 @@ function SectionCarousel(props) {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 100,
+    speed: 400,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true
@@ -128,31 +124,91 @@ function SectionCarousel(props) {
   return (
     <GridContainer justify="center" alignItems="center" style={{height:"100%"}}>
       <GridItem xs={12}>
-        <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "100%", height: "auto", maxHeigt: "450px" }}>
+        <Card style={{ boxShadow: "2px 3px 15px lightgrey ", width: "100%" }}>
           <Carousel {...settings} style={{ padding: "12px" }}>
-            <div style={{margin:"auto"}}>
-              <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img1}
-                alt="First slide"
-                className="slick-image"
-                style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
-              />
+          <div>
+            <GridContainer justify="center" alignItems="center" style={{height:"580px"}}>
+            <GridItem xs={12}>
+            <ReactImageMagnify
+                            {...{
+                                smallImage: {
+                                    alt: 'Wristwatch by Versace',
+                                    isFluidWidth: true,
+                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img1,
+                                    sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
+                                },
+                                largeImage: {
+                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img1,
+                                    width: 1000,
+                                    height: 1080
+                                },
+                                lensStyle: { backgroundColor: 'rgba(0,0,0,.1)' },
+                                  enlargedImagePortalId: 'portal',
+                                  enlargedImageContainerDimensions: {
+                                      width: '120%',
+                                      height: '105%'
+                                  },
+                                  shouldUsePositiveSpaceLens: true
+                            }} 
+                        />
+              </GridItem>
+              </GridContainer>
             </div>
             <div>
-              <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img2}
-                alt="First slide"
-                className="slick-image"
-                style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
-              />
+            <GridContainer justify="center" alignItems="center" style={{height:"580px"}}>
+            <GridItem xs={12}>
+            <ReactImageMagnify
+                            {...{
+                                smallImage: {
+                                    alt: 'Wristwatch by Versace',
+                                    isFluidWidth: true,
+                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img2,
+                                    sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
+                                },
+                                largeImage: {
+                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img2,
+                                    width: 1000,
+                                    height: 1080
+                                },
+                                lensStyle: { backgroundColor: 'rgba(0,0,0,.1)' },
+                                  enlargedImagePortalId: 'portal',
+                                  enlargedImageContainerDimensions: {
+                                      width: '120%',
+                                      height: '105%'
+                                  },
+                                  shouldUsePositiveSpaceLens: true
+                            }} 
+                        />
+              </GridItem>
+              </GridContainer>
             </div>
             <div>
-              <img
-                src={"https://limitless-lowlands-36879.herokuapp.com/" + props.img3}
-                alt="First slide"
-                className="slick-image"
-                style={{ float: "left", height: "auto", width: "23vw",minHeight:"auto",margin:"auto",maxHeight:"500px" }}
-              />
+            <GridContainer justify="center" alignItems="center" style={{height:"580px"}}>
+            <GridItem xs={12}>
+            <ReactImageMagnify
+                            {...{
+                                smallImage: {
+                                    alt: 'Wristwatch by Versace',
+                                    isFluidWidth: true,
+                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img3,
+                                    sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 20vw, 360px'
+                                },
+                                largeImage: {
+                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img3,
+                                    width: 1000,
+                                    height: 1080
+                                },
+                                lensStyle: { backgroundColor: 'rgba(0,0,0,.1)' },
+                                  enlargedImagePortalId: 'portal',
+                                  enlargedImageContainerDimensions: {
+                                      width: '120%',
+                                      height: '105%'
+                                  },
+                                  shouldUsePositiveSpaceLens: true
+                            }} 
+                        />
+                        </GridItem>
+                        </GridContainer>
             </div>
           </Carousel>
         </Card>
@@ -378,8 +434,8 @@ export default function SingleProd(props) {
               <div className={classes.container}>
                 <QuantityResponse />
                 <HandleCartResponse />
-                <Grid className="element" container spacing={3} alignContent="center" style={{ borderBottom: "1px solid lightgrey", marginBottom:"12px" }} >
-                  <Grid item xs={12} lg={5} style={{ float: "left", marginLeft: "auto", marginRight: "auto" }}>
+                <Grid className="element fluid react-slick" container spacing={3} alignContent="center" style={{ borderBottom: "1px solid lightgrey", marginBottom:"12px" }} >
+                  <Grid item className="fluid__image-container" xs={12} lg={5} style={{ float: "left", marginLeft: "auto", marginRight: "auto" }}>
                     <SectionCarousel img1={pro.image} img2={pro.image2} img3={pro.image3} />
                   </Grid>
                   {/* <Grid item xs={12} lg={1}></Grid> */}
@@ -387,7 +443,12 @@ export default function SingleProd(props) {
                     <Button onClick={HandleCart}  size="small" variant="contained" style={{ backgroundColor: "#00e676", marginRight: "0.8vw", fontSize: "1.4vw" }}>Cart</Button>
                     <Button variant="contained" size="small" style={{ backgroundColor: "#33eb91", fontSize: "1.4vw" }}>Wishlist</Button>
                   </div> */}
-                  <Grid item xs={12} lg={6} style={{ color: "black", marginLeft: "1vw" }} >
+                  <Grid item xs={12} lg={6} style={{ color: "black", marginLeft: "1vw", position: "relative" }} className="fluid__instructions">
+            <GridContainer justify="center" alignItems="center">
+            <GridItem xs={12}>
+                  <div className={classNames(classes.main, classes.mainRaised)}
+                        id="portal"
+                    /></GridItem></GridContainer>
                     <h2 style={{ fontSize: "2rem", fontWeight: "400" }}>{pro.name}</h2>
                     <hr></hr>
                     <h4 style={{ fontSize: "1.3rem" }}>{pro.description}</h4>
