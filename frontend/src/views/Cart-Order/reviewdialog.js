@@ -75,7 +75,6 @@ export default function FormDialog(props) {
         <DialogContent>
         <div className={classes.root}>
         <Rating
-            
             style={{fontSize : "60"}}
             name="hover-feedback"
             icon={<Star fontSize="large"/>}

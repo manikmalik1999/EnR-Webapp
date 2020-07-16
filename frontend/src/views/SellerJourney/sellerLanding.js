@@ -155,7 +155,7 @@ export default function LandingPage(props) {
         <div style={{ paddingTop: "32px", zIndex: "200" }}>
           <HandleSubmitResponse />
           <GridContainer justify="center">
-            <GridItem xs={12} sm={12} md={4}>
+            <GridItem xs={12} sm={12} md={4} style={{padding:"12px"}}>
               <Card className={classes[cardAnimaton]} style={{ boxShadow: "2px 4px 12px #1A5653",background:"#B1D8B7" }}>
                 <form className={classes.form}>
                   <CardHeader style={{ background: "#022D41", borderTopLeftRadius: "14px", borderBottomRightRadius: "14px" }} className={classes.cardHeader}>
