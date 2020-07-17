@@ -78,11 +78,11 @@ export default function SearchDisplay(props) {
         <Paper>
           <div style={{ marginTop:"10vh"}} className={classNames(classes.main, classes.mainRaised)}>
             <Categories />
-            <h3 style={{color: "#512da8", textAlign:"center"}} ><b>{search.toUpperCase()}</b> </h3>
+            <h4 style={{color: "#512da8", marginLeft:"2vw"}}>Search Results for: "<b style={{fontSize:"1vw"}}>{search.toUpperCase()}</b>" </h4>
             <div className={classes.container}>
               <GridContainer style={{marginLeft:"10px",marginRight:"8px"}}>
                 {currentPro.map(pro =>(
-                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"25px"}}>
+                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"5vh"}}>
                     <CardActionArea>
                       <CardMedia title={pro.name} >
                       <GridContainer justify="center" alignItems="center" style={{height:"43vh"}}>

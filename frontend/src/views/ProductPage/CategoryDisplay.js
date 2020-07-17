@@ -82,7 +82,7 @@ export default function CategoryDisplay(props) {
             <div className={classes.container}>
               <GridContainer style={{marginLeft:"10px",marginRight:"8px"}}>
                 {currentPro.map(pro =>(
-                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"25px"}}>
+                  <GridItem xs={6} md={4} lg={3} style={{marginBottom:"5vh"}}>
                     <CardActionArea>
                       <CardMedia title={pro.name} >
                       <GridContainer justify="center" alignItems="center" style={{height:"43vh"}}>

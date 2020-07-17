@@ -55,7 +55,8 @@ export default function SignUp(props) {
       }).then(res =>{
             setMessage(res.data.message);
             if((res.data.status) === 201){
-                setSignupColor("success");
+                // setSignupColor("success");
+                window.location.href="/seller-login";
              }
              else{
               setSignupColor("danger");

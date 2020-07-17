@@ -75,7 +75,7 @@ export default function LandingPage(props) {
       return (<SnackbarContent
         message={
           <span>
-            Something Went Wrong
+            Something Went Wrong! Make sure you add 3 images, Don't leave anything blank and numbers should be logical
         </span>
         }
         close
@@ -102,10 +102,11 @@ export default function LandingPage(props) {
   const handleAdding = (e) => {
     setLoading(true) ;
     console.log(proimage);
-    if(proimage.length !=3 || !name || !description || !price || !category){
+    if(proimage.length !=3 || !name || !description || price<=0 || !category || quantity<1){
       setResponse(500);
     }
     else{
+      Math.round(quantity);
       console.log("entering");
     var formData = new FormData()
     for (let i = 0; i < 3; i++) {
@@ -204,7 +205,7 @@ export default function LandingPage(props) {
                       onChange={e => { setDescription(e.target.value) }}
                     />
                     <TextField
-                      label="category"
+                      label="Category"
                       id="category"
                       type="text"
                       fullWidth
