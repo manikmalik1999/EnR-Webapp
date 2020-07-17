@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import './overlay.css'
 // @material-ui/core components
 
 // @material-ui/icons
@@ -83,11 +84,12 @@ export default function CategoryDisplay(props) {
               <GridContainer style={{marginLeft:"10px",marginRight:"8px"}}>
                 {currentPro.map(pro =>(
                   <GridItem xs={6} md={4} lg={3} style={{marginBottom:"25px"}}>
-                    <CardActionArea>
+                    <CardActionArea   className="contain">
                       <CardMedia title={pro.name} >
                       <GridContainer justify="center" alignItems="center" style={{height:"43vh"}}>
-                      <GridItem xs={12}>
+                      <GridItem xs={12} style={{backgroundImage: `url(https://limitless-lowlands-36879.herokuapp.com/products/image/19e520d85461cfe9176eb7d9b232541b.jpg)`}}>
                         <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                      <span class="button"><a href="#"> BUTTON </a></span>
                         </GridItem>
                         </GridContainer>
                       </CardMedia>

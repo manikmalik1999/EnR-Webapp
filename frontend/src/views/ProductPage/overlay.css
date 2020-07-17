@@ -1,0 +1,27 @@
+
+  .button {
+    position: absolute;
+    text-align: center;
+    opacity: 1;
+    transition: opacity .35s ease;
+  }
+  img {
+    transition: opacity .35s ease;
+  }
+  img:hover {
+    position: 'relative';
+      z-index: 1;
+    opacity: 0.6
+  }
+
+  .button a {
+    text-align: center;
+    color: black;
+    border: solid 2px white;
+    z-index: 1;
+  }
+  
+  .contain:hover .button {
+    opacity: 1;
+  }
+  
