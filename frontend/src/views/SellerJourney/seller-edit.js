@@ -92,13 +92,15 @@ export default function LandingPage(props) {
     if (description) { desc = description }
     else desc = product.description
 
-    if (quantity) { quant = quantity }
+    if (quantity>0) { quant = quantity 
+    Math.round(quant);
+    }
     else quant = product.quantity;
 
     if (category) { cat = category }
     else cat = product.category;
 
-    if (price) { pri = price }
+    if (price>0) { pri = price }
     else pri = product.price;
     axios({
       method: 'patch',
@@ -111,7 +113,7 @@ export default function LandingPage(props) {
           name: n,
           description: desc,
           quantity: quant,
-          price: pri,
+          price: pri.toFixed(2),
           category: cat,
         }
       }
