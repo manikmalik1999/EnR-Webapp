@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -29,8 +29,13 @@ import work2 from "assets/img/examples/clem-onojeghuo.jpg";
 import work3 from "assets/img/examples/cynthia-del-rio.jpg";
 import work4 from "assets/img/examples/mariya-georgieva.jpg";
 import work5 from "assets/img/examples/clem-onojegaw.jpg";
+import pain from 'assets/img/pain.png';
+
+import Axios from 'axios';
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
+
+const sellerToken = sessionStorage.getItem('TokenSeller');
 
 const useStyles = makeStyles(styles);
 
@@ -43,9 +48,33 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+
+  const [orders,setOrders] = useState({
+    orders : null
+  });
+
+  useEffect(() => {
+    // console.log(token) ;
+
+    Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
+      headers: {
+        "Authorization": "Bearer " + sellerToken
+      }
+    })
+      .then(response => {
+        setOrders({
+          orders: response.data.orders
+        })
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+  }, []);
+
   return (
     <div>
-      <Header
+      {/* <Header
         color="transparent"
         brand="Material Kit React"
         rightLinks={<HeaderLinks />}
@@ -55,21 +84,21 @@ export default function ProfilePage(props) {
           color: "white"
         }}
         {...rest}
-      />
+      /> */}
       <Parallax small filter image={require("assets/img/profile-bg.jpg")} />
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      <div>
         <div>
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={6}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={profile} alt="..." className={imageClasses} />
+                    <img src={pain} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}>Christian Louboutin</h3>
-                    <h6>DESIGNER</h6>
-                    <Button justIcon link className={classes.margin5}>
+                    <h3 className={classes.title}>{props.name}</h3>
+                    <h6>Trusted Seller</h6>
+                    {/* <Button justIcon link className={classes.margin5}>
                       <i className={"fab fa-twitter"} />
                     </Button>
                     <Button justIcon link className={classes.margin5}>
@@ -77,7 +106,7 @@ export default function ProfilePage(props) {
                     </Button>
                     <Button justIcon link className={classes.margin5}>
                       <i className={"fab fa-facebook"} />
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </GridItem>
@@ -90,14 +119,15 @@ export default function ProfilePage(props) {
                 feel with a solid groove structure.{" "}
               </p>
             </div>
-            <GridContainer justify="center">
+            
+            {/* <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
                 <NavPills
                   alignCenter
                   color="primary"
                   tabs={[
                     {
-                      tabButton: "Studio",
+                      tabButton: "Graph",
                       tabIcon: Camera,
                       tabContent: (
                         <GridContainer justify="center">
@@ -129,7 +159,7 @@ export default function ProfilePage(props) {
                       )
                     },
                     {
-                      tabButton: "Work",
+                      tabButton: "Revenue",
                       tabIcon: Palette,
                       tabContent: (
                         <GridContainer justify="center">
@@ -166,7 +196,7 @@ export default function ProfilePage(props) {
                       )
                     },
                     {
-                      tabButton: "Favorite",
+                      tabButton: "Chart",
                       tabIcon: Favorite,
                       tabContent: (
                         <GridContainer justify="center">
@@ -205,11 +235,11 @@ export default function ProfilePage(props) {
                   ]}
                 />
               </GridItem>
-            </GridContainer>
+            </GridContainer> */}
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

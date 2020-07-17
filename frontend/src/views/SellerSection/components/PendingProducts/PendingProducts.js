@@ -96,37 +96,37 @@ class PendingProducts extends Component {
                     console.log(err);
                 });
         }
-        else if (this.props.match.params.category) {
-            console.log(this.props.match.params.category);
-            axios
-                .get('https://limitless-lowlands-36879.herokuapp.com/products')
-                .then(response => {
-                    const products = response.data.products;
-                    const pendingProducts = products.filter(i => {
-                        return i.approved === "pending" && i.category.toLowerCase() === this.props.match.params.category;
-                    });
-                    const approvedProducts = products.filter(i => {
-                        return i.approved === "true" && i.category.toLowerCase() === this.props.match.params.category;
-                    });
-                    const rejectedProducts = products.filter(i => {
-                        return i.approved === "false" && i.category.toLowerCase() === this.props.match.params.category;
-                    });
-                    this.setState({
-                        pendingProducts: pendingProducts,
-                        approvedProducts: approvedProducts,
-                        rejectedProducts: rejectedProducts,
-                        loading: false,
-                        snack: {
-                            show: this.props && this.props.location && this.props.location.state && true,
-                            message: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "Product Accepted" : "Product Denied",
-                            color: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "green" : "red"
-                        }
-                    })
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
+        // else if (this.props.match.params.category) {
+        //     console.log(this.props.match.params.category);
+        //     axios
+        //         .get('https://limitless-lowlands-36879.herokuapp.com/products')
+        //         .then(response => {
+        //             const products = response.data.products;
+        //             const pendingProducts = products.filter(i => {
+        //                 return i.approved === "pending" && i.category.toLowerCase() === this.props.match.params.category;
+        //             });
+        //             const approvedProducts = products.filter(i => {
+        //                 return i.approved === "true" && i.category.toLowerCase() === this.props.match.params.category;
+        //             });
+        //             const rejectedProducts = products.filter(i => {
+        //                 return i.approved === "false" && i.category.toLowerCase() === this.props.match.params.category;
+        //             });
+        //             this.setState({
+        //                 pendingProducts: pendingProducts,
+        //                 approvedProducts: approvedProducts,
+        //                 rejectedProducts: rejectedProducts,
+        //                 loading: false,
+        //                 snack: {
+        //                     show: this.props && this.props.location && this.props.location.state && true,
+        //                     message: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "Product Accepted" : "Product Denied",
+        //                     color: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "green" : "red"
+        //                 }
+        //             })
+        //         })
+        //         .catch(err => {
+        //             console.log(err);
+        //         });
+        // }
         else {
             axios
                 .get('https://limitless-lowlands-36879.herokuapp.com/products')
