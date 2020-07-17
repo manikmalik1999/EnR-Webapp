@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.Image{
+    width: 22rem;
+    height: 28rem;
+}
+.Details{
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left : 18px ;
+    vertical-align: middle;
+    font-family: 'Lato', sans-serif;
+}
+.VerLine{
+    margin-left : 50px ;
+    border-left: 1px solid rgb(190, 189, 189) ;
+}
+.Btn{
+    margin: 20px auto ;
+    width: 100%;
+}

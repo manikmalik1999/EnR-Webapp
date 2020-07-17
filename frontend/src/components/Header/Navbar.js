@@ -165,7 +165,9 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
   const handleSearch = (e) => {
+    if(search){
     window.location.href = "/search/" + search;
+    }
   }
   const HandleEnter = (e) => {
 
