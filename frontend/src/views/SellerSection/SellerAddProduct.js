@@ -59,6 +59,8 @@ import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
+import adv from "../../assets/img/adv.jpg";
+
 
 const cookies = new Cookies();
 const sellerToken = sessionStorage.getItem("TokenSeller")
@@ -158,98 +160,131 @@ const useStyles = makeStyles((theme) => ({
   },
   fixedHeight: {
     height: 240,
-  },
+  }
 }));
 
 const Dashboard = (props) => {
+  const [seller, setSeller] = useState({
+    name: "Loading..."
+  });
 
-    const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [proimage, setImage] = useState([]);
   const [response, setResponse] = useState(0);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [loading,setLoading] = useState(false) ;
+  const [loading, setLoading] = useState(false);
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
 
-  const HandleSubmitResponse = (e) => {
-
-    if (response === 500) {
-      return (<SnackbarContent
-        message={
-          <span>
-            Something Went Wrong
-        </span>
-        }
-        close
-        color="danger"
-        icon="info_outline"
-      />)
-    }
-    else if (response === 201) {
-      return (<SnackbarContent
-        message={
-          <span>
-            Product Added
-          </span>
-        }
-        close
-        color="success"
-        icon="info_outline"
-      />)
-    }
-    else
-      return null;
-  }
-
   const handleAdding = (e) => {
-    setLoading(true) ;
-    console.log(proimage);
-    if(proimage.length !=3 || !name || !description || !price || !category){
-      setResponse(500);
+    setLoading(true);
+    let msg = [];
+    // setLoading(false) ;
+    // setSnack({
+    //   show: true,
+    //   message: "Add Exactly 3 Images",
+    //   color: "red"
+    // })
+    if (!name) {
+      msg.push("name");
     }
-    else{
+    if (!description) {
+      msg.push("description");
+    }
+    if (!price) {
+      msg.push("price");
+    }
+    if (!quantity) {
+      msg.push("quantity");
+    }
+    if (!category) {
+      msg.push("category");
+    }
+    if (proimage.length !== 3) {
+      msg.push("exactly 3 Images");
+    }
+    if (msg.length !== 0) {
+      console.log(msg) ;
+      setLoading(false);
+      let finalMsg = "" ;
+      if (msg.length === 1) {
+        if(msg[0] === "exactly 3 Images"){
+          finalMsg = "Please enter " ;
+        } else {
+          finalMsg = "Please enter a valid " ;
+        }
+        finalMsg = finalMsg + msg[0]  ;
+      } else {
+        finalMsg = "Please enter a valid ";
+        for (let i = 0; i < msg.length; ++i) {
+          finalMsg = finalMsg + msg[i];
+          if (i < msg.length - 2) {
+            finalMsg = finalMsg + ",  ";
+          }
+          if (i === msg.length - 2) {
+            finalMsg = finalMsg + "  and  ";
+          }
+        }
+      }
+      setLoading(false);
+      setSnack({
+        show: true,
+        message: finalMsg,
+        color: "red"
+      })
+      // console.log(finalMsg);
+    }
+    else {
       console.log("entering");
-    var formData = new FormData()
-    for (let i = 0; i < 3; i++) {
-      formData.append('productImage', proimage[i]);
+      var formData = new FormData()
+      for (let i = 0; i < 3; i++) {
+        formData.append('productImage', proimage[i]);
+      }
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('quantity', Math.ceil(quantity));
+      formData.append('price', Math.floor(price * 100) / 100);
+      formData.append('category', category);
+      console.log(formData);
+      axios({
+        method: 'post',
+        url: "https://limitless-lowlands-36879.herokuapp.com/products",
+        data: formData,
+        headers: {
+          'Authorization': 'Bearer ' + sellerToken,
+          'Content-Type': 'multipart/form-data'
+        },
+      }).then(res => {
+        setLoading(false);
+        // setResponse(res.status);
+        setSnack({
+          show: true,
+          message: "Product Added ",
+          color: "green"
+        })
+      })
+        .catch(err => {
+          setSnack({
+            show: true,
+            message: "Server Didn't Respond, Try again Later",
+            color: "red"
+          })
+          setLoading(false);
+          console.log(err);
+        })
     }
-    formData.append('name', name);
-    formData.append('description', description);
-    formData.append('quantity', quantity);
-    formData.append('price', price);
-    formData.append('category', category);
-    console.log(formData);
-    axios({
-      method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/products",
-      data: formData,
-      headers: {
-        'Authorization': 'Bearer ' + sellerToken,
-        'Content-Type': 'multipart/form-data'
-      },
-    }).then(res => {
-      setLoading(false) ;
-      setResponse(res.status);
-      console.log(res.data.message);
-      console.log(res.status);
-    })
-    .catch(err => {
-      alert("add some data first") ;
-      setLoading(false) ;
-      console.log(err) ;
-    })
-  }
   }
   let loader = null;
   if (loading) {
-    loader = <div style={{ width: "50%", margin: "auto" }}><LinearProgress color="primary" /></div>
+    loader = <div style={{ width: "50%", margin: "auto",textAlign:"center" }}><LinearProgress color="primary" /><p style={{marginTop:"12px"}}>Please Hold on. This may take a while.</p></div>
   }
 
   //states
@@ -298,8 +333,8 @@ const Dashboard = (props) => {
 
 
   //consts
-//   const classes = useStyles();
-//   const token = cookies.get("Token");
+  //   const classes = useStyles();
+  //   const token = cookies.get("Token");
   // console.log(tokn) ;
   // setToken(tokn) ;
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -313,7 +348,20 @@ const Dashboard = (props) => {
   //   }}
   //   />;
   // }
-
+  useEffect(() => {
+    Axios({
+      method: 'get',
+      url: "https://limitless-lowlands-36879.herokuapp.com/sellers/myinfo",
+      headers: {
+        'Authorization': 'Bearer ' + sellerToken,
+      }
+    }).then(res => {
+      // console.log(sellerToken);
+      // console.log(res.data);
+      setSeller(res.data.sellers);
+      // sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
+    })
+  },[])
   //Snacks
   if (loginSnack.show) {
     setLoginSnack({
@@ -327,7 +375,6 @@ const Dashboard = (props) => {
   }
   //logout handler
   const logoutHandler = () => {
-    // console.log("logout");
     cookies.remove('Token', { path: '/' });
     setRedirect({
       to: <Redirect to="/login" />
@@ -338,64 +385,10 @@ const Dashboard = (props) => {
   }
   const removeNotificationHandler = () => {
     setNotification({
-      notification : false 
+      notification: false
     })
   }
 
-//   //data from orders
-//   useEffect(() => {
-//     // console.log(token) ;
-//     Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
-//       headers: {
-//         "Authorization": "Bearer " + token
-//       }
-//     })
-//       .then(response => {
-//         // console.log(response) ;
-//         setOrders({
-//           orders: response.data.orders
-//         })
-//         // setHttp({
-//         //   set: true
-//         // })
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-//     Axios.get("https://limitless-lowlands-36879.herokuapp.com/products", {
-//       headers: {
-//         "Authorization": "Bearer " + token
-//       }
-//     })
-//       .then(response => {
-//         // console.log(response.data) ;
-//         const prods = response.data.products.filter(product => {
-//           if (product.approved === "pending") {
-//             return true;
-//           }
-//           return false;
-//         })
-//         setPending({
-//           pending: prods.length || 0
-//         })
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-//     Axios.get("https://limitless-lowlands-36879.herokuapp.com/sellers", {
-//       headers: {
-//         "Authorization": "Bearer " + token
-//       }
-//     })
-//       .then(response => {
-//         setSellers({
-//           sellers: response.data.users
-//         })
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       })
-//   }, []);
   return (
     <div className={classes.root} >
       {redirect.to}
@@ -432,7 +425,7 @@ const Dashboard = (props) => {
           <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
             Enr Consultancies
           </Typography>
-
+          <Typography>{seller.name === "Loading..." ? "Loading..." : "Hi, " + seller.name}</Typography>
           <Tooltip title="Pending Products" TransitionComponent={Zoom} >
             <IconButton color="inherit">
               <LLink to="/dashboard/products" >
@@ -474,126 +467,127 @@ const Dashboard = (props) => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
 
-        {/* add-product */}
-        <div style={{ paddingTop: "32px", zIndex: "200" }}>
-          <HandleSubmitResponse />
-          <GridContainer justify="center">
-            <GridItem xs={12} sm={8} md={6}>
-              <Card className={classes[cardAnimaton]} style={{ boxShadow: "2px 4px 12px #1A5653",background:"#B1D8B7" }}>
-                <form className={classes.form}>
-                  <CardHeader style={{ background: "#022D41", borderTopLeftRadius: "14px", borderBottomRightRadius: "14px" }} className={classes.cardHeader}>
-                    <h4 style={{ color: "white" }}>Add Product</h4>
-                  </CardHeader>
-                  <p className={classes.divider}></p>
-                  <CardBody>
-                    <TextField
-                      label="Name"
-                      id="name"
-                      type="text"
-                      fullWidth
-                      style={{ paddingBottom: '10%' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <PersonIcon style={{ color: "#107869" }} />
-                          </InputAdornment>
-                        )
-                      }}
+          {/* add-product */}
+          <div style={{ zIndex: "200" }}>
+            <GridContainer justify="center">
+              <GridItem xs={12} sm={8} md={6}>
+                <Card className={classes[cardAnimaton]} style={{ background: "#EDF0EE", padding: "24px" }}>
+                  <form className={classes.form}>
+                    {/* <CardHeader style={{ background: "#08313A", borderTopLeftRadius: "14px", borderBottomRightRadius: "14px", padding: "24px" }} className={classes.cardHeader}>
+                      <h4 style={{ color: "white", textAlign: "center" }}>Add Product</h4>
+                    </CardHeader> */}
+                    <p className={classes.divider}></p>
+                    <CardBody>
+                      <TextField
+                        label="Name"
+                        id="name"
+                        type="text"
+                        fullWidth
+                        style={{ paddingBottom: '10%' }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <PersonIcon style={{ color: "#107869" }} />
+                            </InputAdornment>
+                          )
+                        }}
+                        value={name}
+                        onChange={e => { setName(e.target.value) }}
+                      />
 
-                      value={name}
-                      onChange={e => { setName(e.target.value) }}
-                    />
+                      <TextField
+                        label="Description"
+                        id="description"
+                        type="text"
+                        fullWidth
+                        style={{ paddingBottom: '10%' }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <DescriptionIcon style={{ color: "#107869" }} />
+                            </InputAdornment>
+                          )
+                        }}
 
-                    <TextField
-                      label="Description"
-                      id="description"
-                      type="text"
-                      fullWidth
-                      style={{ paddingBottom: '10%' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <DescriptionIcon style={{ color: "#107869" }} />
-                          </InputAdornment>
-                        )
-                      }}
+                        value={description}
+                        onChange={e => { setDescription(e.target.value) }}
+                      />
+                      <TextField
+                        label="category"
+                        id="category"
+                        type="text"
+                        fullWidth
+                        style={{ paddingBottom: '10%' }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <CategoryIcon style={{ color: "#107869" }} />
+                            </InputAdornment>
+                          )
+                        }}
 
-                      value={description}
-                      onChange={e => { setDescription(e.target.value) }}
-                    />
-                    <TextField
-                      label="category"
-                      id="category"
-                      type="text"
-                      fullWidth
-                      style={{ paddingBottom: '10%' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <CategoryIcon style={{ color: "#107869" }} />
-                          </InputAdornment>
-                        )
-                      }}
+                        value={category}
+                        onChange={e => { setCategory(e.target.value) }}
+                      />
+                      <TextField
+                        label="Price"
+                        id="price"
+                        type="number"
+                        fullWidth
+                        style={{ paddingBottom: '10%' }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <MoneyIcon style={{ color: "#107869" }} />
+                            </InputAdornment>
+                          )
+                        }}
 
-                      value={category}
-                      onChange={e => { setCategory(e.target.value) }}
-                    />
-                    <TextField
-                      label="Price"
-                      id="price"
-                      type="number"
-                      fullWidth
-                      style={{ paddingBottom: '10%' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <MoneyIcon style={{ color: "#107869" }} />
-                          </InputAdornment>
-                        )
-                      }}
+                        value={price}
+                        onChange={e => { setPrice(e.target.value) }}
+                      />
 
-                      value={price}
-                      onChange={e => { setPrice(e.target.value) }}
-                    />
+                      <TextField
+                        label="Quantity"
+                        id="price"
+                        type="number"
+                        fullWidth
+                        style={{ paddingBottom: '10%' }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <AllInboxIcon style={{ color: "#107869" }} />
+                            </InputAdornment>
+                          )
+                        }}
 
-                    <TextField
-                      label="Quantity"
-                      id="price"
-                      type="number"
-                      fullWidth
-                      style={{ paddingBottom: '10%' }}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <AllInboxIcon style={{ color: "#107869" }} />
-                          </InputAdornment>
-                        )
-                      }}
+                        value={quantity}
+                        onChange={e => { setQuantity(e.target.value) }}
+                      />
 
-                      value={quantity}
-                      onChange={e => { setQuantity(e.target.value) }}
-                    />
-
-                    <div className="form-group">
-                      <input type="file" multiple onChange={e => { setImage(...proimage, e.target.files) }} />
-                    </div>
-                    {/* setImage(e.target.files) */}
-                  </CardBody>
-                  <CardFooter className={classes.cardFooter}>
-                    <Button variant="outlined" color="success" style={{background:"#107869"}} size="sm" onClick={handleAdding}>
-                      Add
+                      <div className="form-group">
+                        <input type="file" multiple onChange={e => { setImage(...proimage, e.target.files) }} />
+                      </div>
+                      {/* setImage(e.target.files) */}
+                    </CardBody>
+                    <CardFooter className={classes.cardFooter}>
+                      <Button variant="outlined" color="success" style={{ background: "#2E3B55", width: '100%' }} size="lg" onClick={handleAdding}>
+                        Add
                     </Button>
-                  </CardFooter>
-                  <div style={{margin:"12px auto"}}>
-                    {loader}
-                  </div>
-                </form>
-              </Card>
-            </GridItem>
-          </GridContainer>
-        </div>
+                    </CardFooter>
+                    <div style={{ margin: "12px auto" }}>
+                      {loader}
+                    </div>
+                  </form>
+                </Card>
+              </GridItem>
+              {/* <GridItem lg={6}>
+                <img src={adv} style={{ borderRadius: "6px", maeginLeft: "-18px" }} width="100%" height="100%" />
+              </GridItem> */}
+            </GridContainer>
+          </div>
 
-            
+
 
           <Grid container spacing={3}>
             <Box pt={4}>
@@ -601,8 +595,8 @@ const Dashboard = (props) => {
             </Box>
           </Grid>
 
-            {/* Add - Product  */}
-            
+          {/* Add - Product  */}
+
         </Container>
       </main>
     </div>
