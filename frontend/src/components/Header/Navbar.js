@@ -18,7 +18,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
+    marginRight: "10vw",
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '23vw',
     },
   },
   sectionDesktop: {
@@ -91,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Token = sessionStorage.getItem('TokenKey');
 let count = 0;
+let cnt =0;
 let account = "none";
 export default function PrimarySearchAppBar(props) {
 
@@ -139,6 +140,24 @@ export default function PrimarySearchAppBar(props) {
           })
         }
 
+      })
+
+      axios({
+        method: 'get',
+        url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+        headers: {
+          'Authorization': 'Bearer ' + Token,
+        }
+      }).then(res => {
+        console.log(res);
+        if (res.data.status === 401) {
+          cnt = 0;
+        }
+        else if (res.status === 404)
+          cnt = 0;
+        else {
+          cnt = res.data.count;
+        }
       })
   }, [])
 
@@ -247,7 +266,8 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>login</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      { name ?
+      (<MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -258,6 +278,15 @@ export default function PrimarySearchAppBar(props) {
           <p >{name}</p>
         </IconButton>
         <p style={{ display: display }} >Profile</p>
+      </MenuItem>):null
+      }
+      <MenuItem onClick={HandleWishlist}>
+        <IconButton aria-label="show wishlist" color="inherit">
+          <Badge badgeContent={cnt} color="secondary">
+            <FavoriteIcon />
+          </Badge>
+        </IconButton>
+        <p>Wishlist</p>
       </MenuItem>
       <MenuItem onClick={HandleCart}>
         <IconButton aria-label="show cart" color="inherit">
@@ -273,7 +302,7 @@ export default function PrimarySearchAppBar(props) {
   //className={classes.grow}
   return (
     <div className={classes.grow} >
-      <AppBar style={{ backgroundColor: "#21B6A8" }} position="fixed">
+      <AppBar style={{ backgroundColor: "#165273" }} position="fixed">
         <Toolbar>
           <IconButton
             edge="start"
@@ -285,7 +314,7 @@ export default function PrimarySearchAppBar(props) {
             {/* <MenuIcon/> */}
             <img style={{ height: "7vh", width: "auto" }} src={logo} />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap style={{fontFamily:'Arial, Helvetica, sans-serif', fontSize:"1.5em"}}>
             EnR E-Commerce
           </Typography>
 
@@ -315,7 +344,8 @@ export default function PrimarySearchAppBar(props) {
             <Button style={{ background: "white", marginRight: "1vw", height: "5vh", marginTop: "1vh", display: display }} href="/sign-up">
               Sign-up
             </Button>
-            <Tooltip title={"Hi " + name}>
+            { name ?
+              (<Tooltip title={"Hi " + name}>
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -326,12 +356,19 @@ export default function PrimarySearchAppBar(props) {
               >
                 <AccountCircle style={{ display: account }} />
               </IconButton>
-            </Tooltip>
+            </Tooltip>):null}
             {/* <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton> */}
+            <Tooltip title="wishlist">
+              <IconButton aria-label="show user's wishlist" color="inherit" onClick={HandleWishlist}>
+                <Badge badgeContent={cnt} color="secondary">
+                <FavoriteIcon/>
+                </Badge>
+              </IconButton>
+            </Tooltip>
             <Tooltip title="cart">
               <IconButton aria-label="show user's cart" color="inherit" onClick={HandleCart}>
                 <Badge badgeContent={count} color="secondary">
