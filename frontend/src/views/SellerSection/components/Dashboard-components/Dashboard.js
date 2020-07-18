@@ -34,6 +34,7 @@ import Axios from 'axios';
 import Cookies from "universal-cookie";
 import { Redirect } from "react-router-dom";
 import { Snackbar, SnackbarContent } from "@material-ui/core";
+import ProfilePage from 'views/ProfilePage/ProfilePage';
 const cookies = new Cookies();
 
 
@@ -138,6 +139,7 @@ const Dashboard = (props) => {
   //states
 
   const [name, setName] = React.useState("Loading...");
+  const [nameSeller, setNameSeller] = React.useState("");
 
   const [loginSnack, setLoginSnack] = useState({
     show: true
@@ -238,31 +240,29 @@ const Dashboard = (props) => {
       }
     }).then(res => {
       // console.log(sellerToken);
-      // console.log(res.data);
+      console.log(res.data);
       setName("Hi, " + res.data.sellers.name);
+      setNameSeller(res.data.sellers.name);
       sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
     })
 
     Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
       headers: {
-        "Authorization": "Bearer " + token
+        "Authorization": "Bearer " + sellerToken
       }
     })
       .then(response => {
-        // console.log(response) ;
         setOrders({
           orders: response.data.orders
         })
-        // setHttp({
-        //   set: true
-        // })
       })
       .catch(err => {
         console.log(err);
       });
+
     Axios.get("https://limitless-lowlands-36879.herokuapp.com/products", {
       headers: {
-        "Authorization": "Bearer " + token
+        "Authorization": "Bearer " + sellerToken
       }
     })
       .then(response => {
@@ -282,7 +282,7 @@ const Dashboard = (props) => {
       });
     Axios.get("https://limitless-lowlands-36879.herokuapp.com/sellers", {
       headers: {
-        "Authorization": "Bearer " + token
+        "Authorization": "Bearer " + sellerToken
       }
     })
       .then(response => {
@@ -329,7 +329,7 @@ const Dashboard = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
-            Enr Consultancies
+            Enr SellerHub
           </Typography>
 
           <Typography>{name}</Typography>
@@ -376,6 +376,11 @@ const Dashboard = (props) => {
         <Container maxWidth="lg" className={classes.container}>
 
           {/* main-dashboard */}
+          <Grid item xs={12}>
+            <Paper className={classes.paper} style={{ minHeight: "380px" }}>
+              <ProfilePage name={nameSeller}/>
+            </Paper>
+          </Grid>
           <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>

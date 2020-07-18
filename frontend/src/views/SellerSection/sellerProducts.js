@@ -32,7 +32,6 @@ import Cookies from "universal-cookie";
 import { Redirect } from "react-router-dom";
 import { Snackbar, SnackbarContent } from "@material-ui/core";
 import axios from 'axios';
-import Footer from "components/Footer/Footer.js";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -148,7 +147,7 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'auto',
     },
     container: {
-        paddingTop: theme.spacing(4),
+        paddingTop: theme.spacing(0),
         paddingBottom: theme.spacing(4),
     },
     paper: {
@@ -287,16 +286,6 @@ const Dashboard = (props) => {
     const sellerToken = sessionStorage.getItem("TokenSeller");
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-    //redirects nullified for now
-    // let redirect = null;
-    // if (!token && !(props.location.state && props.location.state.justLoggedIn) && false) {
-    //   redirect = <Redirect to={{
-    //     pathname: '/login',
-    //     state: { message: null }
-    //   }}
-    //   />;
-    // }
-
     //Snacks
     if (loginSnack.show) {
         setLoginSnack({
@@ -349,13 +338,9 @@ const Dashboard = (props) => {
             }
         })
             .then(response => {
-                // console.log(response) ;
                 setOrders({
                     orders: response.data.orders
                 })
-                // setHttp({
-                //   set: true
-                // })
             })
             .catch(err => {
                 console.log(err);
@@ -476,7 +461,7 @@ const Dashboard = (props) => {
                 <Container maxWidth="lg" className={classes.container}>
 
                     {/* products */}
-                    <div style={{ marginTop: "8px", background: "#B1D8B7", width: "84%", borderRadius: "8px", margin: "auto" }}>
+                    <div style={{ marginTop: "0", background: "#98C0E0", width: "100%", borderRadius: "8px", margin: "auto" }}>
                         <h4 style={{ color: "green", marginLeft: "1vw" }} ><b></b> </h4>
                         <div className={classes.container} style={{ padding: "18px", paddingTop: "28px", minHeight: "580px" }}>
                             <HandleDeleteResponse />

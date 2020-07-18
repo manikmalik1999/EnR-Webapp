@@ -81,7 +81,7 @@ class PendingProductDetail extends Component {
         let redir = null;
         if (this.state.redirectToPendingProducts) {
             redir = <Redirect to={{
-                pathname: "/dashboard/products",
+                pathname: "/seller-all-products",
                 state: { value: this.state.value }
             }} />
         }
