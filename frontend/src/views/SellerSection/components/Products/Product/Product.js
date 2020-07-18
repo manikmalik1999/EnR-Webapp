@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Product(props) {
   const classes2 = useStyles();
-  // console.log(props) ;
+  console.log(props) ;
   return (
-    <Link to={"/dashboard/pending-product/" + props.id}>
+    <Link to={"/seller-product/" + props.id}>
       <Card style={{ width: '19rem'}} className={classes.Outer}>
         <Card className={classes.root} onClick = {props.clicked}>
           <CardHeader
