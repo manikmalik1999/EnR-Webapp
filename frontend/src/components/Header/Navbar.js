@@ -353,6 +353,7 @@ export default function PrimarySearchAppBar(props) {
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
                 color="inherit"
+                style={{marginRight:"1px"}}
               >
                 <AccountCircle style={{ display: account }} />
               </IconButton>

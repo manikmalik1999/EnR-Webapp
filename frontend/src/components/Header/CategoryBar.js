@@ -46,7 +46,7 @@ export default function Categories(props) {
         orientation="horizontal"
       >
          {categories.map(cat=>(
-        <Tab key={cat._id} label={cat.category} />
+        <Tab key={cat._id} label={cat.category} style={{fontSize:"1.1em"}} />
         ))}
         {/* <Tab label="Health"  />
         <Tab label="Toys" />
