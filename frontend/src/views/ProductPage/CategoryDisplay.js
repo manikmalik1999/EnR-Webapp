@@ -141,7 +141,7 @@ export default function CategoryDisplay(props) {
                           <GridItem className="container" xs={12}>
                             <img className="image" style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                             <div className="middle">
-                              <IconButton size="large" color="secondary" aria-label="add to wishlist" onClick={HandleWhishlist(pro.productId)}>
+                              <IconButton size="large" color="secondary" aria-label="add to wishlist" onClick={() =>HandleWhishlist(pro._id)}>
                                 <FavoriteIcon fontSize="large"/>
                               </IconButton>
                             </div>

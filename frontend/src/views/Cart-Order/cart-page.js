@@ -141,7 +141,7 @@ const quantityChange =(e)=>{
             quantity: element.quantity
           }
         }).then(res => {
-          window.location.reload();
+          window.location.href="/purchase-page";
           console.log(res);
         })
       })
