@@ -127,8 +127,8 @@ export default function OrderDisplay(props) {
             {orders.map(pro => (
               <div key={pro._id} style={{ margin: "2vh" }} >
                 <Grid className="element" container spacing={3} >
-                  <Grid item xs={3}>
-                    <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.product.image} />
+                  <Grid item xs={3} container justify="center">
+                    <img style={{ height: "20vh", width: "auto",margin:"auto",padding:"auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.product.image} />
                   </Grid>
                   <hr />
                   <Grid item xs style={{ textAlign: "top", paddingLeft: "32px" }}>

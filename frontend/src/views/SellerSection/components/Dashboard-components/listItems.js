@@ -15,7 +15,7 @@ import CategoryIcon from '@material-ui/icons/Category';
 import { Link } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import Badge from '@material-ui/core/Badge';
-
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 const cookies = new Cookies();
 
@@ -36,7 +36,7 @@ export const mainListItems = (
       <ListItem style={{ color: "white", fontWeight: "bold" }} button>
         <Tooltip title="Add Product" placement="right-start">
           <ListItemIcon>
-            <DashboardIcon style={{ color: "white" }} />
+            <PostAddIcon style={{ color: "white" }} />
           </ListItemIcon>
         </Tooltip>
         <ListItemText primary="Add Product" />

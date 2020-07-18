@@ -43,7 +43,7 @@ function Ecart() {
           <Typography color="textPrimary" variant="h2" gutterBottom>Your Cart Looks Empty</Typography>
           <Typography color="textSecondary" style={{marginLeft:"38px"}} variant="h5" gutterBottom>Add items to cart now!</Typography>
           <br/>
-          <Button variant="contained" style={{ display: "block",margin:"auto",width:"60%",backgroundColor: "#00897b"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
+          <Button variant="contained" style={{ display: "block",margin:"auto",width:"60%",backgroundColor: "#e8568e"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
         </Grid>
       </Grid>
     </div>
