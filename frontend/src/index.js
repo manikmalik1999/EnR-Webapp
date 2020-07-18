@@ -32,6 +32,8 @@ import SellerProducts from 'views/SellerSection/sellerProducts';
 import sellerEditProduct from 'views/SellerSection/sellerEditProduct';
 import sellerAllProducts from 'views/SellerSection/sellerAllProducts';
 import PendingProductDetail from 'views/SellerSection/components/PendingProducts/PendingProductDetail/PendingProductDetail';
+import Message from 'views/Cart-Order/purchase';
+
 var hist = createBrowserHistory();
 //:searchquery
 ReactDOM.render(
@@ -59,6 +61,7 @@ ReactDOM.render(
       <Route path="/seller-product/:id" component={PendingProductDetail} />
       <Route path="/seller-add-product/" component={SellerAddProduct} />
       <Route path="/wishlist-page" component={WishlistDisplay} />
+      <Route path="/purchase-page" component={Message} />
       <Route path="/dashboard/products" exact component={PendingProducts} />
       <Route path="/" component={LandingPage} />
     </Switch>

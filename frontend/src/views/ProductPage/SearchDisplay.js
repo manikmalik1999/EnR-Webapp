@@ -20,6 +20,8 @@ import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import IconButton from '@material-ui/core/IconButton';
 // @material-ui/core components
 
 // @material-ui/icons
@@ -28,6 +30,7 @@ import classNames from "classnames";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import { Paper } from '@material-ui/core';
 import Loading from '../Loading';
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 const dashboardRoutes = [];
 
@@ -39,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Token = sessionStorage.getItem('TokenKey');
+
 export default function SearchDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
@@ -48,6 +53,7 @@ export default function SearchDisplay(props) {
   const [proPerPage] = useState(12);
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = useState(true);
+  const [cartResponse, setCartRes] = useState([]);
   useEffect(() => {
     axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
       .then(res =>{
@@ -71,6 +77,57 @@ export default function SearchDisplay(props) {
     setPage(value);
     //console.log(filterpro.length);
   };
+
+  const HandleWhishlist =(id)=>{
+    axios({
+      method: 'post',
+      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+      headers: {
+        'Authorization': 'Bearer ' + Token,
+      },
+      data: {
+        productId: id,
+      }
+
+    }).then(res => {
+      console.log(res);
+      if (res.data.status === 201) {
+        setCartRes({
+          message: res.data.message,
+          color: "success"
+        })
+      }
+      else if (res.data.status === 401) {
+        window.location.href = "/login-page";
+      }
+      else {
+        setCartRes({
+          message: res.data.message,
+          color: "danger"
+        })
+      }
+
+    })
+  }
+
+  const HandleCartResponse = () => {
+    if (cartResponse.message) {
+      return (<SnackbarContent
+        message={
+          <span>
+            {cartResponse.message}
+          </span>
+        }
+        close
+        color={cartResponse.color}
+        icon="info_outline"
+      />);
+    }
+    else {
+      return null;
+    }
+  }
+
   return (
     <div>
       <NavBar/>
@@ -80,15 +137,21 @@ export default function SearchDisplay(props) {
             <Categories />
             <h4 style={{color: "#512da8", marginLeft:"2vw"}}>Search Results for: "<b style={{fontSize:"1vw"}}>{search.toUpperCase()}</b>" </h4>
             <div className={classes.container}>
+              <HandleCartResponse />
               <GridContainer style={{marginLeft:"10px",marginRight:"8px"}}>
                 {currentPro.map(pro =>(
                   <GridItem xs={6} md={4} lg={3} style={{marginBottom:"5vh"}}>
                     <CardActionArea>
                       <CardMedia title={pro.name} >
-                      <GridContainer justify="center" alignItems="center" style={{height:"43vh"}}>
-                      <GridItem xs={12}>
-                        <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
-                        </GridItem>
+                        <GridContainer  justify="center" alignItems="center" style={{height:"43vh"}}>
+                          <GridItem className="container" xs={12}>
+                            <img className="image" style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                            <div className="middle">
+                              <IconButton size="large" color="secondary" aria-label="add to wishlist" onClick={() => HandleWhishlist(pro._id)}>
+                                <FavoriteIcon fontSize="large"/>
+                              </IconButton>
+                            </div>
+                          </GridItem>
                         </GridContainer>
                       </CardMedia>
                       <CardContent>
