@@ -16,43 +16,45 @@ const useStyles = makeStyles(styles);
 
 const Token = sessionStorage.getItem('TokenKey');
 export default function Message() {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    if (!Token) {
-        window.location.href = "/login-page";
-      }
+  if (!Token) {
+    window.location.href = "/login-page";
+  }
 
-    const Home = () => {
-        window.location.href = "/";
-      }
-      
-    return (
-      <div className={classes.root}>
-          <NavBar />
-          <div style={{ marginTop: "10vh", padding: "24px" }} className={classNames(classes.main, classes.mainRaised)}>
-            <GridContainer  justify="center" alignItems="center" >
-                <GridItem xs={12}>
-        <Typography align="center" variant="h1" component="h2" color="secondary">
-          Thank You!
-        </Typography>
-        <Typography variant="h4" align="center" gutterBottom>
-          For shopping with us.
-        </Typography>
-        <img src={shop} style={{ width: "14vw", display: "block", marginLeft: "auto", marginRight: "auto" }} alt="cart"/>
-        <Typography align="center" variant="h5" gutterBottom style={{paddingBottom:"15px"}}>
-          Your order was competed successfully.
-        </Typography>
-        <Info>
-        <Typography variant="body1" gutterBottom style={{fontSize:"1.3em"}} >
-        <a style={{color:"blue"}} href="/order-page">Click Here!</a> To review your orders. Please share your valuable feedback with us.
-        </Typography>
-        </Info>
-        <Button variant="contained" style={{ display: "block",margin:"auto",width:"25%",backgroundColor: "#e8568e", marginTop:"20px"}} size="large" color="secondary" onClick={Home}>Continue Shopping</Button>
-        </GridItem>
+  const Home = () => {
+    window.location.href = "/";
+  }
+
+  return (
+    <div className={classes.root}>
+      <NavBar />
+      <div style={{ marginTop: "10vh", padding: "24px",paddingBottom:"42px" }} className={classNames(classes.main, classes.mainRaised)}>
+        <GridContainer justify="center" alignItems="center" >
+          <GridItem xs={12} lg={4}>
+            <img src={shop} style={{ width: "14vw", display: "block", marginLeft: "auto", marginRight: "auto" }} alt="cart" />
+          </GridItem>
+          <GridItem xs={12} lg={8}>
+            <Typography align="center" variant="h1" component="h2" color="secondary">
+              Thank You!
+            </Typography>
+            <Typography variant="h4" align="center" gutterBottom>
+              For shopping with us.
+            </Typography>
+            <Typography align="center" variant="h5" gutterBottom style={{ paddingBottom: "15px" }}>
+              Your order was Placed Successfully.
+            </Typography>
+            <Info>
+              <Typography variant="body1" gutterBottom style={{ fontSize: "1.3em",textAlign:"center" }} >
+                View your Order <a style={{ color: "blue" }} href="/order-page">Here</a>.
+              </Typography>
+            </Info>
+            <Button variant="contained" style={{ display: "block", margin: "auto", width: "25%", backgroundColor: "#e8568e", marginTop: "20px" }} size="large" color="secondary" onClick={Home}>Continue Shopping</Button>
+          </GridItem>
         </GridContainer>
 
-        </div>
-        <Footer />
       </div>
-    );
-  }
+      <Footer />
+    </div >
+  );
+}

@@ -116,193 +116,193 @@ export default function LandingPage(props) {
             <GridItem xs={6} md={3}>
 
               <Link to="/categories/electronics/6">
-                <CardActionArea>
+                <CardActionArea >
                   <img src={elec} alt="image" className={classes.media} style={{ width: "100%", height: "35vh" }} />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
-                      Electronics
-          </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
-
-            </GridItem>
-            <GridItem xs={6} md={3}>
-              <Link to="/categories/fashion/2">
-                <CardActionArea>
-                  <img src={fashion} alt="image" className={classes.media} style={{ width: "100%", height: "35vh" }} />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
-                      Fashion
-          </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
-            </GridItem>
-            <GridItem xs={6} md={3}>
-              <Link to="/categories/entertainment/1">
-                <CardActionArea>
-                  <img src={ent} alt="image" className={classes.media} style={{ width: "100%", height: "35vh" }} />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
-                      Entertainment
-          </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
-            </GridItem>
-            <GridItem xs={6} md={3}>
-              <Link to="/categories/sports/0">
-                <CardActionArea>
-                  <img src={sports} alt="image" className={classes.media} style={{ width: "100%", height: "35vh" }} />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
-                      Sports
-          </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Link>
-            </GridItem>
-          </GridContainer>
-          <GridContainer>
-            <GridItem xs={8}>
-              <Spec />
-            </GridItem>
-            <GridItem xs={4}>
-              <MyCarousel />
-            </GridItem>
-          </GridContainer><br />
-          <div >
-            <img src={strip} alt="offer" style={{ width: "100%", marginTop: "3px" }} />
-          </div>
-          <GridContainer style={{ margin: "15px", backgroundColor: "#faf7f7" }}>
-            <GridItem xs={12} style={{ textAlign: "center", marginBottom: "3px" }}>
-              <CardBody>
-                <h1><b>Featured Items</b></h1>
-              </CardBody>
-            </GridItem>
-            <GridItem xs={6}>
-              <Card className={classe.root} onMouseOver={onMouseOver1}
-                onMouseOut={onMouseOut1}
-                style={{ boxShadow: `${shad1 * 0.05}px 0px ${shad1}px ${shad1}px #888888` }}>
-                <CardHeader
-                  avatar={
-                    <Avatar aria-label="recipe" className={classe.avatar}>
-                      T
-          </Avatar>
-                  }
-                  title="Tuxedos and suits"
-                  subheader="September 14, 2016"
-                />
-                <CardMedia
-                  className={classe.media}
-                  image={suit}
-                  title="Tuxedos and suits"
-                />
                 <CardContent>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    Formal wear for your moment—the best fit, the right style, delivered to you.Breathable, natural fabrics meet thoughtful construction so we can deliver on our promise to you.
-        </Typography>
+                  <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
+                    Electronics
+                    </Typography>
                 </CardContent>
-              </Card>
+                </CardActionArea>
+              </Link>
+
             </GridItem>
-            <br />
-            <GridItem xs={6}>
-              <GridContainer>
-                <GridItem xs={6}>
-                  <Card className={classe.root} onMouseOver={onMouseOver2}
-                    onMouseOut={onMouseOut2}
-                    style={{ boxShadow: `${shad2 * 0.05}px 0px ${shad2}px ${shad2}px #888888` }}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" className={classe.avatar}>
-                          C
-          </Avatar>
-                      }
-                      title=" YAMASORO COMPUTER CHAIR"
-                      subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                      className={classe.media}
-                      image={chair}
-                      title="CHAIR"
-                    />
-                  </Card>
-                </GridItem>
-                <GridItem xs={6}>
-                  <Card className={classe.root} onMouseOver={onMouseOver3}
-                    onMouseOut={onMouseOut3}
-                    style={{ boxShadow: `${shad3 * 0.05}px 0px ${shad3}px ${shad3}px #888888` }}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" className={classe.avatar}>
-                          F
-          </Avatar>
-                      }
-                      title="Smart Fridge"
-                      subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                      className={classe.media}
-                      image={fri}
-                      title="Smart Fridge"
-                    />
-                  </Card>
-                </GridItem>
-              </GridContainer>
-              <GridContainer style={{ marginTop: "23px" }}>
-                <GridItem xs={6}>
-                  <Card className={classe.root} onMouseOver={onMouseOver4}
-                    onMouseOut={onMouseOut4}
-                    style={{ boxShadow: `${shad4 * 0.05}px 0px ${shad4}px ${shad4}px #888888` }}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" className={classe.avatar}>
-                          D
-          </Avatar>
-                      }
-                      title="Direct-Drive Turntable"
-                      subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                      className={classe.media}
-                      image={tt}
-                      title="Turntable"
-                    />
-                  </Card>
-                </GridItem>
-                <GridItem xs={6}>
-                  <Card className={classe.root} onMouseOver={onMouseOver5}
-                    onMouseOut={onMouseOut5}
-                    style={{ boxShadow: `${shad5 * 0.05}px 0px ${shad5}px ${shad5}px #888888` }}>
-                    <CardHeader
-                      avatar={
-                        <Avatar aria-label="recipe" className={classe.avatar}>
-                          T
-          </Avatar>
-                      }
-                      title="Refractor Telescope Gskyer"
-                      subheader="September 14, 2016"
-                    />
-                    <CardMedia
-                      className={classe.media}
-                      image={tele}
-                      title="Telescope"
-                    />
-                  </Card>
-                </GridItem>
-              </GridContainer>
-            </GridItem>
+          <GridItem xs={6} md={3}>
+            <Link to="/categories/fashion/2">
+              <CardActionArea>
+                <img src={fashion} alt="image" className={classes.media} style={{ width: "100%", height: "35vh" }} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
+                    Fashion
+          </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Link>
+          </GridItem>
+          <GridItem xs={6} md={3}>
+            <Link to="/categories/entertainment/1">
+              <CardActionArea>
+                <img src={ent} alt="image" className={classes.media} style={{ width: "100%", height: "35vh" }} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
+                    Entertainment
+          </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Link>
+          </GridItem>
+          <GridItem xs={6} md={3}>
+            <Link to="/categories/sports/0">
+              <CardActionArea>
+                <img src={sports} alt="image" className={classes.media} style={{ width: "100%", height: "35vh" }} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2" style={{ textAlign: "center" }}>
+                    Sports
+          </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Link>
+          </GridItem>
           </GridContainer>
-          <div style={{ marginTop: "12px" }}>
-            <Mul />
+        <GridContainer>
+          <GridItem xs={8}>
+            <Spec />
+          </GridItem>
+          <GridItem xs={4}>
+            <MyCarousel />
+          </GridItem>
+        </GridContainer><br />
+        <div >
+          <img src={strip} alt="offer" style={{ width: "100%", marginTop: "3px" }} />
+        </div>
+        <GridContainer style={{ margin: "15px", backgroundColor: "#faf7f7", padding: "12px", paddingBottom: "20px" }}>
+          <GridItem xs={12} style={{ textAlign: "center", marginBottom: "3px" }}>
+            <CardBody>
+              <h1><b>Featured Items</b></h1>
+            </CardBody>
+          </GridItem>
+          <GridItem xs={6}>
+            <Card className={classe.root} onMouseOver={onMouseOver1}
+              onMouseOut={onMouseOut1}
+              style={{ boxShadow: `${shad1 * 0.05}px 0px ${shad1}px ${shad1}px #eee` }}>
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="recipe" className={classe.avatar}>
+                    T
+          </Avatar>
+                }
+                title="Tuxedos and suits"
+                subheader="September 14, 2016"
+              />
+              <CardMedia
+                className={classe.media}
+                image={suit}
+                title="Tuxedos and suits"
+              />
+              <CardContent>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Formal wear for your moment—the best fit, the right style, delivered to you.Breathable, natural fabrics meet thoughtful construction so we can deliver on our promise to you.
+        </Typography>
+              </CardContent>
+            </Card>
+          </GridItem>
+          <br />
+          <GridItem xs={6}>
+            <GridContainer>
+              <GridItem xs={6}>
+                <Card className={classe.root} onMouseOver={onMouseOver2}
+                  onMouseOut={onMouseOut2}
+                  style={{ boxShadow: `${shad2 * 0.05}px 0px ${shad2}px ${shad2}px #eee` }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classe.avatar}>
+                        C
+          </Avatar>
+                    }
+                    title=" YAMASORO COMPUTER CHAIR"
+                    subheader="September 14, 2016"
+                  />
+                  <CardMedia
+                    className={classe.media}
+                    image={chair}
+                    title="CHAIR"
+                  />
+                </Card>
+              </GridItem>
+              <GridItem xs={6}>
+                <Card className={classe.root} onMouseOver={onMouseOver3}
+                  onMouseOut={onMouseOut3}
+                  style={{ boxShadow: `${shad3 * 0.05}px 0px ${shad3}px ${shad3}px #eee` }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classe.avatar}>
+                        F
+          </Avatar>
+                    }
+                    title="Smart Fridge"
+                    subheader="September 14, 2016"
+                  />
+                  <CardMedia
+                    className={classe.media}
+                    image={fri}
+                    title="Smart Fridge"
+                  />
+                </Card>
+              </GridItem>
+            </GridContainer>
+            <GridContainer style={{ marginTop: "23px" }}>
+              <GridItem xs={6}>
+                <Card className={classe.root} onMouseOver={onMouseOver4}
+                  onMouseOut={onMouseOut4}
+                  style={{ boxShadow: `${shad4 * 0.05}px 0px ${shad4}px ${shad4}px #eee` }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classe.avatar}>
+                        D
+          </Avatar>
+                    }
+                    title="Direct-Drive Turntable"
+                    subheader="September 14, 2016"
+                  />
+                  <CardMedia
+                    className={classe.media}
+                    image={tt}
+                    title="Turntable"
+                  />
+                </Card>
+              </GridItem>
+              <GridItem xs={6}>
+                <Card className={classe.root} onMouseOver={onMouseOver5}
+                  onMouseOut={onMouseOut5}
+                  style={{ boxShadow: `${shad5 * 0.05}px 0px ${shad5}px ${shad5}px #eee` }}>
+                  <CardHeader
+                    avatar={
+                      <Avatar aria-label="recipe" className={classe.avatar}>
+                        T
+          </Avatar>
+                    }
+                    title="Refractor Telescope Gskyer"
+                    subheader="September 14, 2016"
+                  />
+                  <CardMedia
+                    className={classe.media}
+                    image={tele}
+                    title="Telescope"
+                  />
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </GridItem>
+        </GridContainer>
+        <div style={{ marginTop: "24px" }}>
+          <Mul />
 
-          </div>
+        </div>
         </Paper>
-      </div>
-
-      <Footer />
-
     </div>
+
+    <Footer />
+
+    </div >
   );
 }
