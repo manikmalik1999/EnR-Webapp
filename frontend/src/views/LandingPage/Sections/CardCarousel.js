@@ -291,18 +291,18 @@ function Mul() {
               <img style={{ height: "37vh", maxWidth: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
             </CardMedia>
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography gutterBottom variant="h5" component="h2" align="center">
                 <Link to={"/Display/" + pro._id} target="_blank">
                   {pro.name}
                   {/*<Chip color="secondary" label={AvgRev} size="small" icon={<StarRateIcon />} />*/}
                 </Link>
               </Typography>
-              <Typography variant="h6" color="textSecondary" component="p">
+              <Typography variant="h6" style={{color:"green"}} component="p" align="center">
                 <b>£: {pro.price}</b>
               </Typography>
             </CardContent>
           </CardActionArea>
-          <Typography variant="body2" color="textSecondary" component="h5" style={{ marginLeft: "10px" }}>
+          <Typography variant="body2" color="textSecondary" component="h5" style={{ marginLeft: "10px", fontSize:"1.1rem" }} align="center">
             {pro.description}
           </Typography>
         </GridItem>

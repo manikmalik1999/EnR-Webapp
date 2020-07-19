@@ -384,7 +384,7 @@ const Dashboard = (props) => {
         <div className={classes.root} >
             {redirect.to}
             <Snackbar
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                 open={snack.show}
                 autoHideDuration={4000}
                 onClose={snackbarClose}
@@ -477,13 +477,12 @@ const Dashboard = (props) => {
                                             :
                                             <TableHead>
                                                 <TableRow style={{ borderBottom: "none !important" }} >
-                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700" }} > Name </TableCell>
-                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700" }} align="right">Price</TableCell>
-                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700" }} align="right">Quantity</TableCell>
-                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700" }} align="right">Category</TableCell>
-                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700" }} align="right">Status</TableCell>
-                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700" }} align="right">Edit</TableCell>
-                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700" }} align="right">Delete</TableCell>
+                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700",fontSize:"1.4em" }} > Name </TableCell>
+                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700",fontSize:"1.4em" }} align="center">Price</TableCell>
+                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700",fontSize:"1.4em" }} align="center">Quantity</TableCell>
+                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700",fontSize:"1.4em" }} align="center">Category</TableCell>
+                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700",fontSize:"1.4em" }} align="center">Status</TableCell>
+                                                    <TableCell style={{ color: "#B1D8B7", fontWeight: "700",fontSize:"1.4em" }} align="center">Edit</TableCell>
                                                 </TableRow>
                                             </TableHead>}
                                         {products.length === 0 ? null :
@@ -493,24 +492,19 @@ const Dashboard = (props) => {
                                                         <TableCell style={{ color: "#B1D8B7" }} component="th" scope="row">
                                                             {pro.name}
                                                         </TableCell>
-                                                        <TableCell style={{ color: "#B1D8B7" }} align="right">
+                                                        <TableCell style={{ color: "#B1D8B7" }} align="center">
                                                             {pro.price}
                                                         </TableCell>
-                                                        <TableCell style={{ color: "#B1D8B7" }} align="right">
+                                                        <TableCell style={{ color: "#B1D8B7" }} align="center">
                                                             {pro.quantity}
                                                         </TableCell>
-                                                        <TableCell style={{ color: "#B1D8B7" }} align="right">
+                                                        <TableCell style={{ color: "#B1D8B7" }} align="center">
                                                             {pro.category}
                                                         </TableCell>
-                                                        <TableCell style={{ color: "#B1D8B7" }} align="right">{pro.approved}</TableCell>
-                                                        <TableCell style={{ color: "#B1D8B7" }} align="right">
+                                                        <TableCell style={{ color: "#B1D8B7" }} align="center">{pro.approved}</TableCell>
+                                                        <TableCell style={{ color: "#B1D8B7" }} align="center">
                                                             <IconButton id={pro._id} onClick={handleEdit} aria-label="Edit">
                                                                 <EditIcon style={{ color: "#B1D8B7" }} />
-                                                            </IconButton>
-                                                        </TableCell>
-                                                        <TableCell style={{ color: "#B1D8B7" }} align="right">
-                                                            <IconButton id={pro._id} onClick={handleDelete} aria-label="delete">
-                                                                <DeleteIcon style={{ color: "#B1D8B7" }} />
                                                             </IconButton>
                                                         </TableCell>
                                                     </TableRow>
