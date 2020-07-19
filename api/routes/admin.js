@@ -133,29 +133,29 @@ router.get("/approve/:message/:productId",SellerAuth, (req, res, next) => {
       });
   });
 
-  router.delete("/delete/products",SellerAuth, (req, res, next) => {
+  // router.delete("/delete/products",SellerAuth, (req, res, next) => {
   
 
-    Product.deleteMany({})
-      .exec()
-      .then(response=> {
-        res.status(200).json({
-          message: 'All products deleted',
-          request:{
-            type: 'POST',
-            url: 'https://limitless-lowlands-36879.herokuapp.com/products',
-            body: {name: 'String', quantity: 'Number'}
-          }
-        }
-          );
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
-  });
+  //   Product.deleteMany({})
+  //     .exec()
+  //     .then(response=> {
+  //       res.status(200).json({
+  //         message: 'All products deleted',
+  //         request:{
+  //           type: 'POST',
+  //           url: 'https://limitless-lowlands-36879.herokuapp.com/products',
+  //           body: {name: 'String', quantity: 'Number'}
+  //         }
+  //       }
+  //         );
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       res.status(500).json({
+  //         error: err
+  //       });
+  //     });
+  // });
 
 
 module.exports = router;

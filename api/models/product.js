@@ -14,7 +14,8 @@ const productSchema = mongoose.Schema({
     image: {type: String, default:"uploads/default-image.jpg"},
     image2: {type: String, default:"uploads/default-image.jpg"},
     image3: {type: String, default:"uploads/default-image.jpg"},
-    approved: {type: String, default: "pending"}
+    approved: {type: String, default: "pending"},
+    review: {type: Number, default: 0}
 });
 
 module.exports = mongoose.model('Product', productSchema);

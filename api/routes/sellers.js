@@ -121,7 +121,7 @@ router.delete('/:sellerId', (req, res, next)=>{
 
 router.get("/", (req, res, next) => {
     Seller.find()
-    .select('name email')
+    .select('name email address regNo')
       .exec()
       .then(docs => {
         const response = {
@@ -175,7 +175,7 @@ router.get("/", (req, res, next) => {
           console.log(userId);
           console.log("debugging");
           Product.find({sellerId : mongoose.Types.ObjectId(userId)})
-          .select('name price _id quantity category sellerId description image approved')
+          .select('name price _id quantity category sellerId description image approved review')
           .populate('sellerId', 'name')
             .exec()
             .then(doc => {
@@ -196,6 +196,9 @@ router.get("/", (req, res, next) => {
               res.status(500).json({ error: err });
             });
         });
+
+
+
 
         router.get("/products/:sellerId",SellerAuth, (req, res, next) => {
           const userId = req.params.sellerId;
@@ -221,6 +224,30 @@ router.get("/", (req, res, next) => {
             .catch(err => {
               console.log(err);
               res.status(500).json({ error: err });
+            });
+        });
+
+        router.patch("/:sellerId",SellerAuth, (req, res, next) => {
+          const id = req.params.sellerId;
+          console.log(id);
+          Seller.updateOne({ _id: id }, { $set:{ 
+            name: req.body.Seller.name, 
+            address: req.Seller.body.address, 
+            regNo: req.body.Seller.regNo,
+          } })
+            .exec()
+            .then(result => {
+              console.log(result);
+              res.json({
+                message: 'Seller Info Updated',
+
+              }).status(200);
+            })
+            .catch(err => {
+              console.log(err);
+              res.status(500).json({
+                error: err
+              });
             });
         });
 
