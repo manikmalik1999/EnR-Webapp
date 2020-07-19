@@ -187,12 +187,6 @@ const Dashboard = (props) => {
   const handleAdding = (e) => {
     setLoading(true);
     let msg = [];
-    // setLoading(false) ;
-    // setSnack({
-    //   show: true,
-    //   message: "Add Exactly 3 Images",
-    //   color: "red"
-    // })
     if (!name) {
       msg.push("name");
     }
@@ -468,7 +462,7 @@ const Dashboard = (props) => {
         <Container maxWidth="lg" className={classes.container}>
 
           {/* add-product */}
-          <div style={{ zIndex: "200" }}>
+          <div>
             <GridContainer justify="center">
               <GridItem xs={12} sm={8} md={6}>
                 <Card className={classes[cardAnimaton]} style={{ background: "#EDF0EE", padding: "24px" }}>

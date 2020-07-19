@@ -148,6 +148,7 @@ const formatDate = (date) => {
 }
 
 export default function Orders(props) {
+  // console.log(props.orders) ;
   const [category, setCategory] = useState({
     category: "all"
   })
@@ -237,6 +238,7 @@ export default function Orders(props) {
     if (category.category === "all" || (row.history[0].category.toLowerCase() === category.category.toLowerCase())) {
       let fromDate = new Date(from);
       let toDate = new Date(to);
+      toDate.setDate(toDate.getDate()+1) ;
       let orderDate = formatDate(row.date);
       orderDate = new Date(orderDate);
       orderDate.setDate(orderDate.getDate() + 1);
@@ -252,10 +254,11 @@ export default function Orders(props) {
       finalData.push(data[i]);
     }
   }
+  // console.log(finalData) ;
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
-      {!(seeMore && !ordersOnly) && !loading &&
+      { !seeMore && ordersOnly && !loading &&
         <Grid container spacing={3} alignItems="center" justify="space-between" style={{ marginBottom: "12px" }}	>
           <Grid item lg={5} >
             <Dropdown
@@ -337,7 +340,7 @@ export default function Orders(props) {
       </Table>
       {seeMore && !ordersOnly &&
         <div className={classes.seeMore}>
-          <Link style={{ color: "#3f51b5" }} to="/dashboard/orders">
+          <Link style={{ color: "#3f51b5" }} to="/seller-orders">
             See more Orders / Details
           </Link>
         </div>

@@ -85,40 +85,33 @@ export default function ProfilePage(props) {
         }}
         {...rest}
       /> */}
-      <Parallax small filter image={require("assets/img/profile-bg.jpg")} />
+      {/* <Parallax small filter image={require("assets/img/profile-bg.jpg")} /> */}
       <div>
         <div>
           <div className={classes.container}>
-            <GridContainer justify="center">
-              <GridItem xs={12} sm={12} md={6}>
+            <GridContainer alignItems="center">
+              <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
-                  <div>
+                  <div style={{paddingTop:"64px"}}>
                     <img src={pain} alt="..." className={imageClasses} />
                   </div>
-                  <div className={classes.name}>
+                  <div className={classes.name} style={{padding:"12px"}}>
                     <h3 className={classes.title}>{props.name}</h3>
                     <h6>Trusted Seller</h6>
-                    {/* <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-twitter"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-instagram"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-facebook"} />
-                    </Button> */}
                   </div>
                 </div>
               </GridItem>
+              <GridItem xs={12} sm={12} md={8}>
+                <div className={classes.description}>
+                    <p>We welcome you in the Enr Seller's Hub Family.</p>
+                    <p>This is your Dashboard where you can Control all your product and orders related things.</p>
+                    <p>We had tried to make all the things easy for you.</p>
+                    <p>Any new update or information regarding anything will be shown here.</p>
+                    <p>In case of any further query, you can Email at : abc@def.com</p>
+                </div>
+              </GridItem>
             </GridContainer>
-            <div className={classes.description}>
-              <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
-              </p>
-            </div>
+            
             
             {/* <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>

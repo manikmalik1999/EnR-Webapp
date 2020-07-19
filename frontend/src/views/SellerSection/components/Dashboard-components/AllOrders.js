@@ -16,18 +16,26 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import { mainListItems, secondaryListItems } from '../SellerSection/components/Dashboard-components/listItems';
+
+import { mainListItems, secondaryListItems } from './listItems';
+import Chart from './Chart';
+import Deposits from './Deposits';
+import Orders from './Orders';
+import { Route } from "react-router-dom";
 import { default as LLink } from "react-router-dom/Link";
 import Axios from 'axios';
 import Cookies from "universal-cookie";
 import { Redirect } from "react-router-dom";
 import { Snackbar, SnackbarContent } from "@material-ui/core";
-import PendingProducts from './components/PendingProducts/PendingProducts';
+import ProfilePage from 'views/ProfilePage/ProfilePage';
+import { Dimmer, Loader } from "semantic-ui-react";
 const cookies = new Cookies();
 
 
@@ -128,21 +136,45 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Dashboard = (props) => {
+const AllOrders = (props) => {
+    //states
 
     const [name, setName] = React.useState("Loading...");
+    const [nameSeller, setNameSeller] = React.useState("");
+
     const [loginSnack, setLoginSnack] = useState({
         show: true
-    });
+    })
     const [snack, setSnack] = useState({
         show: false,
         message: "",
         color: "lightBlue"
-    });
+    })
     const [open, setOpen] = React.useState(true);
+    const [orders, setOrders] = useState({
+        orders: null
+    })
+    const [sellers, setSellers] = useState({
+        sellers: null
+    })
+    const [pending, setPending] = useState({
+        pending: "+"
+    })
     const [redirect, setRedirect] = useState({
         to: null
-    });
+    })
+    const [http, setHttp] = useState({
+        set: false
+    })
+    const [notification, setNotification] = useState({
+        notification: true
+    })
+    const [products, setProducts] = useState(null);
+    const [fnlOrders, setFnlOrders] = useState(null);
+    const [load, setLoad] = useState(true);
+
+    // const [token,setToken] = useState("") ;
+
 
     //state Handlers
     const snackbarClose = (event) => {
@@ -158,8 +190,19 @@ const Dashboard = (props) => {
     };
 
     const classes = useStyles();
+    const token = cookies.get("Token");
     const sellerToken = sessionStorage.getItem("TokenSeller");
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+    //redirects nullified for now
+    // let redirect = null;
+    // if (!token && !(props.location.state && props.location.state.justLoggedIn) && false) {
+    //   redirect = <Redirect to={{
+    //     pathname: '/login',
+    //     state: { message: null }
+    //   }}
+    //   />;
+    // }
 
     //Snacks
     if (loginSnack.show) {
@@ -172,7 +215,6 @@ const Dashboard = (props) => {
             color: "Green"
         })
     }
-
     //logout handler
     const logoutHandler = () => {
         console.log(sellerToken);
@@ -185,8 +227,26 @@ const Dashboard = (props) => {
             show: true
         })
     }
+    const removeNotificationHandler = () => {
+        setNotification({
+            notification: false
+        })
+    }
 
+    //data from orders
     useEffect(() => {
+        // console.log(token) ;
+        Axios({
+            method: 'get',
+            url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+            headers: {
+                'Authorization': 'Bearer ' + sellerToken,
+            }
+        })
+            .then(res => {
+                setProducts(res.data.product);
+            })
+
         Axios({
             method: 'get',
             url: "https://limitless-lowlands-36879.herokuapp.com/sellers/myinfo",
@@ -195,13 +255,55 @@ const Dashboard = (props) => {
             }
         }).then(res => {
             setName("Hi, " + res.data.sellers.name);
+            setNameSeller(res.data.sellers.name);
             sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
         })
+
+        Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
+            headers: {
+                "Authorization": "Bearer " + sellerToken
+            }
+        })
+            .then(response => {
+                setOrders({
+                    orders: response.data.orders
+                })
+            })
             .catch(err => {
                 console.log(err);
             });
-
     }, []);
+
+    let filteredOrders = [];
+    if (orders.orders && products) {
+        filteredOrders = orders.orders.map(order => {
+            for (let i = 0; i < products.length; ++i) {
+                if (order.product.name === products[i].name) {
+                    return order;
+                    break;
+                }
+            }
+        })
+    }
+    // console.log(orders.orders) ;
+    let finalOrders = [];
+    if (filteredOrders.length !== 0) {
+        for (let i = 0; i < filteredOrders.length; ++i) {
+            if (filteredOrders[i]) {
+                finalOrders.push(filteredOrders[i]);
+            }
+        }
+        console.log(finalOrders);
+        if (!fnlOrders) {
+            setLoad(false);
+            setFnlOrders(finalOrders)
+        }
+    }
+    const loading = (<Grid item lg={12} xs={12} style={{ textAlign: "center", height: "210px", marginTop: "130px" }} >
+        <Dimmer active inverted style={{ marginLeft: "150px", width: "100%" }}>
+            <Loader size='medium'>Loading</Loader>
+        </Dimmer>
+    </Grid>)
 
     return (
         <div className={classes.root} >
@@ -237,20 +339,32 @@ const Dashboard = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
-                        EnrSeller
+                        Enr SellerHub
           </Typography>
 
                     <Typography>{name}</Typography>
 
+                    <Tooltip title="Products" TransitionComponent={Zoom} >
+                        <IconButton color="inherit">
+                            <LLink to="/dashboard/products" >
+                                {notification.notification ?
+                                    <Badge badgeContent={pending.pending} color="secondary">
+                                        <NotificationsIcon style={{ color: "white" }} onClick={removeNotificationHandler} />
+                                    </Badge> :
+                                    <Badge color="secondary">
+                                        <NotificationsIcon style={{ color: "white" }} />
+                                    </Badge>
+                                }
+                            </LLink>
+                        </IconButton>
+                    </Tooltip>
                     <Tooltip title="Logout" TransitionComponent={Zoom} >
                         <IconButton onClick={logoutHandler}>
                             <ExitToAppIcon style={{ color: "white" }} />
                         </IconButton>
                     </Tooltip>
-
                 </Toolbar>
             </AppBar>
-
             <Drawer
                 variant="permanent"
                 classes={{
@@ -271,11 +385,15 @@ const Dashboard = (props) => {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
 
-                    {/* all-products */}
-
-                    <PendingProducts/>
-
-
+                    {/* main-dashboard */}
+                    {load ?
+                        loading :
+                        (<Grid item xs={12}>
+                            <Paper className={classes.paper} style={{ minHeight: "380px" }}>
+                                <Orders orders={fnlOrders} onlyOrders={true} />
+                            </Paper>
+                        </Grid>)
+                    }
                     <Grid container spacing={3}>
                         <Box pt={4}>
                             <Copyright />
@@ -287,4 +405,4 @@ const Dashboard = (props) => {
     );
 }
 
-export default Dashboard;
+export default AllOrders;

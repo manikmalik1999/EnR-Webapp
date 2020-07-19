@@ -168,6 +168,8 @@ const Dashboard = (props) => {
   const [notification, setNotification] = useState({
     notification: true
   })
+  const [products, setProducts] = useState(null);
+  const [fnlOrders, setFnlOrders] = useState(null);
   // const [token,setToken] = useState("") ;
 
 
@@ -231,6 +233,17 @@ const Dashboard = (props) => {
   //data from orders
   useEffect(() => {
     // console.log(token) ;
+    Axios({
+      method: 'get',
+      url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+      headers: {
+        'Authorization': 'Bearer ' + sellerToken,
+      }
+    })
+      .then(res => {
+        // console.log(res);
+        setProducts(res.data.product);
+      })
 
     Axios({
       method: 'get',
@@ -240,7 +253,7 @@ const Dashboard = (props) => {
       }
     }).then(res => {
       // console.log(sellerToken);
-      console.log(res.data);
+      // console.log(res.data);
       setName("Hi, " + res.data.sellers.name);
       setNameSeller(res.data.sellers.name);
       sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
@@ -252,6 +265,7 @@ const Dashboard = (props) => {
       }
     })
       .then(response => {
+        // console.log(response.data) ;
         setOrders({
           orders: response.data.orders
         })
@@ -260,26 +274,27 @@ const Dashboard = (props) => {
         console.log(err);
       });
 
-    Axios.get("https://limitless-lowlands-36879.herokuapp.com/products", {
-      headers: {
-        "Authorization": "Bearer " + sellerToken
-      }
-    })
-      .then(response => {
-        // console.log(response.data) ;
-        const prods = response.data.products.filter(product => {
-          if (product.approved === "pending") {
-            return true;
-          }
-          return false;
-        })
-        setPending({
-          pending: prods.length || 0
-        })
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // Axios.get("https://limitless-lowlands-36879.herokuapp.com/products", {
+    //   headers: {
+    //     "Authorization": "Bearer " + sellerToken
+    //   }
+    // })
+    //   .then(response => {
+    //     // console.log(response.data) ;
+    //     const prods = response.data.products.filter(product => {
+    //       if (product.approved === "pending") {
+    //         return true;
+    //       }
+    //       return false;
+    //     })
+    //     setPending({
+    //       pending: prods.length || 0
+    //     })
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+
     Axios.get("https://limitless-lowlands-36879.herokuapp.com/sellers", {
       headers: {
         "Authorization": "Bearer " + sellerToken
@@ -294,6 +309,31 @@ const Dashboard = (props) => {
         console.log(err);
       })
   }, []);
+
+  let filteredOrders = [];
+  if (orders.orders && products) {
+    filteredOrders = orders.orders.map(order => {
+      for (let i = 0; i < products.length; ++i) {
+        if (order.product.name === products[i].name) {
+          return order;
+          break;
+        }
+      }
+    })
+  }
+  // console.log(orders.orders) ;
+  let finalOrders = [];
+  if (filteredOrders.length !== 0) {
+    for (let i = 0; i < filteredOrders.length; ++i) {
+      if (filteredOrders[i]) {
+        finalOrders.push(filteredOrders[i]);
+      }
+    }
+    console.log(finalOrders);
+    if (!fnlOrders) {
+      setFnlOrders(finalOrders)
+    }
+  }
 
   return (
     <div className={classes.root} >
@@ -377,24 +417,26 @@ const Dashboard = (props) => {
 
           {/* main-dashboard */}
           <Grid item xs={12}>
-            <Paper className={classes.paper} style={{ minHeight: "380px" }}>
-              <ProfilePage name={nameSeller}/>
-            </Paper>
+            {/* <Paper className={classes.paper} style={{ minHeight: "380px" }}> */}
+            <div style={{ borderRadius: "6px", marginBottom: "24px" }}>
+              <ProfilePage name={nameSeller} />
+            </div>
+            {/* </Paper> */}
           </Grid>
           <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <Chart orders={orders.orders} />
+                <Chart orders={fnlOrders} />
               </Paper>
             </Grid>
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Deposits orders={orders.orders} />
+                <Deposits orders={fnlOrders} />
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper} style={{ minHeight: "380px" }}>
-                <Orders orders={orders.orders} onlyOrders={false} />
+                <Orders orders={fnlOrders} onlyOrders={false} />
               </Paper>
             </Grid>
           </Grid>

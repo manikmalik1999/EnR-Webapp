@@ -151,8 +151,6 @@ export default function Chart(props) {
     }
   }
 
-
-
   useEffect(() => {
     Axios.get("https://limitless-lowlands-36879.herokuapp.com/categories")
       .then(response => {
@@ -190,12 +188,15 @@ export default function Chart(props) {
 
   if (orders.orders !== "Loading...") {
     if (timeFilter === "pday") {
-      // console.log(orders.orders[0]) ; 
+      // console.log("in date" ) ;
+      // console.log(orders.orders) ; 
+      // console.log(data) ;
       for (let i = 0; i < orders.orders.length; ++i) {
         for (let j = 0; j < 10; j = j + 1) {
           if (orders.orders[i].date.split("T")[0] === data[j].time && (category.category === 'all' || orders.orders[i].product.category === category.category)) {
             data[j].amount += orders.orders[i].product.price * orders.orders[i].quantity;
             data[j].amount = Math.floor(data[j].amount * 100) / 100;
+            // console.log(orders.orders[i].date.split("T")[0] + "   " + data[j].time + "\n") ;
           }
         }
       }
@@ -237,6 +238,7 @@ export default function Chart(props) {
       }
     }
   }
+  // console.log(data) ;
   return (
     <React.Fragment>
       <Grid container spacing={3} justify="center" >

@@ -158,7 +158,13 @@ const Dashboard = (props) => {
     //states
 
     const ID = props.match.params.productId;
-    const [product, setProducts] = useState([]);
+    const [product, setProduct] = useState({
+        name: "Loading...",
+        desc: "Loading...",
+        quantity: "Loading...",
+        price: "Loading...",
+        category: "Loading..."
+    });
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
@@ -182,8 +188,14 @@ const Dashboard = (props) => {
             }
         })
             .then(res => {
-                console.log(res);
-                setProducts(res.data.product);
+                console.log(res.data.product);
+                setProduct({
+                    name: res.data.product.name,
+                    desciption: res.data.product.description,
+                    quantity: res.data.product.quantity,
+                    price: res.data.product.price,
+                    category: res.data.product.category
+                });
             })
     }, [])
 
@@ -233,7 +245,7 @@ const Dashboard = (props) => {
     }
     let loader = null;
     if (loading) {
-        loader = <div style={{ width: "50%", margin: "auto" }}><LinearProgress color="secondary" /></div>
+        loader = <div style={{ width: "50%", margin: "auto", textAlign: "center" }}><LinearProgress color="primary" /><p style={{ marginTop: "12px" }}>Please Hold on. This may take a while.</p></div>
     }
 
     const [name2, setName2] = React.useState("Loading...");
@@ -475,26 +487,14 @@ const Dashboard = (props) => {
                 <Container maxWidth="lg" className={classes.container}>
 
                     {/* edit-product */}
-                    <div style={{ paddingTop: "18px" }}>
-                        <SnackbarContent
-                            message={
-                                <span style={{ width: "500px" }}>Only Add Those fields that need updating</span>
-                            }
-                            close
-                            style={{
-                                background: "#1A5653",
-                                color: "#1A5653"
-                            }}
-                            color="#1A5653"
-                            icon="info_outline"
-                        />
+                    <div>
                         <GridContainer justify="center" style={{ paddingTop: "8px" }}>
-                            <GridItem xs={12} sm={12} md={4}>
-                                <Card className={classes[cardAnimaton]} style={{ boxShadow: "2px 4px 12px #1A5653", background: "#B1D8B7" }}>
+                            <GridItem xs={12} sm={8} md={6}>
+                                <Card className={classes[cardAnimaton]} style={{ background: "#EDF0EE", padding: "24px" }}>
                                     <form className={classes.form}>
-                                        <CardHeader style={{ background: "#022D41", borderTopLeftRadius: "14px", borderBottomRightRadius: "14px" }} className={classes.cardHeader}>
+                                        {/* <CardHeader style={{ background: "#022D41", borderTopLeftRadius: "14px", borderBottomRightRadius: "14px",padding:"32px" }} className={classes.cardHeader}>
                                             <h4 style={{ color: "white" }}>Edit Product</h4>
-                                        </CardHeader>
+                                        </CardHeader> */}
                                         <p className={classes.divider}></p>
                                         <CardBody>
                                             <TextField
@@ -586,7 +586,7 @@ const Dashboard = (props) => {
                                             />
                                         </CardBody>
                                         <CardFooter className={classes.cardFooter}>
-                                            <Button variant="outlined" color="success" style={{ background: "#107869" }} size="sm" onClick={handleUpdate}>
+                                            <Button variant="outlined" color="success" style={{ background: "#2E3B55", width: '100%' }} size="lg" onClick={handleUpdate}>
                                                 Update
                                              </Button>
                                         </CardFooter>

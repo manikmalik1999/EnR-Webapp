@@ -31,6 +31,7 @@ import SellerAddProduct from 'views/SellerSection/SellerAddProduct';
 import SellerProducts from 'views/SellerSection/sellerProducts';
 import sellerEditProduct from 'views/SellerSection/sellerEditProduct';
 import sellerAllProducts from 'views/SellerSection/sellerAllProducts';
+import AllOrders from 'views/SellerSection/components/Dashboard-components/AllOrders';
 import PendingProductDetail from 'views/SellerSection/components/PendingProducts/PendingProductDetail/PendingProductDetail';
 import Message from 'views/Cart-Order/purchase';
 
@@ -57,6 +58,7 @@ ReactDOM.render(
       {/* <Route path="/seller-landing/" component={sellerLanding} /> */}
       <Route path="/seller-landing/" component={Dashboard} />
       <Route path="/seller-products/" component={SellerProducts} />
+      <Route path="/seller-orders/" component={AllOrders} />
       <Route path="/seller-all-products/" component={sellerAllProducts} />
       <Route path="/seller-product/:id" component={PendingProductDetail} />
       <Route path="/seller-add-product/" component={SellerAddProduct} />
