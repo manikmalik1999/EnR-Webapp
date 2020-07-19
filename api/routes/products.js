@@ -141,7 +141,7 @@ router.post("/", SellerAuth, upload.array('productImage',3), (req, res, next) =>
 router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
-  .select('name price _id quantity category sellerId description image image2 image3')
+  .select('name price _id quantity category sellerId description image image2 image3 review')
   .populate('sellerId', 'name')
     .exec()
     .then(doc => {

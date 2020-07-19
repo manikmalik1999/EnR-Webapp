@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/',checkAuth, (req, res, next) => {
-  
+    let flag = false;
     const {userId}= req.userData;  
         Review.find({user: userId , product: req.body.productId})
         .exec()
@@ -52,13 +52,35 @@ router.post('/',checkAuth, (req, res, next) => {
             })
             review.save() 
             .then(result =>{
+                Review.find({product: req.body.productId})
+                .select('value')
+                .exec()
+                .then(rev =>{
+                    console.log(rev);
+                    let avg=0;
+                    rev.forEach(element => {
+                        avg = avg + element.value;
+                    });
+                     product.updateOne({ _id: req.body.productId }, { $set:{ 
+                        review: avg/rev.length,
+                  } }).then(result=>{
+                        console.log(result);
+                  })
+                })
+                .catch(err=>{
+                    res.status(500).json({
+                        error: err
+                    });
+                })
                 res.status(201).json({
                     message:"Review Submitted",
                 });
+            }).catch(err=>{
+               return res.status(500).json({
+                    error: err
+                });
             })
-            
-        }
-    
+    }
 
     })
 
@@ -69,6 +91,11 @@ router.post('/',checkAuth, (req, res, next) => {
         });
     });
     
+
+    console.log(req.body.productId);
+  
+
+
     });
 
 
@@ -81,6 +108,7 @@ router.post('/',checkAuth, (req, res, next) => {
         .populate('user','name')
         .exec()
         .then(review =>{
+            console.log(review);
             if(!review){
                 return res.status(404).json({
                     message: "No reviews Yet"
