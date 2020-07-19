@@ -25,6 +25,8 @@ import { Paper } from '@material-ui/core';
 import Loading from '../Loading';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
+import Chip from '@material-ui/core/Chip';
+import StarRateIcon from '@material-ui/icons/StarRate';
 
 const dashboardRoutes = [];
 
@@ -164,6 +166,9 @@ export default function CategoryDisplay(props) {
                         </Typography>                                               
                         <Typography variant="body" style={{color:"green"}} component="h5" align="center">
                           <b>£: {pro.price}</b>
+                          {pro.review ?
+                      <Chip color="secondary" style={{ marginLeft: "46px" }} label={pro.review} clickable size="small" icon={<StarRateIcon />} />
+                      : null}
                         </Typography>
                       </CardContent>
                     </CardActionArea>

@@ -41,7 +41,6 @@ import Button from "components/CustomButtons/Button.js";
 import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
 
 import { cardTitle, cardLink, cardSubtitle } from "assets/jss/material-kit-react.js";
-import Paper from '@material-ui/core/Paper';
 
 class MyCarousel extends Component {
   static get CARD_STYLE() {
@@ -299,6 +298,9 @@ function Mul() {
               </Typography>
               <Typography variant="h6" style={{color:"green"}} component="p" align="center">
                 <b>£: {pro.price}</b>
+                {pro.review ?
+                      <Chip color="secondary" style={{ marginLeft: "46px" }} label={pro.review} clickable size="small" icon={<StarRateIcon />} />
+                      : null}
               </Typography>
             </CardContent>
           </CardActionArea>
