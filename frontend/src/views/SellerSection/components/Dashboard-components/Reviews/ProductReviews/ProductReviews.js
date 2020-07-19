@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductReviews(props) {
   const classes2 = useStyles();
   return (
-      <Link to={"/dashboard/reviews/" + props.id}>
+      <Link to={"/display/" + props.id}>
         <Card style={{ width: '19rem' }} className={classes.Outer}>
           <Card className={classes.root} onClick={props.clicked}>
             <CardHeader
@@ -52,6 +52,9 @@ export default function ProductReviews(props) {
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
                 {props.description}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                RATING : {props.rating === 0 ? "unrated" : props.rating}
               </Typography>
             </CardContent>
             <CardActions>
