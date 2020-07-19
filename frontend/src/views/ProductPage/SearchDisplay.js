@@ -31,6 +31,8 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import { Paper } from '@material-ui/core';
 import Loading from '../Loading';
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
+import Chip from '@material-ui/core/Chip';
+import StarRateIcon from '@material-ui/icons/StarRate';
 
 const dashboardRoutes = [];
 
@@ -144,28 +146,39 @@ export default function SearchDisplay(props) {
                     <CardActionArea>
                       <CardMedia title={pro.name} >
                         <GridContainer  justify="center" alignItems="center" style={{height:"43vh"}}>
-                          <GridItem className="container" xs={12}>
+                          {pro.quantity?
+                          (<GridItem className="container" xs={12}>
                             <img className="image" style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
                             <div className="middle">
-                              <IconButton size="large" color="secondary" aria-label="add to wishlist" onClick={() => HandleWhishlist(pro._id)}>
+                              <IconButton size="large" color="secondary" aria-label="add to wishlist" onClick={() =>HandleWhishlist(pro._id)}>
                                 <FavoriteIcon fontSize="large"/>
                               </IconButton>
                             </div>
-                          </GridItem>
+                          </GridItem>) :(
+                            <GridItem className="container" xs={12}>
+                            <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block", opacity:".6"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                            <div className="midd">
+                              Out of Stock
+                            </div>
+                            </GridItem>
+                          )}
                         </GridContainer>
                       </CardMedia>
                       <CardContent>
-                        <Typography gutterBottom variant="h6" component="h3">                                                   
+                        <Typography gutterBottom variant="h6" component="h3" align="center">                                                   
                           <Link to={"/Display/" + pro._id} target="_blank">
                             {pro.name}
                           </Link>                                               
                         </Typography>                                               
-                        <Typography variant="body" color="textSecondary" component="h5">
+                        <Typography variant="body" style={{color:"green"}} component="h5" align="center">
                           <b>£: {pro.price}</b>
+                          {pro.review ?
+                      <Chip color="secondary" style={{ marginLeft: "46px" }} label={pro.review} clickable size="small" icon={<StarRateIcon />} />
+                      : null}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <Typography variant="body2" color="textSecondary" component="h5" style={{marginLeft:"10px"}}>
+                    <Typography variant="body2" color="textSecondary" component="h5" style={{marginLeft:"10px", fontSize:"1.1rem"}} align="center">
                       {pro.description}
                     </Typography>
                   </GridItem>
