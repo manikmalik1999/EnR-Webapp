@@ -64,7 +64,7 @@ export const mainListItems = (
         <ListItemText primary="All Products" />
       </ListItem>
     </Link>
-    {/* <Link to="/seller-categories">
+    <Link to="/seller-categories">
       <ListItem style={{ color: "white", fontWeight: "bold" }} button>
         <Tooltip title="Categories" placement="right-start">
           <ListItemIcon>
@@ -73,7 +73,7 @@ export const mainListItems = (
         </Tooltip>
         <ListItemText primary="Categories" />
       </ListItem>
-    </Link> */}
+    </Link>
     {/* <Link to="/dashboard/products">
       <ListItem style={{ color: "white", fontWeight: "bold" }} button>
         <Tooltip title="Categories" placement="right-start">

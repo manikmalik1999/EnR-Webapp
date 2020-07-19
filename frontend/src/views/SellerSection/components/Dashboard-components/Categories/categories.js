@@ -32,7 +32,7 @@ class Categories extends Component {
             )
         } else {
             categories = this.state.categories.map(category => {
-                return <Grid item xs key={category._id}><Category category={category.category} /></Grid>;
+                return <Grid item xs key={category._id}><Category category={category.category}/></Grid>;
             });
         }
 

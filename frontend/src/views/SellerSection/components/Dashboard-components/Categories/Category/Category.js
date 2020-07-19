@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import classes from './Category.css';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import categoryImage from '../../../../../../assets/img/category.png'
 
 const StyledButton = withStyles({
   root: {
@@ -51,6 +52,7 @@ export default function Category(props) {
           image="https://don16obqbay2c.cloudfront.net/wp-content/uploads/Storefront_Images_C-1481632060.png"
           title={props.category}
         />
+        {/* <img src={categoryImage} height="240" width="320"/> */}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" color="primary">
             {props.category}
@@ -67,7 +69,7 @@ export default function Category(props) {
         {/* <Button size="small" color="success">
             Products
           </Button> */}
-        <Link to={"/dashboard/categories/" + props.category}>
+        <Link to={"/seller-categories/" + props.category}>
           <StyledButton2 style={{ width: "160px", marginLeft: "52px" }}>Products</StyledButton2>
         </Link>
         {/* <StyledButton2>PendingProducts</StyledButton2> */}

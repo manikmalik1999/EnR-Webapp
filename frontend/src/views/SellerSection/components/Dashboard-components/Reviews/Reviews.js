@@ -6,7 +6,7 @@ import ProductReviews from './ProductReviews/ProductReviews';
 import { Dimmer, Loader } from "semantic-ui-react" ;
 import { Grid } from "@material-ui/core" ;
 
-
+const sellerToken = sessionStorage.getItem("TokenSeller");
 class Reviews extends Component {
     state = {
         reviewProducts: [],
@@ -15,10 +15,23 @@ class Reviews extends Component {
     };
 
     componentDidMount() {
-        Axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews')
+        Axios({
+            method: 'get',
+            url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+            headers: {
+              'Authorization': 'Bearer ' + sellerToken,
+            }
+          })
             .then(response => {
-                // console.log(response);
-                this.setState({ reviewProducts: response.data.reviews, loading: false });
+                const products = response.data.product;
+                console.log(response);
+                const approvedProducts = products.filter(i => {
+                    return i.approved === "true";
+                });
+                this.setState({
+                    reviewProducts: approvedProducts,
+                    loading: false,
+                })
             })
             .catch(err => {
                 console.log(err);
@@ -30,6 +43,7 @@ class Reviews extends Component {
     }
 
     render() {
+        console.log(this.state.reviewProducts);
         let products = null;
         if (this.state.loading) {
             products = (
@@ -53,14 +67,15 @@ class Reviews extends Component {
             } else {
                 const prods = this.state.reviewProducts.map(review => {
                     return (
-                        <Grid item xs={12} lg={4} key={review.product._id}>
+                        <Grid item xs={12} lg={4} key={review._id}>
                             <ProductReviews
-                               id={review.product._id}
-                               title={review.product.name}
+                               id={review._id}
+                               title={review.name}
                                // description={review.product.description}
-                               price={review.product.price}
-                               image={review.product.image}
-                               clicked={() => this.individualReviewHandler(review.product._id)}
+                               price={review.price}
+                               image={review.image}
+                               rating = {review.review}
+                               clicked={() => this.individualReviewHandler(review._id)}
                            />
                         </Grid>
                     )

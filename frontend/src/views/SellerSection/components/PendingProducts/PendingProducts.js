@@ -35,6 +35,7 @@ const styles = (theme) => ({
     },
 });
 
+const sellerToken = sessionStorage.getItem("TokenSeller");
 
 class PendingProducts extends Component {
     state = {
@@ -65,20 +66,24 @@ class PendingProducts extends Component {
 
 
     componentDidMount() {
-        let categoryFilter;
-        if (this.props.sellerId) {
-            axios
-                .get('https://limitless-lowlands-36879.herokuapp.com/products')
+        if(this.props.category) {
+            axios({
+                method: 'get',
+                url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+                headers: {
+                  'Authorization': 'Bearer ' + sellerToken,
+                }
+              })
                 .then(response => {
-                    const products = response.data.products;
+                    const products = response.data.product;
                     const pendingProducts = products.filter(i => {
-                        return i.approved === "pending" && i.sellerId === this.props.sellerId;
+                        return i.approved === "pending" && i.category.toLowerCase() === this.props.category;
                     });
                     const approvedProducts = products.filter(i => {
-                        return i.approved === "true" && i.sellerId === this.props.sellerId;
+                        return i.approved === "true" && i.category.toLowerCase() === this.props.category;
                     });
                     const rejectedProducts = products.filter(i => {
-                        return i.approved === "false" && i.sellerId === this.props.sellerId;
+                        return i.approved === "false" && i.category.toLowerCase() === this.props.category;
                     });
                     this.setState({
                         pendingProducts: pendingProducts,
@@ -86,7 +91,7 @@ class PendingProducts extends Component {
                         rejectedProducts: rejectedProducts,
                         loading: false,
                         snack: {
-                            show: this.props && this.props.location && this.props.location.state && this.props.location.state.value !== "back" && true,
+                            show: this.props && this.props.location && this.props.location.state && true,
                             message: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "Product Accepted" : "Product Denied",
                             color: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "green" : "red"
                         }
@@ -96,42 +101,17 @@ class PendingProducts extends Component {
                     console.log(err);
                 });
         }
-        // else if (this.props.match.params.category) {
-        //     console.log(this.props.match.params.category);
-        //     axios
-        //         .get('https://limitless-lowlands-36879.herokuapp.com/products')
-        //         .then(response => {
-        //             const products = response.data.products;
-        //             const pendingProducts = products.filter(i => {
-        //                 return i.approved === "pending" && i.category.toLowerCase() === this.props.match.params.category;
-        //             });
-        //             const approvedProducts = products.filter(i => {
-        //                 return i.approved === "true" && i.category.toLowerCase() === this.props.match.params.category;
-        //             });
-        //             const rejectedProducts = products.filter(i => {
-        //                 return i.approved === "false" && i.category.toLowerCase() === this.props.match.params.category;
-        //             });
-        //             this.setState({
-        //                 pendingProducts: pendingProducts,
-        //                 approvedProducts: approvedProducts,
-        //                 rejectedProducts: rejectedProducts,
-        //                 loading: false,
-        //                 snack: {
-        //                     show: this.props && this.props.location && this.props.location.state && true,
-        //                     message: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "Product Accepted" : "Product Denied",
-        //                     color: this.props && this.props.location && this.props.location.state && this.props.location.state.value ? "green" : "red"
-        //                 }
-        //             })
-        //         })
-        //         .catch(err => {
-        //             console.log(err);
-        //         });
-        // }
         else {
-            axios
-                .get('https://limitless-lowlands-36879.herokuapp.com/products')
+            axios({
+                method: 'get',
+                url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+                headers: {
+                  'Authorization': 'Bearer ' + sellerToken,
+                }
+              })
                 .then(response => {
-                    const products = response.data.products;
+                    const products = response.data.product;
+                    console.log(response);
                     const pendingProducts = products.filter(i => {
                         return i.approved === "pending";
                     });
@@ -171,6 +151,8 @@ class PendingProducts extends Component {
     render() {
         //snackHandler
         // console.log(this.state.approvedProducts ) ; 
+        // console.log(this.props.category);
+
         let products = null;
         if (!this.state.individualProductId) {
             if (this.state.curr === 'approved') {

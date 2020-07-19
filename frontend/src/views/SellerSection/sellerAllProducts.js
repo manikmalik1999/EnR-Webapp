@@ -273,7 +273,7 @@ const Dashboard = (props) => {
 
                     {/* all-products */}
 
-                    <PendingProducts/>
+                    <PendingProducts category = {props.match.params.category}/>
 
 
                     <Grid container spacing={3}>
