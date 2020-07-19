@@ -237,7 +237,7 @@ const quantityChange =(e)=>{
                 shippingAddress
                 billingAddress
               >
-                <Button variant="contained" style={{ backgroundColor: "#107869", color: "white", float: "right" }}>Checkout : £ {totalAmount}</Button>
+                <Button variant="contained" style={{ backgroundColor: "#107869", color: "white", float: "right" }}>Checkout : £ { Math.floor(totalAmount*100)/100 }</Button>
               </StripeCheckout>
 
             </div>) : <Ecart />}

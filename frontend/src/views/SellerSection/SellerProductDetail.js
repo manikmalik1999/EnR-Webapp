@@ -24,17 +24,14 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
-import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import { mainListItems, secondaryListItems } from './components/Dashboard-components/listItems';
 import { Route } from "react-router-dom";
 import { default as LLink } from "react-router-dom/Link";
 import Axios from 'axios';
 import Cookies from "universal-cookie";
 import { Redirect } from "react-router-dom";
 import { Snackbar, SnackbarContent } from "@material-ui/core";
-import ProfilePage from 'views/ProfilePage/ProfilePage';
+import PendingProductDetails from './components/PendingProducts/PendingProductDetail/PendingProductDetail';
 const cookies = new Cookies();
 
 
@@ -168,8 +165,6 @@ const Dashboard = (props) => {
   const [notification, setNotification] = useState({
     notification: true
   })
-  const [products, setProducts] = useState(null);
-  const [fnlOrders, setFnlOrders] = useState(null);
   // const [token,setToken] = useState("") ;
 
 
@@ -202,16 +197,17 @@ const Dashboard = (props) => {
   // }
 
   //Snacks
-  if (loginSnack.show) {
-    setLoginSnack({
-      show: false
-    })
-    setSnack({
-      show: true,
-      message: "Logged In",
-      color: "Green"
-    })
-  }
+  // if (loginSnack.show) {
+  //   setLoginSnack({
+  //     show: false
+  //   })
+  //   setSnack({
+  //     show: true,
+  //     message: "Logged In",
+  //     color: "Green"
+  //   })
+  // }
+
   //logout handler
   const logoutHandler = () => {
     console.log(sellerToken);
@@ -233,17 +229,6 @@ const Dashboard = (props) => {
   //data from orders
   useEffect(() => {
     // console.log(token) ;
-    Axios({
-      method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
-      headers: {
-        'Authorization': 'Bearer ' + sellerToken,
-      }
-    })
-      .then(res => {
-        // console.log(res);
-        setProducts(res.data.product);
-      })
 
     Axios({
       method: 'get',
@@ -253,87 +238,12 @@ const Dashboard = (props) => {
       }
     }).then(res => {
       // console.log(sellerToken);
-      // console.log(res.data);
+      console.log(res.data);
       setName("Hi, " + res.data.sellers.name);
       setNameSeller(res.data.sellers.name);
       sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
     })
-
-    Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
-      headers: {
-        "Authorization": "Bearer " + sellerToken
-      }
-    })
-      .then(response => {
-        // console.log(response.data) ;
-        setOrders({
-          orders: response.data.orders
-        })
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    // Axios.get("https://limitless-lowlands-36879.herokuapp.com/products", {
-    //   headers: {
-    //     "Authorization": "Bearer " + sellerToken
-    //   }
-    // })
-    //   .then(response => {
-    //     // console.log(response.data) ;
-    //     const prods = response.data.products.filter(product => {
-    //       if (product.approved === "pending") {
-    //         return true;
-    //       }
-    //       return false;
-    //     })
-    //     setPending({
-    //       pending: prods.length || 0
-    //     })
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-
-    Axios.get("https://limitless-lowlands-36879.herokuapp.com/sellers", {
-      headers: {
-        "Authorization": "Bearer " + sellerToken
-      }
-    })
-      .then(response => {
-        setSellers({
-          sellers: response.data.users
-        })
-      })
-      .catch(err => {
-        console.log(err);
-      })
   }, []);
-
-  let filteredOrders = [];
-  if (orders.orders && products) {
-    filteredOrders = orders.orders.map(order => {
-      for (let i = 0; i < products.length; ++i) {
-        if (order.product.name === products[i].name) {
-          return order;
-          break;
-        }
-      }
-    })
-  }
-  // console.log(orders.orders) ;
-  let finalOrders = [];
-  if (filteredOrders.length !== 0) {
-    for (let i = 0; i < filteredOrders.length; ++i) {
-      if (filteredOrders[i]) {
-        finalOrders.push(filteredOrders[i]);
-      }
-    }
-    console.log(finalOrders);
-    if (!fnlOrders) {
-      setFnlOrders(finalOrders)
-    }
-  }
 
   return (
     <div className={classes.root} >
@@ -369,7 +279,7 @@ const Dashboard = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
-            Enr SellerHub
+            Enr SellerHub - Categories
           </Typography>
 
           <Typography>{name}</Typography>
@@ -416,30 +326,7 @@ const Dashboard = (props) => {
         <Container maxWidth="lg" className={classes.container}>
 
           {/* main-dashboard */}
-          <Grid item xs={12}>
-            {/* <Paper className={classes.paper} style={{ minHeight: "380px" }}> */}
-            <div style={{ borderRadius: "6px", marginBottom: "24px" }}>
-              <ProfilePage name={nameSeller} />
-            </div>
-            {/* </Paper> */}
-          </Grid>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart orders={fnlOrders} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits orders={fnlOrders} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper} style={{ minHeight: "380px" }}>
-                <Orders orders={fnlOrders} onlyOrders={false} />
-              </Paper>
-            </Grid>
-          </Grid>
+          <PendingProductDetails id={props.match.params.id} />
           <Grid container spacing={3}>
             <Box pt={4}>
               <Copyright />

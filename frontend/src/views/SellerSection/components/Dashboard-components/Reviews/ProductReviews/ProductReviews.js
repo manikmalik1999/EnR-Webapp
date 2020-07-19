@@ -16,11 +16,49 @@ import ShareIcon from '@material-ui/icons/Share';
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import Aux from '../../../hoc/Auxilliary';
-import classes from "./ProductReviews.css";
+// import classes from "./ProductReviews.css";
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import { Link } from "react-router-dom";
 import elliot from "../../../../assets/img/elliot.jpg";
 
+const usStylese = makeStyles({
+  root : {
+    maxWidth: "345",
+},
+
+Outer : {
+    border: "none !important",
+    borderRadius: "6px",
+    fontFamily: "'Lato', sans-serif",
+    display: "inline-block",
+    paddingTop: "8px" ,
+    /* padding-bottom: 8px, */
+    margin: "8px",
+},
+Title : {
+    fontWeight: "700",
+    fontSize: "24px" ,
+},
+Desc : {
+    fontSize: "16px" ,
+},
+Price : {
+    fontSize: "18px",
+    fontWeight: "600",
+},
+// Outer:hover : {
+//     cursor: "pointer",
+//     transform: "translateY(-2px)" ,
+//     boxShadow: "1px 2px 15px rgb(177, 174, 174)" ,
+//     transition: "all 0.3s",
+// } ,
+media : {
+    paddingTop: "56.25%",
+    margin: "auto",
+    width: "auto",
+    height: "140",
+}
+})
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -29,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProductReviews(props) {
+  const classes = usStylese() ;
   const classes2 = useStyles();
   return (
       <Link to={"/display/" + props.id}>
@@ -37,7 +76,7 @@ export default function ProductReviews(props) {
             <CardHeader
               avatar={
                 <Avatar aria-label="recipe" className={classes2.avatar}>
-                  {props.title[0]}
+                  { props.title[0] === " " ? props.title[1] : props.title[0]}
                 </Avatar>
               }
               title={props.title}
@@ -53,8 +92,8 @@ export default function ProductReviews(props) {
               <Typography variant="body2" color="textSecondary" component="p">
                 {props.description}
               </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                RATING : {props.rating === 0 ? "unrated" : props.rating}
+              <Typography variant="body2" color="textSecondary" component="p" style={{textAlign:"center"}}>
+                {props.rating === 0 ? "Un-Rated" : "Rating : " +  props.rating + " / 5"}
               </Typography>
             </CardContent>
             <CardActions>

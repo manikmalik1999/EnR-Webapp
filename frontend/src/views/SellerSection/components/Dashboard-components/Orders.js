@@ -93,7 +93,7 @@ function Row(props) {
         <TableCell>{row.product}</TableCell>
         <TableCell>{row.customer}</TableCell>
         <TableCell>{row.quantity}</TableCell>
-        <TableCell>£ {row.amount}</TableCell>
+        <TableCell>£ {Math.floor(row.amount*100)/100}</TableCell>
         <TableCell style={{ float: "right" }}>
           <IconButton size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -121,7 +121,7 @@ function Row(props) {
                   {row.history.map((historyRow) => (
                     <TableRow key={historyRow.id}>
                       <TableCell component="th" scope="row">
-                        £  {historyRow.price}
+                        £  { Math.floor(historyRow.price*100)/100 }
                       </TableCell>
                       <TableCell>{historyRow.category}</TableCell>
                       <TableCell>{historyRow.email}</TableCell>

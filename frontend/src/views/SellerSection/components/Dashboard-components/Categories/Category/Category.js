@@ -8,9 +8,48 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import classes from './Category.css';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import categoryImage from '../../../../../../assets/img/category.png'
+
+const usStylese = makeStyles({
+  root : {
+    maxWidth: "345",
+},
+
+Outer : {
+    border: "none !important",
+    borderRadius: "6px",
+    fontFamily: "'Lato', sans-serif",
+    display: "inline-block",
+    paddingTop: "8px" ,
+    /* padding-bottom: 8px, */
+    margin: "8px",
+},
+Title : {
+    fontWeight: "700",
+    fontSize: "24px" ,
+},
+Desc : {
+    fontSize: "16px" ,
+},
+Price : {
+    fontSize: "18px",
+    fontWeight: "600",
+},
+// Outer:hover : {
+//     cursor: "pointer",
+//     transform: "translateY(-2px)" ,
+//     boxShadow: "1px 2px 15px rgb(177, 174, 174)" ,
+//     transition: "all 0.3s",
+// } ,
+media : {
+    paddingTop: "56.25%",
+    margin: "auto",
+    width: "auto",
+    height: "140",
+}
+})
 
 const StyledButton = withStyles({
   root: {
@@ -43,6 +82,7 @@ const StyledButton2 = withStyles({
 })(Button);
 
 export default function Category(props) {
+  const classes = usStylese() ;
   // console.log(props.category) ;
   return (
     <Card className={classes.root} style={{ width: "280px", display: "inline-block", margin: "16px" }}>

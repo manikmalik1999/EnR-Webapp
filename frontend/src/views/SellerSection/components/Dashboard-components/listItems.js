@@ -42,18 +42,18 @@ export const mainListItems = (
         <ListItemText primary="Add Product" />
       </ListItem>
     </Link>
-    <Link to="/seller-products">
+    {/* <Link to="/seller-products">
       <ListItem style={{ color: "white", fontWeight: "bold" }} button>
         <Tooltip title="Products" placement="right-start">
           <ListItemIcon>
-            {/* <Badge badgeContent={4} color="secondary"> */}
+             <Badge badgeContent={4} color="secondary"> 
               <AddShoppingCartIcon style={{ color: "white" }} />
-            {/* </Badge> */}
+            </Badge>
           </ListItemIcon>
         </Tooltip>
         <ListItemText primary="Products" />
       </ListItem>
-    </Link>
+    </Link> */}
     <Link to="/seller-all-products">
       <ListItem style={{ color: "white", fontWeight: "bold" }} button>
         <Tooltip title="All Products" placement="right-start">

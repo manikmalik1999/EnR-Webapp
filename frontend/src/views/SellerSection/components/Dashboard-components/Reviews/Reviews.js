@@ -71,7 +71,7 @@ class Reviews extends Component {
                             <ProductReviews
                                id={review._id}
                                title={review.name}
-                               // description={review.product.description}
+                            //    description={review.product.description}
                                price={review.price}
                                image={review.image}
                                rating = {review.review}

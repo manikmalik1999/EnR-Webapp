@@ -162,16 +162,16 @@ const Dashboard = (props) => {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     //Snacks
-    if (loginSnack.show) {
-        setLoginSnack({
-            show: false
-        })
-        setSnack({
-            show: true,
-            message: "Logged In",
-            color: "Green"
-        })
-    }
+    // if (loginSnack.show) {
+    //     setLoginSnack({
+    //         show: false
+    //     })
+    //     setSnack({
+    //         show: true,
+    //         message: "Logged In",
+    //         color: "Green"
+    //     })
+    // }
 
     //logout handler
     const logoutHandler = () => {
@@ -181,9 +181,9 @@ const Dashboard = (props) => {
         setRedirect({
             to: <Redirect to="/seller-login" />
         })
-        setLoginSnack({
-            show: true
-        })
+        // setLoginSnack({
+        //     show: true
+        // })
     }
 
     useEffect(() => {
@@ -237,7 +237,7 @@ const Dashboard = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
-                        EnrSeller
+                        Enr SellerHub - All Products
           </Typography>
 
                     <Typography>{name}</Typography>

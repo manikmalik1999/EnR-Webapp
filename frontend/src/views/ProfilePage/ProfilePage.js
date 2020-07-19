@@ -29,6 +29,7 @@ import work2 from "assets/img/examples/clem-onojeghuo.jpg";
 import work3 from "assets/img/examples/cynthia-del-rio.jpg";
 import work4 from "assets/img/examples/mariya-georgieva.jpg";
 import work5 from "assets/img/examples/clem-onojegaw.jpg";
+import elliot from "../SellerSection/assets/img/elliot.jpg"
 import pain from 'assets/img/pain.png';
 
 import Axios from 'axios';
@@ -93,7 +94,7 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={4}>
                 <div className={classes.profile}>
                   <div style={{paddingTop:"64px"}}>
-                    <img src={pain} alt="..." className={imageClasses} />
+                    <img src={elliot} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name} style={{padding:"12px"}}>
                     <h3 className={classes.title}>{props.name}</h3>

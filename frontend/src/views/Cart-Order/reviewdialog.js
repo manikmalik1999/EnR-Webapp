@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,6 +11,8 @@ import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
 import Star from '@material-ui/icons/Star';
 import axios from 'axios';
+import { Snackbar, SnackbarContent } from "@material-ui/core";
+
 
 const useStyles = makeStyles({
     root: {
@@ -34,11 +36,19 @@ export default function FormDialog(props) {
   const [hover, setHover] = React.useState(-1);
   const [comments,setComments] = React.useState("");
   const classes = useStyles();
-  
+  const [snack, setSnack] = useState({
+    show: false,
+    message: "",
+    color: "lightBlue"
+  })
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  const snackbarClose = (event) => {
+    setSnack({
+      show: false
+    })
+  }
   const handleClose = () => {
     setOpen(false);
   };
@@ -56,7 +66,21 @@ export default function FormDialog(props) {
           productId: e
       }
     }).then(res=>{
-      alert(res.data.message);
+      console.log(res) ;
+      if( res.data.message === "You can't add more reviews for this product" ){
+        setSnack({
+          show: true,
+          message: "You can't add more reviews for this product",
+          color: "red"
+        })
+      }
+      else{
+        setSnack({
+          show: true,
+          message: "Review Added",
+          color: "Green"
+        })
+      }
       setOpen(false);
     });
     setOpen(false);
@@ -67,6 +91,23 @@ export default function FormDialog(props) {
 
   return (
     <div>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        open={snack.show}
+        autoHideDuration={4000}
+        onClose={snackbarClose}
+        bodystyle={{ backgroundColor: 'teal', color: 'coral' }}
+        message={<span id="message-id">{snack.message}</span>}
+      >
+        <SnackbarContent style={{
+          backgroundColor: snack.color,
+        }}
+          action={[
+            <button key={"close"} onClick={snackbarClose} style={{ background: "none", border: "none", color: "white" }}>x</button>
+          ]}
+          message={<span id="client-snackbar">{snack.message}</span>}
+        />
+      </Snackbar>
       <Button style={{ backgroundColor: "#00897b", display: "inline", marginLeft: "20vw" }} variant="contained" color="primary" onClick={handleClickOpen}>
         Add Review
       </Button>

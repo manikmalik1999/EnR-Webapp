@@ -233,11 +233,11 @@ const Dashboard = (props) => {
         })
             .then(res => {
                 setLoading(false);
-                window.location.href = "/seller-products";
+                window.location.href = "/seller-all-products";
                 // alert(res.data.message);
             })
             .catch(err => {
-                window.location.href = "/seller-products";
+                window.location.href = "/seller-all-products";
                 setLoading(false);
                 console.log(err);
             })
@@ -309,16 +309,16 @@ const Dashboard = (props) => {
     // }
 
     //Snacks
-    if (loginSnack.show) {
-        setLoginSnack({
-            show: false
-        })
-        setSnack({
-            show: true,
-            message: "Logged In",
-            color: "Green"
-        })
-    }
+    // if (loginSnack.show) {
+    //     setLoginSnack({
+    //         show: false
+    //     })
+    //     setSnack({
+    //         show: true,
+    //         message: "Logged In",
+    //         color: "Green"
+    //     })
+    // }
     //logout handler
     const logoutHandler = () => {
         console.log(sellerToken);
@@ -440,12 +440,11 @@ const Dashboard = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Enr Consultancies
+                        Enr SellerHub - Edit Product
           </Typography>
-
                     <Typography>{name2}</Typography>
 
-                    <Tooltip title="Products" TransitionComponent={Zoom} >
+                    {/* <Tooltip title="Products" TransitionComponent={Zoom} >
                         <IconButton color="inherit">
                             <LLink to="/dashboard/products" >
                                 {notification.notification ?
@@ -458,7 +457,7 @@ const Dashboard = (props) => {
                                 }
                             </LLink>
                         </IconButton>
-                    </Tooltip>
+                    </Tooltip> */}
                     <Tooltip title="Logout" TransitionComponent={Zoom} >
                         <IconButton onClick={logoutHandler}>
                             <ExitToAppIcon style={{ color: "white" }} />

@@ -16,8 +16,49 @@ import ShareIcon from '@material-ui/icons/Share';
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import Aux from '../../../hoc/Auxilliary';
-import classes from "./Product.css" ;
+// import classes from "./Product.css" ;
 import { Link } from "react-router-dom" ;
+
+const usStylese = makeStyles({
+  root : {
+    maxWidth: "345px",
+},
+
+Outer : {
+    border: "none !important",
+    borderRadius: "6px",
+    fontFamily: "'Lato', sans-serif",
+    display: "inline-block",
+    paddingTop: "8px" ,
+    /* padding-bottom: 8px, */
+    margin: "8px",
+},
+Title : {
+    fontWeight: "700",
+    fontSize: "24px" ,
+},
+Desc : {
+    fontSize: "16px" ,
+},
+Price : {
+    fontSize: "18px",
+    fontWeight: "600",
+},
+// Outer:hover : {
+//     cursor: "pointer",
+//     transform: "translateY(-2px)" ,
+//     boxShadow: "1px 2px 15px rgb(177, 174, 174)" ,
+//     transition: "all 0.3s",
+// } ,
+media : {
+    paddingTop: "56.25%",
+    margin: "auto",
+    width: "auto",
+    minHeight:"340px",
+    // height:"auto",
+    maxheight: "400px",
+}
+})
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -28,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Product(props) {
   const classes2 = useStyles();
   // console.log(props) ;
+  const classes = usStylese() ;
   return (
     <Link to={"/seller-product/" + props.id}>
       <Card style={{ width: '19rem'}} className={classes.Outer}>
@@ -43,7 +85,7 @@ export default function Product(props) {
           />
           <CardMedia
             className={classes.media}
-            style={{width:"100%"}}
+            // style={{width:"100%"}}
             image={"https://limitless-lowlands-36879.herokuapp.com/" + props.image} 
             title={props.title}
           />
