@@ -326,7 +326,7 @@ const Dashboard = (props) => {
         <Container maxWidth="lg" className={classes.container}>
 
           {/* main-dashboard */}
-          <PendingProductDetails id={props.match.params.id} />
+          <PendingProductDetails id={props.match.params.id} pageFrom={props.match.params.pageFrom}/>
           <Grid container spacing={3}>
             <Box pt={4}>
               <Copyright />
