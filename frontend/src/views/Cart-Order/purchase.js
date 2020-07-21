@@ -29,9 +29,9 @@ export default function Message() {
   return (
     <div className={classes.root}>
       <NavBar />
-      <div style={{ marginTop: "10vh", padding: "24px",paddingBottom:"42px" }} className={classNames(classes.main, classes.mainRaised)}>
-        <GridContainer justify="center" alignItems="center" >
-          <GridItem xs={12} lg={4}>
+      <div style={{ marginTop: "10vh", padding: "24px",paddingBottom:"42px",minHeight:"590px" }} className={classNames(classes.main, classes.mainRaised)}>
+        <GridContainer justify="center"  style={{minHeight:"500px"}} alignItems="center" >
+          <GridItem xs={12} lg={4} >
             <img src={shop} style={{ width: "14vw", display: "block", marginLeft: "auto", marginRight: "auto" }} alt="cart" />
           </GridItem>
           <GridItem xs={12} lg={8}>

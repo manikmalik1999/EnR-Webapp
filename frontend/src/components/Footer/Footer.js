@@ -30,7 +30,7 @@ export default function Footer(props) {
   if( props.color ){
     clr = {color : props.color} ;
   }
-  console.log(clr) ;
+  // console.log(clr) ;
   return (
     <footer className={footerClasses}>
       <div className={classes.container}>

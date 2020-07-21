@@ -32,8 +32,8 @@ function Ecart() {
     window.location.href = "/";
   }
   return (
-    <div className="container-fluid" style={{ padding: "50px auto", margin: "40px auto" }}>
-      <Grid container spacing={3}>
+    <div className="container-fluid" style={{ padding: "50px auto", margin: "40px auto",minHeight:"590px" }}>
+      <Grid container  style={{minHeight:"500px"}} spacing={3}>
         <Grid item lg={1} />
         <Grid item lg={4}>
           <img style={{ width: "14vw", display: "block", marginLeft: "auto", marginRight: "auto" }} src={cimg} alt="Empty-Cart" />
@@ -119,7 +119,7 @@ export default function OrderDisplay(props) {
   return (
     <div>
       <NavBar />
-      {loading ? <Loading /> :
+      {loading ? <div style={{minHeight:"660px"}}><Loading /></div> :
         <div style={{ marginTop: "10vh", padding: "24px" }} className={classNames(classes.main, classes.mainRaised)}>
           {/* <Categories/> */}
           <h4 style={{ color: "green", marginLeft: "1vw" }} ><b>My Orders</b> ({count})</h4>

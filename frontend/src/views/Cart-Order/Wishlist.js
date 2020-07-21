@@ -66,7 +66,7 @@ function Ecart () {
     window.location.href = "/";
   }
   return (
-    <div className="container-fluid" style={{paddingBottom:"40px"}}>
+    <div className="container-fluid" style={{paddingBottom:"40px",minHeight:"520px"}}>
       <img style={{width:"30vw", display:"block", marginLeft:"auto", marginRight:"auto"}} src={wimg} alt="Empty-Wishlist" />
       <Button variant="contained" style={{ display: "block",margin:"auto",width:"20%",backgroundColor: "#00897b"}} size="large" color="secondary" onClick={Home}> Shop Now</Button>
     </div>
@@ -201,7 +201,7 @@ export default function WishlistDisplay() {
 
 
   return (
-    <div>
+    <div style={{minHeight:"590px"}}>
       <NavBar/>
         <div style={{ marginTop:"10vh"}} className={classNames(classe.main, classe.mainRaised)}>
           <h4 style={{color:"green", marginLeft:"1vw", padding:"1vw"}} ><b>Wishlist</b> ({count})</h4>

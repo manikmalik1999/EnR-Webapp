@@ -27,6 +27,9 @@ import img5 from 'assets/img/img5.jpg';
 import img6 from 'assets/img/img6.jpg';
 import img7 from 'assets/img/img7.jpg';
 import img8 from 'assets/img/img8.jpg';
+import img11 from 'assets/img/img11.png';
+import img9 from 'assets/img/sofa.jpg';
+import img10 from 'assets/img/sport.jpg';
 
 import card1 from 'assets/img/card1.jpg';
 import card2 from 'assets/img/card2.jpg';
@@ -127,10 +130,31 @@ class Caro extends React.Component {
         <div className="xs-col-12" style={{ textAlign: "center" }} >
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
-            src={img6}
+            src={img9}
             alt="Card-img-cap"
           />
         </div>
+        <div className="xs-col-12" style={{ textAlign: "center" }} >
+          <img
+            style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
+            src={img10}
+            alt="Card-img-cap"
+          />
+        </div>
+        <div className="xs-col-12" style={{ textAlign: "center" }} >
+          <img
+            style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
+            src={img11}
+            alt="Card-img-cap"
+          />
+        </div>
+        {/* <div className="xs-col-12" style={{ textAlign: "center" }} >
+          <img
+            style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
+            src={img6}
+            alt="Card-img-cap"
+          />
+        </div> */}
         {/* <div className="xs-col-12" style={{ textAlign: "center" }}>
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
@@ -145,13 +169,13 @@ class Caro extends React.Component {
             alt="Card-img-cap"
           />
         </div>
-        {/* <div className="xs-col-12" style={{ textAlign: "center" }}>
+        <div className="xs-col-12" style={{ textAlign: "center" }}>
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
-            src={img2}
+            src={img9}
             alt="Card-img-cap"
           />
-        </div> */}
+        </div>
         <div className="xs-col-12" style={{ textAlign: "center" }}>
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
@@ -160,13 +184,13 @@ class Caro extends React.Component {
           />
         </div>
         
-        <div className="xs-col-12" style={{ textAlign: "center" }}>
+        {/* <div className="xs-col-12" style={{ textAlign: "center" }}>
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
             src={img6}
             alt="Card-img-cap"
           />
-        </div>
+        </div> */}
         <div className="xs-col-12" style={{ textAlign: "center" }}>
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
@@ -195,13 +219,13 @@ class Caro extends React.Component {
             alt="Card-img-cap"
           />
         </div>
-        <div className="xs-col-12" style={{ textAlign: "center" }}>
+        {/* <div className="xs-col-12" style={{ textAlign: "center" }}>
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
             src={img6}
             alt="Card-img-cap"
           />
-        </div>
+        </div> */}
         <div className="xs-col-12" style={{ textAlign: "center" }}>
           <img
             style={{ height: "400px", width: "100%", display: "block", marginLeft: "0" }}
