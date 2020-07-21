@@ -70,11 +70,11 @@ class MyCarousel extends Component {
           <img src={card2} style={{ height: "17vw", width: "25vw" }} />
         </div>
         <div style={MyCarousel.CARD_STYLE}>
-          <img src={card3} style={{ height: "17vw", width: "25vw" }} />
+          <h2 style={{color:"black",height:"100%",margin:"auto",padding:"12px"}}>Use FIRST15 on your first Purchase <br/> <br/> Use JULY10 to avail july discount</h2>
         </div>
         <div style={MyCarousel.CARD_STYLE}>
           <img src={card4} style={{ height: "17vw", width: "25vw" }} />
-        </div>
+        </div>  
         <div style={MyCarousel.CARD_STYLE}>
           <img src={card5} style={{ height: "17vw", width: "25vw" }} />
         </div>

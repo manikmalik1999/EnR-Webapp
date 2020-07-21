@@ -30,7 +30,6 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import cimg from 'assets/img/empty_cart.png';
 import Loading from '../Loading';
 
-const Token = sessionStorage.getItem('TokenKey');
 
 function Ecart() {
   const Home = () => {
