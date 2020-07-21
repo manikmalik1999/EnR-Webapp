@@ -143,7 +143,7 @@ const Dashboard = (props) => {
     const [redirect, setRedirect] = useState({
         to: null
     });
-
+    const [once,setOnce] = useState(false) ;
     //state Handlers
     const snackbarClose = (event) => {
         setSnack({
@@ -202,7 +202,17 @@ const Dashboard = (props) => {
             });
 
     }, []);
-
+    console.log(window.location.href) ;
+    if( window.location.href.split("/")[4] === "del" ){
+        if( !once ){
+            setOnce(true) ;
+            setSnack({
+                show:true,
+                message:"Product Deleted",
+                color:"green"
+            })
+        }
+    }
     return (
         <div className={classes.root} >
             {redirect.to}

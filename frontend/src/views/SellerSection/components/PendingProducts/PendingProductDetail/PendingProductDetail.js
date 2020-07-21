@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom" ;
 // import classescss from "./PendingProductDetail.css";
 import { Icon } from 'semantic-ui-react'
 import Cookies from "universal-cookie";
@@ -165,7 +166,11 @@ class PendingProductDetail extends Component {
             .then(res => {
                 // console.log(res);
                 this.setState({ redirectToOutOfStockProducts: true, value: false });
-                window.location.href = "/seller-all-products";
+                // <Link to={{
+                //     pathname:"/seller-all-products",
+                //     deteted:true
+                // }} />
+                window.location.href = "/seller-all-products/del";
             })
             .catch(err => {
                 console.log(err);
@@ -191,7 +196,7 @@ class PendingProductDetail extends Component {
         }
         console.log(this.props.pageFrom);
         let buttonCode;
-        if(this.props.pageFrom === 'approved'){
+        if(this.props.pageFrom === !'pending'){
             buttonCode = (<Grid item xs={12} lg={5}>
                             <Button variant="success" onClick={this.editHandler} style={{
                                 margin: "20px auto",

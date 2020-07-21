@@ -65,7 +65,8 @@ ReactDOM.render(
       <Route path="/seller-orders/" component={AllOrders} />
       <Route path="/seller-categories/" exact component={selleCategories} />
       <Route path="/seller-categories/:category" component={sellerAllProducts} />
-      <Route path="/seller-all-products/" component={sellerAllProducts} />
+      <Route path="/seller-all-products/del" component={sellerAllProducts} />
+      <Route path="/seller-all-products" component={sellerAllProducts} />
       <Route path="/seller-add-product/" component={SellerAddProduct} />
       <Route path="/seller-product-reviews/" component={sellerReviews} />
       <Route path="/wishlist-page" component={WishlistDisplay} />
