@@ -164,6 +164,7 @@ class PendingProducts extends Component {
                         description={product.description}
                         price={product.price}
                         image={product.image}
+                        pageFrom={this.state.curr}
                         sellerId={product.sellerId}
                         clicked={() => this.individualProductHandler(product._id)}
                     />
@@ -178,6 +179,7 @@ class PendingProducts extends Component {
                         description={product.description}
                         price={product.price}
                         image={product.image}
+                        pageFrom={this.state.curr}
                         sellerId={product.sellerId}
                         clicked={() => this.individualProductHandler(product._id)}
                     />
@@ -191,6 +193,7 @@ class PendingProducts extends Component {
                         description={product.description}
                         price={product.price}
                         image={product.image}
+                        pageFrom={this.state.curr}
                         sellerId={product.sellerId}
                         clicked={() => this.individualProductHandler(product._id)}
                     />

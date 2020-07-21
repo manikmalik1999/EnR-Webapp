@@ -30,6 +30,8 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 import cimg from 'assets/img/empty_cart.png';
 import Loading from '../Loading';
 
+const Token = sessionStorage.getItem('TokenKey');
+
 function Ecart() {
   const Home = () => {
     window.location.href = "/";
@@ -66,7 +68,7 @@ export default function CartDisplay(props) {
   const [promo, setPromo] = useState("");
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
-  const [final,setFinal] = useState(0) ;
+  const [final, setFinal] = useState(0);
   const [snack, setSnack] = useState({
     snack: {
       show: false,
@@ -84,31 +86,30 @@ export default function CartDisplay(props) {
     })
   };
   // const [quantity, setQuantity]= useState(0);
-  if (!Token) {
-    window.location.href = "/login-page";
-  }
+
   useEffect(() => {
-    axios({
-      method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
-      headers: {
-        'Authorization': 'Bearer ' + Token,
-      }
-    })
-      .then(res => {
-        console.log(res.data);
-        if (res.data.status === 401) {
-          window.location.href = "/login-page";
+    if (Token)
+      axios({
+        method: 'get',
+        url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+        headers: {
+          'Authorization': 'Bearer ' + Token,
         }
-        count = res.data.count;
-        setTotal(res.data.Price);
-        setFinal(res.data.Price) ;
-        // totalAmount = res.data.Price;
-        setProducts(res.data.cart);
-        // setQuantity(res.data.cart.quantity);
-        setLoading(false);
-        // setQuantity(res.data.cart.quantity);
       })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.status === 401) {
+            window.location.href = "/login-page";
+          }
+          count = res.data.count;
+          setTotal(res.data.Price);
+          setFinal(res.data.Price);
+          // totalAmount = res.data.Price;
+          setProducts(res.data.cart);
+          // setQuantity(res.data.cart.quantity);
+          setLoading(false);
+          // setQuantity(res.data.cart.quantity);
+        })
   }, [])
   const quantityChange = (e) => {
     if (e.target.value < 1) {
@@ -259,71 +260,76 @@ export default function CartDisplay(props) {
           message={<span id="client-snackbar">{snack.message}</span>}
         />
       </Snackbar>
-      <NavBar />
-      {loading ? <div style={{ minHeight: "660px" }}><Loading /></div> : (
-        <div style={{ marginTop: "10vh", padding: "24px", minHeight: "590px" }} className={classNames(classes.main, classes.mainRaised)}>
-          {/* <Categories/> */}
-          <h4 style={{ color: "green", marginLeft: "1vw" }} ><b>My Cart</b> ({count})</h4>
-          {count ? (
-            <div className={classes.container} style={{ minHeight: "270px" }}>
-              <CartDeleteResponse />
-              {products.map(pro => (
-                <div key={pro._id} style={{ margin: "2vh",marginTop:"20px",padding:"18px" }} >
-                  <Grid container alignItems="center" justify="center" spacing={3} >
-                    <Grid container item xs={3} style={{ margin: "auto", padding: "auto" }} justify="center">
-                      <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
-                    </Grid>
-                    <hr />
-                    <Grid item xs={8} style={{ textAlign: "top", paddingLeft: "32px" }}>
-                      <Link to={"/Display/" + pro.productId} target="_blank" style={{ fontWeight: "400", fontSize: "18px" }}>
-                        {pro.name}
-                      </Link>
-                      {/* <p style={{ color: "black" }}>Quantity: {pro.quantity}</p> */}
-                      <TextField
-                        label="Quantity"
-                        id={pro._id}
-                        type="number"
-                        style={{ width: "25vw", display: "block", marginTop: "2vh" }}
-                        variant="outlined"
-                        value={pro.quantity}
-                        onChange={quantityChange}
-                      />
-                      <Button onClick={() => handleCartRemove(pro._id)} style={{ backgroundColor: "#00897b", display: "inline", marginLeft: "30vw", marginTop: "-55px" }} variant="contained" color="primary" >Remove from Cart</Button>
-                      <br />
-                      <Link style={{ color: "#f44336", fontWeight: "400" }} to={"/Display/" + pro.productId} target="_blank">
-                        £: {pro.price}
-                      </Link>
-                      {/* <br /> */}
-                    </Grid>
-                  </Grid>
-                  <hr />
-                </div>
-              ))}
-              <StripeCheckout stripeKey="pk_test_51GydELJ4HkzSmV6vjb1f1fKaTWjlQnhDIMlzxlgnuSeyJgpeAfyr7v24Dm3MmZE2vKvim7Glf5s4nfrMOw3BPczz00KBrG9c8T"
-                token={makePayment}
-                name="Buy EnR"
-                shippingAddress
-                billingAddress
-              >
-                <Button variant="contained" style={{ backgroundColor: "#107869", color: "white", float: "right", marginTop: "18px" }}>Checkout : £ {Math.floor(final * 100) / 100}</Button>
-              </StripeCheckout>
-              {/* <br /> */}
-              <form>
-                <TextField
-                  label="Promo Code"
-                  id="promo"
-                  type="text"
-                  style={{ width: "auto", display: "block",marginTop:"2px", marginRight: "24px", float: "left" }}
-                  value={promo}
-                  onChange={e => {
-                    setPromo(e.target.value);
-                  }}
-                />
-                <Button variant="contained" style={{ backgroundColor: "#107869", color: "white", float: "left", marginTop: "18px" }} onClick={submitFormHandler}>Apply Promo Code</Button>
-              </form>
-            </div>) : <Ecart />}
+      {Token ? (
+        <div>
+          <NavBar />
+          {loading ? <div style={{ minHeight: "660px" }}><Loading /></div> : (
+            <div style={{ marginTop: "10vh", padding: "24px", minHeight: "590px" }} className={classNames(classes.main, classes.mainRaised)}>
+              {/* <Categories/> */}
+              <h4 style={{ color: "green", marginLeft: "1vw" }} ><b>My Cart</b> ({count})</h4>
+              {count ? (
+                <div className={classes.container} style={{ minHeight: "270px" }}>
+                  <CartDeleteResponse />
+                  {products.map(pro => (
+                    <div key={pro._id} style={{ margin: "2vh", marginTop: "20px", padding: "18px" }} >
+                      <Grid container alignItems="center" justify="center" spacing={3} >
+                        <Grid container item xs={3} style={{ margin: "auto", padding: "auto" }} justify="center">
+                          <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                        </Grid>
+                        <hr />
+                        <Grid item xs={8} style={{ textAlign: "top", paddingLeft: "32px" }}>
+                          <Link to={"/Display/" + pro.productId} target="_blank" style={{ fontWeight: "400", fontSize: "18px" }}>
+                            {pro.name}
+                          </Link>
+                          {/* <p style={{ color: "black" }}>Quantity: {pro.quantity}</p> */}
+                          <TextField
+                            label="Quantity"
+                            id={pro._id}
+                            type="number"
+                            style={{ width: "25vw", display: "block", marginTop: "2vh" }}
+                            variant="outlined"
+                            value={pro.quantity}
+                            onChange={quantityChange}
+                          />
+                          <Button onClick={() => handleCartRemove(pro._id)} style={{ backgroundColor: "#00897b", display: "inline", marginLeft: "30vw", marginTop: "-55px" }} variant="contained" color="primary" >Remove from Cart</Button>
+                          <br />
+                          <Link style={{ color: "#f44336", fontWeight: "400" }} to={"/Display/" + pro.productId} target="_blank">
+                            £: {pro.price}
+                          </Link>
+                          {/* <br /> */}
+                        </Grid>
+                      </Grid>
+                      <hr />
+                    </div>
+                  ))}
+                  <StripeCheckout stripeKey="pk_test_51GydELJ4HkzSmV6vjb1f1fKaTWjlQnhDIMlzxlgnuSeyJgpeAfyr7v24Dm3MmZE2vKvim7Glf5s4nfrMOw3BPczz00KBrG9c8T"
+                    token={makePayment}
+                    name="Buy EnR"
+                    shippingAddress
+                    billingAddress
+                  >
+                    <Button variant="contained" style={{ backgroundColor: "#107869", color: "white", float: "right", marginTop: "18px" }}>Checkout : £ {Math.floor(final * 100) / 100}</Button>
+                  </StripeCheckout>
+                  {/* <br /> */}
+                  <form>
+                    <TextField
+                      label="Promo Code"
+                      id="promo"
+                      type="text"
+                      style={{ width: "auto", display: "block", marginTop: "2px", marginRight: "24px", float: "left" }}
+                      value={promo}
+                      onChange={e => {
+                        setPromo(e.target.value);
+                      }}
+                    />
+                    <Button variant="contained" style={{ backgroundColor: "#107869", color: "white", float: "left", marginTop: "18px" }} onClick={submitFormHandler}>Apply Promo Code</Button>
+                  </form>
+                </div>) : <Ecart />}
+            </div>
+          )}
         </div>
-      )}
+      ) : <NavBar stat={true} />
+      }
       <Footer />
     </div>
   );

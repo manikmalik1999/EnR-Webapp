@@ -70,8 +70,9 @@ export default function Product(props) {
   const classes2 = useStyles();
   // console.log(props) ;
   const classes = usStylese() ;
+  console.log(props.pageFrom);
   return (
-    <Link to={"/seller-product/" + props.id}>
+    <Link to={"/seller-product/" + props.id + "/" + props.pageFrom}>
       <Card style={{ width: '19rem'}} className={classes.Outer}>
         <Card className={classes.root} onClick = {props.clicked}>
           <CardHeader
