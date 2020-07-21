@@ -63,10 +63,9 @@ export default function CartDisplay(props) {
   const [alert, setAlert] = useState([]);
   const [loading, setLoading] = useState(true);
   // const [quantity, setQuantity]= useState(0);
-  if (!Token) {
-    window.location.href = "/login-page";
-  }
+ 
   useEffect(() => {
+    if(Token)
     axios({
       method: 'get',
       url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
@@ -191,6 +190,8 @@ const quantityChange =(e)=>{
 
   return (
     <div>
+      {Token?(
+        <div>
       <NavBar />
       {loading ? <Loading /> : (
         <div style={{ marginTop: "10vh", padding: "24px" }} className={classNames(classes.main, classes.mainRaised)}>
@@ -243,6 +244,8 @@ const quantityChange =(e)=>{
             </div>) : <Ecart />}
         </div>
       )}
+      </div>
+    ):<NavBar stat={true} />}
       <Footer />
     </div>
   );

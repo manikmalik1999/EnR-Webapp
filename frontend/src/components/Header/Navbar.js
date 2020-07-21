@@ -24,7 +24,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Tooltip from '@material-ui/core/Tooltip';
 //images 
-import logo from 'assets/img/EnR-logo.png'
+import logo from 'assets/img/EnR-logo.png';
+import Signin from './Navlinks';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -195,7 +196,7 @@ export default function PrimarySearchAppBar(props) {
     }
   }
   const handleLoginclick = (e) => {
-    window.location.href = "/login-page";
+    return(<Signin stat={true} />);
   }
   const handleSignupclick = (e) => {
     window.location.href = "/sign-up";
@@ -260,11 +261,11 @@ export default function PrimarySearchAppBar(props) {
         </IconButton>
         <p>Sign-Up</p>
       </MenuItem>
-      <MenuItem style={{ display: display }} onClick={handleLoginclick}>
+      <MenuItem style={{ display: display }}>
         <IconButton aria-label="login" color="inherit">
           <LockOpenIcon />
         </IconButton>
-        <p>login</p>
+        <Signin stat={props.stat}/>
       </MenuItem>
       { name ?
       (<MenuItem onClick={handleProfileMenuOpen}>
@@ -338,12 +339,6 @@ export default function PrimarySearchAppBar(props) {
                 </IconButton>
               </div>
             </div>
-            <Button style={{ background: "white", marginRight: "1vw", height: "5vh", marginTop: "1vh", display: display }} href="/login-page">
-              Login
-            </Button>
-            <Button style={{ background: "white", marginRight: "1vw", height: "5vh", marginTop: "1vh", display: display }} href="/sign-up">
-              Sign-up
-            </Button>
             { name ?
               (<Tooltip title={"Hi " + name}>
               <IconButton
@@ -357,7 +352,8 @@ export default function PrimarySearchAppBar(props) {
               >
                 <AccountCircle style={{ display: account }} />
               </IconButton>
-            </Tooltip>):null}
+            </Tooltip>):(
+            <Signin stat={props.stat}/>)}
             {/* <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />

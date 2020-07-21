@@ -27,6 +27,8 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { roseColor } from 'assets/jss/material-kit-react';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Signin from 'components/Header/Navlinks';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 
 const dashboardRoutes = [];
@@ -80,12 +82,10 @@ export default function WishlistDisplay() {
   const [alert, setAlert]= useState([]);
   const [cartResponse, setCartRes] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  if(!Token){
-    window.location.href="/login-page";
-  }
+  const [stat, setStat] = useState(true);
 
   useEffect(() => {
+    if(Token)
     axios({
       method: 'get',
       url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
@@ -202,7 +202,9 @@ export default function WishlistDisplay() {
 
   return (
     <div>
-      <NavBar/>
+      {Token?(
+        <div>
+         <NavBar/> 
         <div style={{ marginTop:"10vh"}} className={classNames(classe.main, classe.mainRaised)}>
           <h4 style={{color:"green", marginLeft:"1vw", padding:"1vw"}} ><b>Wishlist</b> ({count})</h4>
     <HandleWishResponse />
@@ -240,6 +242,8 @@ export default function WishlistDisplay() {
     </TableContainer>
     ): <Ecart />)}
     </div>
+    </div>
+    ):<NavBar stat={true} />}
     <Footer/>
     </div>
   );

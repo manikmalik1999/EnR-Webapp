@@ -62,10 +62,9 @@ export default function OrderDisplay(props) {
   const [open, setOpen] = useState(false);
   const [review, setReview] = useState(2);
   const [comments, setComments] = useState("");
-  if (!Token) {
-    window.location.href = "/login-page";
-  }
+
   useEffect(() => {
+    if(Token)
     axios({
       method: 'get',
       url: "https://limitless-lowlands-36879.herokuapp.com/orders/myOrder",
@@ -118,6 +117,8 @@ export default function OrderDisplay(props) {
 
   return (
     <div>
+      {Token?(
+        <div>
       <NavBar />
       {loading ? <Loading /> :
         <div style={{ marginTop: "10vh", padding: "24px" }} className={classNames(classes.main, classes.mainRaised)}>
@@ -150,6 +151,8 @@ export default function OrderDisplay(props) {
             <Ecart />}
         </div>
       }
+      </div>
+    ):<NavBar stat={true} />}
       <Footer />
 
     </div>
