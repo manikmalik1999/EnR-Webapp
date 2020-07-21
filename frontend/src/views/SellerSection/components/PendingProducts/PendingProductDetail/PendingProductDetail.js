@@ -92,6 +92,7 @@ const usssStyles = makeStyles({
 // import AllProducts from '../../AllProducts/AllProducts';
 
 const cookies = new Cookies();
+const sellerToken = sessionStorage.getItem("TokenSeller");
 
 class PendingProductDetail extends Component {
     state = {
@@ -155,6 +156,21 @@ class PendingProductDetail extends Component {
     redirectHandler = () => {
         this.setState({ redirectToPendingProducts: true, value: "back" });
     }
+    deleteHandler = () => {
+        axios.delete("https://limitless-lowlands-36879.herokuapp.com/products/" + this.state.product._id, {
+            headers: {
+                "Authorization": "Bearer " + sellerToken
+            }
+        })
+            .then(res => {
+                // console.log(res);
+                this.setState({ redirectToOutOfStockProducts: true, value: false });
+                window.location.href = "/seller-all-products";
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
     render() {
         // const classescss = usssStyles() ;
         let redir = null;
@@ -172,6 +188,28 @@ class PendingProductDetail extends Component {
                     <Loader size='medium'>Loading</Loader>
                 </Dimmer>
             )
+        }
+        console.log(this.props.pageFrom);
+        let buttonCode;
+        if(this.props.pageFrom === 'approved'){
+            buttonCode = (<Grid item xs={12} lg={5}>
+                            <Button variant="success" onClick={this.editHandler} style={{
+                                margin: "20px auto",
+                                width: "100%"
+                            }}>Edit Product</Button>
+                        </Grid>)
+        }
+        else{
+            buttonCode = (<Grid item xs={12} lg={5}>
+                            <Button variant="success" onClick={this.editHandler} style={{
+                                margin: "20px auto",
+                                width: "100%"
+                            }}>Edit Product</Button>
+                            <Button variant="danger" onClick={this.deleteHandler} style={{
+                                margin: "20px auto",
+                                width: "100%"
+                            }}>Delete Product</Button>
+                        </Grid>)
         }
         return (
             <Aux>
@@ -259,13 +297,8 @@ class PendingProductDetail extends Component {
                                             margin: "0",
                                     }}>{this.state.seller.name}</p>
                                 </Grid>
-                                <Grid item xs={12} lg={5}>
-                                    <Button vaiant="success" onClick={this.editHandler} style={{
-                                        margin: "20px auto",
-                                        width: "100%"
-                                    }}>Edit Product</Button>
-                                    {/* <Button variant="danger" onClick={this.denyHandler} className={classes.Btn}>Deny Request</Button> */}
-                                </Grid>
+                                {/* buttons */}
+                                {buttonCode}
                             </Grid>
                         </Grid>
                     </Grid>

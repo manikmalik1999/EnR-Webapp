@@ -70,7 +70,8 @@ ReactDOM.render(
       <Route path="/seller-product-reviews/" component={sellerReviews} />
       <Route path="/wishlist-page" component={WishlistDisplay} />
       <Route path="/purchase-page" component={Message} />
-      <Route path="/seller-product/:id" component={SellerProductDetail} />
+      <Route path="/seller-product/:id" exact component={SellerProductDetail} />
+      <Route path="/seller-product/:id/:pageFrom" component={SellerProductDetail} />
       <Route path="/dashboard/products" exact component={PendingProducts} />
       <Route path="/" component={LandingPage} />
     </Switch>
