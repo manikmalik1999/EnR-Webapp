@@ -23,8 +23,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://engagenreap.com/">
-        EnR
+      <Link color="inherit" href="https://limitless-lowlands-36879.herokuapp.com/">
+        MECOM
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

@@ -76,6 +76,16 @@ export default function Footer(props) {
                 Sell With Us
               </a>
             </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a
+                href="https://ecom-admin-dashboard.herokuapp.com/login"
+                className={classes.block}
+                style={clr}
+                target="_blank"
+              >
+                Admin Dashboard
+              </a>
+            </ListItem>
           </List>
         </div>
         <div className={classes.right} style={clr}>

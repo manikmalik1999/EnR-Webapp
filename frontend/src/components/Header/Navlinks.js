@@ -6,7 +6,7 @@ import { GoogleLogin } from 'react-google-login';
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 // import Alert from '@material-ui/lab/Alert';
-import SnackbarContent from "components/Snackbar/SnackbarContent.js";
+
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 
@@ -14,14 +14,14 @@ import LockIcon from '@material-ui/icons/Lock';
 // core components
 
 import Button from "components/CustomButtons/Button.js";
-import Card from "components/Card/Card.js";
+
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import TextField from '@material-ui/core/TextField';
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
-import Close from "@material-ui/icons/Close";
+
 import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -87,7 +87,7 @@ export default function Signin(props) {
       }
     }).then(res => {
       console.log(res);
-      if ((res.data.status) != 401) {
+      if ((res.data.status) !== 401) {
         const token = res.data.token;
         sessionStorage.setItem('TokenKey', token);
         window.location.reload();

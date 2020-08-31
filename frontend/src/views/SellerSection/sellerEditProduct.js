@@ -13,24 +13,21 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 import { mainListItems, secondaryListItems } from './components/Dashboard-components/listItems';
-import { default as LLink } from "react-router-dom/Link";
+// import { default as LLink } from "react-router-dom/Link";
 import Axios from 'axios';
 import Cookies from "universal-cookie";
 import { Redirect } from "react-router-dom";
 import { Snackbar, SnackbarContent } from "@material-ui/core";
-import SellerNav from "components/Header/sellerNav"
+
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -43,9 +40,9 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
-import CardHeader from "components/Card/CardHeader.js";
+
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
+
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import PersonIcon from '@material-ui/icons/Person';
@@ -61,8 +58,8 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" style={{ margin: "auto 24px", position: "absolute", right: "12px", bottom: "6px" }}>
             {'Copyright © '}
-            <Link color="inherit" href="https://engagenreap.com/">
-                Enr
+            <Link color="inherit" href="https://limitless-lowlands-36879.herokuapp.com/">
+                MECOM
       </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -440,7 +437,7 @@ const Dashboard = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Enr SellerHub - Edit Product
+                        MECOM SellerHub - Edit Product
           </Typography>
                     <Typography>{name2}</Typography>
 

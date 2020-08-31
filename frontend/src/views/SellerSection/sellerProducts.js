@@ -69,8 +69,8 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" style={{ margin: "auto 24px", position: "absolute", right: "12px", bottom: "6px" }}>
             {'Copyright © '}
-            <Link color="inherit" href="https://engagenreap.com/">
-                Enr
+            <Link color="inherit" href="https://limitless-lowlands-36879.herokuapp.com/">
+                MECOM
       </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -414,7 +414,7 @@ const Dashboard = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" display="inline" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Enr Consultancies
+                        MECOM Consultancies
           </Typography>
 
                     <Typography>{name}</Typography>

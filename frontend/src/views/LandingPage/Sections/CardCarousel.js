@@ -8,7 +8,6 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -20,11 +19,11 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 
 import img1 from 'assets/img/img1.jpg';
-import img2 from 'assets/img/img2.jpg';
+
 import img3 from 'assets/img/img3.jpg';
 import img4 from 'assets/img/img4.jpg';
 import img5 from 'assets/img/img5.jpg';
-import img6 from 'assets/img/img6.jpg';
+
 import img7 from 'assets/img/img7.jpg';
 import img8 from 'assets/img/img8.jpg';
 import img11 from 'assets/img/img11.png';
@@ -33,7 +32,7 @@ import img10 from 'assets/img/sport.jpg';
 
 import card1 from 'assets/img/card1.jpg';
 import card2 from 'assets/img/card2.jpg';
-import card3 from 'assets/img/card3.png';
+
 import card4 from 'assets/img/card4.png';
 import card5 from 'assets/img/card5.jpg';
 

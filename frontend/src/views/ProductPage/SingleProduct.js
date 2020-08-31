@@ -543,7 +543,7 @@ export default function SingleProd(props) {
                           <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> Tested</li>
                           <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> Satisfied Customers</li>
                           <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> Factory Checked</li>
-                          <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> EnR Assurance</li>
+                          <li style={{marginLeft:"2px"}}><CheckIcon style={{ fontSize: "14px", display: "inline" }} /> MECOM Assurance</li>
                         </ul>
                         </div>
                       </Popover>
