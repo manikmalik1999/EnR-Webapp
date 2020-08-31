@@ -24,7 +24,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Tooltip from '@material-ui/core/Tooltip';
 //images 
-import logo from 'assets/img/EnR-logo.png';
+import logo from 'assets/img/LOGO.png';
 import Signin from './Navlinks';
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -303,7 +303,7 @@ export default function PrimarySearchAppBar(props) {
   //className={classes.grow}
   return (
     <div className={classes.grow} >
-      <AppBar style={{ backgroundColor: "#165273" }} position="fixed">
+      <AppBar style={{ backgroundColor: "#2E3D7C" }} position="fixed">
         <Toolbar>
           <IconButton
             edge="start"
@@ -316,7 +316,7 @@ export default function PrimarySearchAppBar(props) {
             <img style={{ height: "7vh", width: "auto" }} src={logo} />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap style={{fontFamily:'Arial, Helvetica, sans-serif', fontSize:"1.5em"}}>
-            EnR E-Commerce
+            E-Commerce
           </Typography>
 
           <div className={classes.grow} />

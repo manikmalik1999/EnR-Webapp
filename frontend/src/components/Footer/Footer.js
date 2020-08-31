@@ -38,7 +38,7 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://engagenreap.com/about"
+                href="https://www.linkedin.com/in/manikmalik1999"
                 className={classes.block}
                 style={clr}
                 target="_blank"
@@ -48,7 +48,7 @@ export default function Footer(props) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://engagenreap.com/blog"
+                href="https://www.linkedin.com/in/manikmalik1999"
                 className={classes.block}
                 style={clr}
                 target="_blank"
@@ -58,7 +58,7 @@ export default function Footer(props) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="https://engagenreap.com/services"
+                href="https://www.linkedin.com/in/manikmalik1999"
                 className={classes.block}
                 style={clr}
                 target="_blank"
@@ -87,7 +87,7 @@ export default function Footer(props) {
             style={clr}
             target="_blank"
           >
-            EnR
+            Manik Malik
           </a>{" "}
         </div>
       </div>
