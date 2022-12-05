@@ -6,7 +6,7 @@ import ProductReviews from './ProductReviews/ProductReviews';
 import { Dimmer, Loader } from "semantic-ui-react" ;
 import { Grid } from "@material-ui/core" ;
 
-const sellerToken = sessionStorage.getItem("TokenSeller");
+const sellerToken = localStorage.getItem("TokenSeller");
 class Reviews extends Component {
     state = {
         reviewProducts: [],
@@ -17,7 +17,7 @@ class Reviews extends Component {
     componentDidMount() {
         Axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+            url: "http://localhost:5000/sellers/products",
             headers: {
               'Authorization': 'Bearer ' + sellerToken,
             }

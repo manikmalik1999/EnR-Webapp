@@ -23,7 +23,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://limitless-lowlands-36879.herokuapp.com/">
+      <Link color="inherit" href="http://localhost:5000/">
         MECOM
       </Link>{' '}
       {new Date().getFullYear()}
@@ -108,7 +108,7 @@ const LoginSide = (props) => {
     })
     const username = event.target.username.value;
     const password = event.target.password.value;
-    axios.post("https://limitless-lowlands-36879.herokuapp.com/admin/login", {
+    axios.post("http://localhost:5000/admin/login", {
       email: username,
       password: password
     })

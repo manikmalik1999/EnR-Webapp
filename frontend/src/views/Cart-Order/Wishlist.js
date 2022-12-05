@@ -34,7 +34,7 @@ import { propTypes } from 'react-bootstrap/esm/Image';
 const dashboardRoutes = [];
 
 const usStyles = makeStyles(styles);
-const Token = sessionStorage.getItem('TokenKey');
+const Token = localStorage.getItem('TokenKey');
 let count = 0;
 
 const StyledTableCell = withStyles((theme) => ({
@@ -88,7 +88,7 @@ export default function WishlistDisplay() {
     if (Token)
       axios({
         method: 'get',
-        url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+        url: "http://localhost:5000/wishlist/",
         headers: {
           'Authorization': 'Bearer ' + Token,
         }
@@ -107,7 +107,7 @@ export default function WishlistDisplay() {
   const handleRemove = (e) => {
     axios({
       method: 'delete',
-      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/" + e,
+      url: "http://localhost:5000/wishlist/" + e,
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -133,7 +133,7 @@ export default function WishlistDisplay() {
     console.log(delid);
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+      url: "http://localhost:5000/cart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -225,7 +225,7 @@ export default function WishlistDisplay() {
                     {products.map(pro => (
 
                       <StyledTableRow style={{ padding: "1vw", marginTop: "1vh" }} key={pro.name}>
-                        <StyledTableCell component="th" scope="row" padding="none" align="center"><img style={{ height: "22vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} /></StyledTableCell>
+                        <StyledTableCell component="th" scope="row" padding="none" align="center"><img style={{ height: "22vh", width: "auto" }} src={"http://localhost:5000/" + pro.image} /></StyledTableCell>
                         <StyledTableCell align="center"><Link to={"/Display/" + pro.productId} target="_blank">{pro.name}</Link></StyledTableCell>
                         <StyledTableCell align="center">{pro.price}</StyledTableCell>
                         {/* <StyledTableCell align="center">{pro.quantity}</StyledTableCell> */}

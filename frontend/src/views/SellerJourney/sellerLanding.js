@@ -49,7 +49,7 @@ import image from "assets/img/SellerLanding.jpg";
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
-const Token = sessionStorage.getItem('TokenSeller');
+const Token = localStorage.getItem('TokenSeller');
 // console.log(ID);
 // console.log(Token);
 export default function LandingPage(props) {
@@ -120,7 +120,7 @@ export default function LandingPage(props) {
     console.log(formData);
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/products",
+      url: "http://localhost:5000/products",
       data: formData,
       headers: {
         'Authorization': 'Bearer ' + Token,

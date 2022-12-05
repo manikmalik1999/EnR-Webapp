@@ -50,7 +50,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 
 const cookies = new Cookies();
-const sellerToken = sessionStorage.getItem('TokenSeller');
+const sellerToken = localStorage.getItem('TokenSeller');
 
 let n, cat, pri, desc, quant;
 
@@ -58,7 +58,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" style={{ margin: "auto 24px", position: "absolute", right: "12px", bottom: "6px" }}>
             {'Copyright © '}
-            <Link color="inherit" href="https://limitless-lowlands-36879.herokuapp.com/">
+            <Link color="inherit" href="http://localhost:5000/">
                 MECOM
       </Link>{' '}
             {new Date().getFullYear()}
@@ -179,7 +179,7 @@ const Dashboard = (props) => {
     useEffect(() => {
         axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/products/" + ID,
+            url: "http://localhost:5000/products/" + ID,
             headers: {
                 'Authorization': 'Bearer ' + sellerToken,
             }
@@ -214,7 +214,7 @@ const Dashboard = (props) => {
         else pri = product.price;
         axios({
             method: 'patch',
-            url: "https://limitless-lowlands-36879.herokuapp.com/products/" + ID,
+            url: "http://localhost:5000/products/" + ID,
             headers: {
                 'Authorization': 'Bearer ' + sellerToken,
             },
@@ -292,7 +292,7 @@ const Dashboard = (props) => {
 
     // const classes = useStyles();
     const token = cookies.get("Token");
-    const sellerToken = sessionStorage.getItem("TokenSeller");
+    const sellerToken = localStorage.getItem("TokenSeller");
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     //redirects nullified for now
@@ -340,7 +340,7 @@ const Dashboard = (props) => {
 
         Axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/sellers/myinfo",
+            url: "http://localhost:5000/sellers/myinfo",
             headers: {
                 'Authorization': 'Bearer ' + sellerToken,
             }
@@ -348,10 +348,10 @@ const Dashboard = (props) => {
             // console.log(sellerToken);
             // console.log(res.data);
             setName2("Hi, " + res.data.sellers.name);
-            sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
+            localStorage.setItem('TokenSellerID', res.data.sellers._id);
         })
 
-        Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
+        Axios.get("http://localhost:5000/orders", {
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -368,7 +368,7 @@ const Dashboard = (props) => {
             .catch(err => {
                 console.log(err);
             });
-        Axios.get("https://limitless-lowlands-36879.herokuapp.com/products", {
+        Axios.get("http://localhost:5000/products", {
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -388,7 +388,7 @@ const Dashboard = (props) => {
             .catch(err => {
                 console.log(err);
             });
-        Axios.get("https://limitless-lowlands-36879.herokuapp.com/sellers", {
+        Axios.get("http://localhost:5000/sellers", {
             headers: {
                 "Authorization": "Bearer " + token
             }

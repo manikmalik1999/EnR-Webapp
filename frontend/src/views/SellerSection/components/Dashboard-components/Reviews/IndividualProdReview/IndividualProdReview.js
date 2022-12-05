@@ -25,7 +25,7 @@ class IndividualProdReview extends Component {
         // console.log(id);
         const token = cookies.get("Token");
         // console.log(token);
-        axios.delete('https://limitless-lowlands-36879.herokuapp.com/reviews/' + id, {
+        axios.delete('http://localhost:5000/reviews/' + id, {
             headers: {
                 "Authorization": "Bearer " + token
             },
@@ -46,11 +46,11 @@ class IndividualProdReview extends Component {
         // console.log("indidef : " + this.props.id);
         // console.log(this.props) ;
         if (this.props.match.params.id) {
-            axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + this.props.match.params.id)
+            axios.get('http://localhost:5000/products/' + this.props.match.params.id)
                 .then(response => {
                     // console.log(response.data.product);
                     this.setState({ product: response.data.product });
-                    axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/' + this.props.match.params.id)
+                    axios.get('http://localhost:5000/reviews/' + this.props.match.params.id)
                         .then(res => {
                             // console.log(res.data);
                             this.setState({ reviews: res.data.reviews, loading: false });
@@ -100,7 +100,7 @@ class IndividualProdReview extends Component {
                         <Grid item xs={12}>
                             <Grid container spacing={2} style={{borderBottom : "1px solid lightgrey"}} >
                                 <Grid item lg={4}>
-                                    <img src={"https://limitless-lowlands-36879.herokuapp.com/" + this.state.product.image} style={{ margin: "12px" }} alt="" className={classes.Image} />
+                                    <img src={"http://localhost:5000/" + this.state.product.image} style={{ margin: "12px" }} alt="" className={classes.Image} />
                                 </Grid>
                                 <Grid item className={classes.VerLine}>
                                 </Grid>

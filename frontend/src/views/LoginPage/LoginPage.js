@@ -63,7 +63,7 @@ export default function SignUp(props) {
     console.log(email);
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.com/users/login/",
+        url: "http://localhost:5000/users/login/",
         headers: {}, 
         data: {
             email: email,
@@ -73,7 +73,7 @@ export default function SignUp(props) {
                 console.log(res);
                 if((res.data.status)!= 401){
                 const token = res.data.token;
-                sessionStorage.setItem('TokenKey', token);
+                localStorage.setItem('TokenKey', token);
                 window.location.href = "/";
                }
                else{
@@ -84,7 +84,7 @@ export default function SignUp(props) {
 const responseSuccessGoogle =(response)=>{
   axios({
     method: 'post',
-    url: "https://limitless-lowlands-36879.herokuapp.com/users/google/login/",
+    url: "http://localhost:5000/users/google/login/",
     headers: {}, 
     data: {
         tokenId: response.tokenId
@@ -92,7 +92,7 @@ const responseSuccessGoogle =(response)=>{
   }).then(res=>{
     console.log(res)
     const token = res.data.token;
-    sessionStorage.setItem('TokenKey', token);
+    localStorage.setItem('TokenKey', token);
     window.location.href="/";
   })
 }

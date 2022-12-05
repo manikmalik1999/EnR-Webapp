@@ -93,7 +93,7 @@ const usssStyles = makeStyles({
 // import AllProducts from '../../AllProducts/AllProducts';
 
 const cookies = new Cookies();
-const sellerToken = sessionStorage.getItem("TokenSeller");
+const sellerToken = localStorage.getItem("TokenSeller");
 
 class PendingProductDetail extends Component {
     state = {
@@ -106,7 +106,7 @@ class PendingProductDetail extends Component {
 
     componentDidMount() {
         if (this.props.id) {
-            axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + this.props.id)
+            axios.get('http://localhost:5000/products/' + this.props.id)
                 .then(response => {
                     console.log(response);
                     this.setState({
@@ -123,7 +123,7 @@ class PendingProductDetail extends Component {
     editHandler = () => {
         window.location.href = "/seller-edit/" + this.props.id;
         // let token = cookies.get("Token");
-        // axios.get("https://limitless-lowlands-36879.herokuapp.com/admin/approve/true/" + this.state.product._id, {
+        // axios.get("http://localhost:5000/admin/approve/true/" + this.state.product._id, {
         //     headers: {
         //         "Authorization": "Bearer " + token
         //     }
@@ -139,7 +139,7 @@ class PendingProductDetail extends Component {
     }
     // denyHandler = () => {
     //     let token = cookies.get("Token");
-    //     axios.get("https://limitless-lowlands-36879.herokuapp.com/admin/approve/false/" + this.state.product._id, {
+    //     axios.get("http://localhost:5000/admin/approve/false/" + this.state.product._id, {
     //         headers: {
     //             "Authorization": "Bearer " + token
     //         }
@@ -158,7 +158,7 @@ class PendingProductDetail extends Component {
         this.setState({ redirectToPendingProducts: true, value: "back" });
     }
     deleteHandler = () => {
-        axios.delete("https://limitless-lowlands-36879.herokuapp.com/products/" + this.state.product._id, {
+        axios.delete("http://localhost:5000/products/" + this.state.product._id, {
             headers: {
                 "Authorization": "Bearer " + sellerToken
             }
@@ -231,19 +231,19 @@ class PendingProductDetail extends Component {
                         </Grid>
                         <Grid container item spacing={2} xs={12} lg={12} style={{ borderBottom: "2px solid #efefef" }}>
                             <Grid item lg={4}>
-                                <img src={"https://limitless-lowlands-36879.herokuapp.com/" + this.state.product.image} style={{
+                                <img src={"http://localhost:5000/" + this.state.product.image} style={{
                                     width: "100%", margin: "auto",
                                     height: "28rem",
                                 }} alt="" />
                             </Grid>
                             <Grid item lg={4}>
-                                <img src={"https://limitless-lowlands-36879.herokuapp.com/" + this.state.product.image2} style={{
+                                <img src={"http://localhost:5000/" + this.state.product.image2} style={{
                                     width: "100%", margin: "auto",
                                     height: "28rem",
                                 }} alt="" />
                             </Grid>
                             <Grid item lg={4}>
-                                <img src={"https://limitless-lowlands-36879.herokuapp.com/" + this.state.product.image3} style={{
+                                <img src={"http://localhost:5000/" + this.state.product.image3} style={{
                                     width: "100%", margin: "auto",
                                     height: "28rem",
                                 }} alt="" />

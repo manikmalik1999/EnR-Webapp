@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Token = sessionStorage.getItem('TokenKey');
+const Token = localStorage.getItem('TokenKey');
 let count = 0;
 let cnt =0;
 let account = "none";
@@ -109,7 +109,7 @@ export default function PrimarySearchAppBar(props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+      url: "http://localhost:5000/cart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -119,16 +119,18 @@ export default function PrimarySearchAppBar(props) {
         console.log(res);
         if (res.data.status === 401) {
           count = 0;
+
+          console.log(display);
         }
         else if (res.status === 404)
-          count = 0;
+          count = 0; 
         else {
           count = res.data.count;
           account = "";
           setDisplay("none");
           axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/users/" + res.data.userId,
+            url: "http://localhost:5000/users/" + res.data.userId,
             headers: {
               'Authorization': 'Bearer ' + Token,
             }
@@ -145,7 +147,7 @@ export default function PrimarySearchAppBar(props) {
 
       axios({
         method: 'get',
-        url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+        url: "http://localhost:5000/wishlist/",
         headers: {
           'Authorization': 'Bearer ' + Token,
         }
@@ -177,7 +179,7 @@ export default function PrimarySearchAppBar(props) {
   };
 
   const handleSignOut = () => {
-    sessionStorage.removeItem('TokenKey');
+    localStorage.removeItem('TokenKey');
     window.location.href = "/";
 
   }
@@ -390,5 +392,6 @@ export default function PrimarySearchAppBar(props) {
       {renderMobileMenu}
       {renderMenu}
     </div>
+
   );
 }

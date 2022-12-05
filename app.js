@@ -21,7 +21,8 @@ const mentorRoutes = require("./api/routes/mentors");
 const categoryRoutes = require("./api/routes/categories")
 const reviewRoutes = require("./api/routes/Review.js")
 const wishlistRoutes = require("./api/routes/wishlist.js")
-mongoose.connect('mongodb+srv://malikmanik:4xkJc1XRpCdjSzOm@cluster0-wqaaz.gcp.mongodb.net/test?retryWrites=true&w=majority', 
+
+mongoose.connect('mongodb+srv://malikmanik:FEjpspbwr435pozs@cluster0.qzwhsjo.mongodb.net/?retryWrites=true&w=majority', 
 { useNewUrlParser: true,  
   useUnifiedTopology: true 
 } ).then(()=> console.log("DB connection Established"))

@@ -51,9 +51,9 @@ export default function Deposits(props) {
     total = 0 ;
 
     // let total = 0 ;
-    let today = getLastDates(0) ;
+    let today = getLastDates(30) ;
     for (let i = 0; i < orders.orders.length; ++i) {
-      if (orders.orders[i].date.split("T")[0] === today) {
+      if (orders.orders[i].date.split("T")[0] >= today) {
         total += orders.orders[i].product.price * orders.orders[i].quantity ; 
       }
     }

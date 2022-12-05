@@ -10,7 +10,7 @@ import Box from '@material-ui/core/Box';
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom" ;
 
-const Token = sessionStorage.getItem('TokenSeller');
+const Token = localStorage.getItem('TokenSeller');
 
 export default function SimpleTabs() {
   const [name, setName] = React.useState("Loading...");
@@ -34,14 +34,14 @@ export default function SimpleTabs() {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/sellers/myinfo",
+      url: "http://localhost:5000/sellers/myinfo",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
     }).then(res => {
       console.log(res.data);
       setName("Hi, " + res.data.sellers.name);
-      sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
+      localStorage.setItem('TokenSellerID', res.data.sellers._id);
     })
   }, [])
 

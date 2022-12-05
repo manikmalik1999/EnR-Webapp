@@ -6,46 +6,46 @@ const bcrypt= require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Product = require("../models/product");
 const SellerAuth = require("../Middleware/check-auth-sellers")
-// router.post('/signup', (req, res, next)=>{
-//     Admin.find({email: req.body.email })
-//     .exec()
-//     .then(user =>{
-//         if (user.length>=1){
-//             return res.json({message: "Profile with this email exists", status: 422}).status(422);}
+router.post('/signup', (req, res, next)=>{
+    Admin.find({email: req.body.email })
+    .exec()
+    .then(user =>{
+        if (user.length>=1){
+            return res.json({message: "Profile with this email exists", status: 422}).status(422);}
         
-//         else{
-//             bcrypt.hash(req.body.password, 10, (err, hash)=>{
-//                 if (err)
-//                 {res.status(500).json({
-//                     error: err
-//                 });}
-//                 else{
-//             const user = new Admin({
-//                 _id: new mongoose.Types.ObjectId(),
-//                 name: req.body.name,
-//                 email: req.body.email,
-//                 password: hash
-//             }); 
-//             user.save()
-//                 .then(result =>{
-//                     console.log(result);
-//                     res.status(201).json({
-//                         message: 'Seller Profile Created',
-//                         status: 201
-//                     });
-//                 })
-//                  .catch(err => {
-//                     console.log(err);
-//                     res.status(500).json({
-//                       message: err,
-//                       status: 500
-//                     });
-//                   });
-//                 }
-//           });
-//         }
-//     })
-// });
+        else{
+            bcrypt.hash(req.body.password, 10, (err, hash)=>{
+                if (err)
+                {res.status(500).json({
+                    error: err
+                });}
+                else{
+            const user = new Admin({
+                _id: new mongoose.Types.ObjectId(),
+                name: req.body.name,
+                email: req.body.email,
+                password: hash
+            }); 
+            user.save()
+                .then(result =>{
+                    console.log(result);
+                    res.status(201).json({
+                        message: 'Seller Profile Created',
+                        status: 201
+                    });
+                })
+                 .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                      message: err,
+                      status: 500
+                    });
+                  });
+                }
+          });
+        }
+    })
+});
 
 
 router.post('/login', (req, res, next)=>{
@@ -114,7 +114,7 @@ router.get("/approve/:message/:productId",SellerAuth, (req, res, next) => {
           message: 'message recieved',
         //   request: {
         //     type: 'GET',
-        //     url: "https://limitless-lowlands-36879.herokuapp.com/products/"+ id,
+        //     url: "http://localhost:5000/products/"+ id,
         //   }
         });
         
@@ -143,7 +143,7 @@ router.get("/approve/:message/:productId",SellerAuth, (req, res, next) => {
   //         message: 'All products deleted',
   //         request:{
   //           type: 'POST',
-  //           url: 'https://limitless-lowlands-36879.herokuapp.com/products',
+  //           url: 'http://localhost:5000/products',
   //           body: {name: 'String', quantity: 'Number'}
   //         }
   //       }

@@ -45,7 +45,7 @@ export default function SignUp(props) {
   function handleSignup(e){
     axios({
         method: 'post',
-        url: "https://limitless-lowlands-36879.herokuapp.com/sellers/signup",
+        url: "http://localhost:5000/sellers/signup",
         headers: {}, 
         data: {
             name: name,  
@@ -63,7 +63,7 @@ export default function SignUp(props) {
              }
         //    const token = res.data.token;
         //     console.log(token);
-        //    sessionStorage.setItem('TokenKey', token);
+        //    localStorage.setItem('TokenKey', token);
         //    window.location.href = "/index";
         })
 }

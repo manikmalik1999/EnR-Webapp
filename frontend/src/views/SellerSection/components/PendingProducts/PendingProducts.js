@@ -35,7 +35,7 @@ const styles = (theme) => ({
     },
 });
 
-const sellerToken = sessionStorage.getItem("TokenSeller");
+const sellerToken = localStorage.getItem("TokenSeller");
 
 class PendingProducts extends Component {
     state = {
@@ -69,7 +69,7 @@ class PendingProducts extends Component {
         if(this.props.category) {
             axios({
                 method: 'get',
-                url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+                url: "http://localhost:5000/sellers/products",
                 headers: {
                   'Authorization': 'Bearer ' + sellerToken,
                 }
@@ -104,7 +104,7 @@ class PendingProducts extends Component {
         else {
             axios({
                 method: 'get',
-                url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+                url: "http://localhost:5000/sellers/products",
                 headers: {
                   'Authorization': 'Bearer ' + sellerToken,
                 }

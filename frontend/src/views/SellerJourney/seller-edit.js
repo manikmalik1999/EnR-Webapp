@@ -49,7 +49,7 @@ import image from "assets/img/SellerLanding.jpg";
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
-const Token = sessionStorage.getItem('TokenSeller');
+const Token = localStorage.getItem('TokenSeller');
 // console.log(ID);
 // console.log(Token);
 let n, cat, pri, desc, quant;
@@ -73,7 +73,7 @@ export default function LandingPage(props) {
   useEffect(() => {
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/products/" + ID,
+      url: "http://localhost:5000/products/" + ID,
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -104,7 +104,7 @@ export default function LandingPage(props) {
     else pri = product.price;
     axios({
       method: 'patch',
-      url: "https://limitless-lowlands-36879.herokuapp.com/products/" + ID,
+      url: "http://localhost:5000/products/" + ID,
       headers: {
         'Authorization': 'Bearer ' + Token,
       },

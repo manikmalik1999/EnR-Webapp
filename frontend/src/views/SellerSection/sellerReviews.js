@@ -38,7 +38,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" style={{ margin: "auto 24px", position: "absolute", right: "12px", bottom: "6px" }}>
       {'Copyright © '}
-      <Link color="inherit" href="https://limitless-lowlands-36879.herokuapp.com/">
+      <Link color="inherit" href="http://localhost:5000/">
         MECOM
       </Link>{' '}
       {new Date().getFullYear()}
@@ -182,7 +182,7 @@ const Dashboard = (props) => {
 
   const classes = useStyles();
   const token = cookies.get("Token");
-  const sellerToken = sessionStorage.getItem("TokenSeller");
+  const sellerToken = localStorage.getItem("TokenSeller");
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   //redirects nullified for now
@@ -231,7 +231,7 @@ const Dashboard = (props) => {
 
     Axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/sellers/myinfo",
+      url: "http://localhost:5000/sellers/myinfo",
       headers: {
         'Authorization': 'Bearer ' + sellerToken,
       }
@@ -240,7 +240,7 @@ const Dashboard = (props) => {
       console.log(res.data);
       setName("Hi, " + res.data.sellers.name);
       setNameSeller(res.data.sellers.name);
-      sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
+      localStorage.setItem('TokenSellerID', res.data.sellers._id);
     })
   }, []);
 

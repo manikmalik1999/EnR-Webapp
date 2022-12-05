@@ -56,7 +56,7 @@ function Ecart() {
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
-const Token = sessionStorage.getItem('TokenKey');
+const Token = localStorage.getItem('TokenKey');
 let count = 0;
 let totalAmount = 0;
 export default function CartDisplay(props) {
@@ -90,7 +90,7 @@ export default function CartDisplay(props) {
     if (Token)
       axios({
         method: 'get',
-        url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+        url: "http://localhost:5000/cart/",
         headers: {
           'Authorization': 'Bearer ' + Token,
         }
@@ -121,7 +121,7 @@ export default function CartDisplay(props) {
       console.log(e.target.id);
       axios({
         method: 'patch',
-        url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e.target.id,
+        url: "http://localhost:5000/cart/" + e.target.id,
         headers: {
           'Authorization': 'Bearer ' + Token,
         },
@@ -143,7 +143,7 @@ export default function CartDisplay(props) {
     {/*also provide product info  */ }
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/payment",
+      url: "http://localhost:5000/payment",
       data: {
         amount: total,
         token: token,
@@ -155,7 +155,7 @@ export default function CartDisplay(props) {
       products.forEach(element => {
         axios({
           method: 'post',
-          url: "https://limitless-lowlands-36879.herokuapp.com/orders",
+          url: "http://localhost:5000/orders",
           headers: {
             'Authorization': 'Bearer ' + Token,
           },
@@ -202,7 +202,7 @@ export default function CartDisplay(props) {
   const handleCartRemove = (e) => {
     axios({
       method: 'delete',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/" + e,
+      url: "http://localhost:5000/cart/" + e,
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -273,7 +273,7 @@ export default function CartDisplay(props) {
                     <div key={pro._id} style={{ margin: "2vh", marginTop: "20px", padding: "18px" }} >
                       <Grid container alignItems="center" justify="center" spacing={3} >
                         <Grid container item xs={3} style={{ margin: "auto", padding: "auto" }} justify="center">
-                          <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                          <img style={{ height: "20vh", width: "auto" }} src={"http://localhost:5000/" + pro.image} />
                         </Grid>
                         <hr />
                         <Grid item xs={8} style={{ textAlign: "top", paddingLeft: "32px" }}>

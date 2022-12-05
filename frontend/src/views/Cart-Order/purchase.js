@@ -14,7 +14,7 @@ import shop from 'assets/img/shop.png';
 
 const useStyles = makeStyles(styles);
 
-const Token = sessionStorage.getItem('TokenKey');
+const Token = localStorage.getItem('TokenKey');
 export default function Message() {
   const classes = useStyles();
 

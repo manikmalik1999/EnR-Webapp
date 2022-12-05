@@ -60,6 +60,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
+const Token = localStorage.getItem('TokenKey');
+console.log(Token); 
+console.log("Token Here"); //-------------------
+
 const usStyles = makeStyles(modalStyle);
 
 function Modal() {
@@ -134,11 +138,11 @@ function SectionCarousel(props) {
                                 smallImage: {
                                     alt: 'Wristwatch by Versace',
                                     isFluidWidth: true,
-                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img1,
+                                    src: "http://localhost:5000/" + props.img1,
                                     sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
                                 },
                                 largeImage: {
-                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img1,
+                                    src: "http://localhost:5000/" + props.img1,
                                     width: 1000,
                                     height: 1080
                                 },
@@ -162,11 +166,11 @@ function SectionCarousel(props) {
                                 smallImage: {
                                     alt: 'Wristwatch by Versace',
                                     isFluidWidth: true,
-                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img2,
+                                    src: "http://localhost:5000/" + props.img2,
                                     sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
                                 },
                                 largeImage: {
-                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img2,
+                                    src: "http://localhost:5000/" + props.img2,
                                     width: 1000,
                                     height: 1080
                                 },
@@ -190,11 +194,11 @@ function SectionCarousel(props) {
                                 smallImage: {
                                     alt: 'Wristwatch by Versace',
                                     isFluidWidth: true,
-                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img3,
+                                    src: "http://localhost:5000/" + props.img3,
                                     sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 20vw, 360px'
                                 },
                                 largeImage: {
-                                    src: "https://limitless-lowlands-36879.herokuapp.com/" + props.img3,
+                                    src: "http://localhost:5000/" + props.img3,
                                     width: 1000,
                                     height: 1080
                                 },
@@ -221,7 +225,7 @@ function SectionCarousel(props) {
 const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
-const Token = sessionStorage.getItem('TokenKey');
+
 let AvgRev;
 const uStyles = makeStyles((theme) => ({
   root: {
@@ -282,14 +286,14 @@ export default function SingleProd(props) {
 
   const openn = Boolean(anchorEl);
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/products/' + ID)
+    axios.get('http://localhost:5000/products/' + ID)
       .then(res => {
         console.log("-->here") ;
         console.log(res.data.product) ;
         setProduct(res.data.product);
         setLoading(false);
       })
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/reviews/' + ID)
+    axios.get('http://localhost:5000/reviews/' + ID)
       .then(res => {
         AvgRev = res.data.avgvalue;
         console.log("----> here");
@@ -339,7 +343,7 @@ export default function SingleProd(props) {
     }
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/cart/",
+      url: "http://localhost:5000/cart/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -373,7 +377,7 @@ export default function SingleProd(props) {
   const HandleWhishlist =()=>{
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+      url: "http://localhost:5000/wishlist/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },

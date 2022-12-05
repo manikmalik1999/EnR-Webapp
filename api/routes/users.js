@@ -88,7 +88,8 @@ router.post('/signup', (req, res, next)=>{
             {
                 expiresIn: '10m'
             })
-
+            console.log(process.env.EMAIL_ID);
+            console.log(process.env.EMAIL_PASS);
             var transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
                 auth: {

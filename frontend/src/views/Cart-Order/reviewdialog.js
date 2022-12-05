@@ -56,7 +56,7 @@ export default function FormDialog(props) {
   const handleSubmit= (e)=>{
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/reviews",
+      url: "http://localhost:5000/reviews",
       headers: {
           'Authorization': 'Bearer '+props.token,
       },
@@ -118,7 +118,7 @@ export default function FormDialog(props) {
         <Rating
             style={{fontSize : "60"}}
             name="hover-feedback"
-            icon={<Star fontSize="large"/>}
+            icon={<Star color="secondary" fontSize="large"/>}
             value={value}
             onChange={(event, newValue) => {
                 setValue(newValue);

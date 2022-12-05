@@ -52,7 +52,7 @@ function Ecart() {
 const dashboardRoutes = [];
 let count = 0;
 const useStyles = makeStyles(styles);
-const Token = sessionStorage.getItem('TokenKey');
+const Token = localStorage.getItem('TokenKey');
 
 export default function OrderDisplay(props) {
   const classes = useStyles();
@@ -67,7 +67,7 @@ export default function OrderDisplay(props) {
     if(Token)
     axios({
       method: 'get',
-      url: "https://limitless-lowlands-36879.herokuapp.com/orders/myOrder",
+      url: "http://localhost:5000/orders/myOrder",
       headers: {
         'Authorization': 'Bearer ' + Token,
       }
@@ -96,7 +96,7 @@ export default function OrderDisplay(props) {
   const handleSubmit = (e) => {
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/reviews",
+      url: "http://localhost:5000/reviews",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -129,7 +129,7 @@ export default function OrderDisplay(props) {
               <div key={pro._id} style={{ margin: "2vh" }} >
                 <Grid className="element" container spacing={3} >
                   <Grid item xs={3} container justify="center">
-                    <img style={{ height: "20vh", width: "auto",margin:"auto",padding:"auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.product.image} />
+                    <img style={{ height: "20vh", width: "auto",margin:"auto",padding:"auto" }} src={"http://localhost:5000/" + pro.product.image} />
                   </Grid>
                   <hr />
                   <Grid item xs style={{ textAlign: "top", paddingLeft: "32px" }}>
@@ -168,7 +168,7 @@ export default function OrderDisplay(props) {
 //                 <div key={pro._id} style={{ margin: "2vh" }} >
 //                   <Grid className="element" container spacing={3} >
 //                     <Grid item xs={3}>
-//                       <img style={{ height: "20vh", width: "auto" }} src={"https://limitless-lowlands-36879.herokuapp.com/" + pro.product.image} />
+//                       <img style={{ height: "20vh", width: "auto" }} src={"http://localhost:5000/" + pro.product.image} />
 //                     </Grid>
 //                     <hr />
 //                     <Grid item xs style={{ textAlign: "top" }}>

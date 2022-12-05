@@ -152,7 +152,7 @@ export default function Chart(props) {
   }
 
   useEffect(() => {
-    Axios.get("https://limitless-lowlands-36879.herokuapp.com/categories")
+    Axios.get("http://localhost:5000/categories")
       .then(response => {
         setCategories({
           cat: response.data.categories

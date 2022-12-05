@@ -85,7 +85,7 @@ export default function ProductReviews(props) {
             <CardMedia
               className={classes.media}
               image={elliot}
-              // "https://limitless-lowlands-36879.herokuapp.com/" + props.image.replace("\\","/")} 
+              // "http://localhost:5000/" + props.image.replace("\\","/")} 
               title={props.title}
             />
             <CardContent>

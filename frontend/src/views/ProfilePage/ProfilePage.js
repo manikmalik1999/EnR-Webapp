@@ -15,7 +15,7 @@ import Axios from 'axios';
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 
-const sellerToken = sessionStorage.getItem('TokenSeller');
+const sellerToken = localStorage.getItem('TokenSeller');
 
 const useStyles = makeStyles(styles);
 
@@ -36,7 +36,7 @@ export default function ProfilePage(props) {
   useEffect(() => {
     // console.log(token) ;
 
-    Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
+    Axios.get("http://localhost:5000/orders", {
       headers: {
         "Authorization": "Bearer " + sellerToken
       }

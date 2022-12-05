@@ -301,7 +301,7 @@ function Mul() {
           partialVisibilityGutter: 30
         }
       }}
-      showDots={false}
+      // showDots={false}
       sliderClass=""
       slidesToSlide={1}
       swipeable

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Token = sessionStorage.getItem('TokenKey');
+const Token = localStorage.getItem('TokenKey');
 export default function CategoryDisplay(props) {
   const classes = useStyles();
   const { ...rest } = props;
@@ -51,7 +51,7 @@ export default function CategoryDisplay(props) {
   const [cartResponse, setCartRes] = useState([]);
 
   useEffect(() => {
-    axios.get('https://limitless-lowlands-36879.herokuapp.com/products')
+    axios.get('http://localhost:5000/products')
       .then(res =>{
         console.log(res);
         setProducts(res.data.products);
@@ -77,7 +77,7 @@ export default function CategoryDisplay(props) {
   const HandleWhishlist =(id)=>{
     axios({
       method: 'post',
-      url: "https://limitless-lowlands-36879.herokuapp.com/wishlist/",
+      url: "http://localhost:5000/wishlist/",
       headers: {
         'Authorization': 'Bearer ' + Token,
       },
@@ -142,7 +142,7 @@ export default function CategoryDisplay(props) {
                       <GridContainer  justify="center" alignItems="center" style={{height:"43vh"}}>
                         {pro.quantity?
                           (<GridItem className="container" xs={12}>
-                            <img className="image" style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                            <img className="image" style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block"}} src= {"http://localhost:5000/" + pro.image} />
                             <div className="middle">
                               <IconButton size="large" color="secondary" aria-label="add to wishlist" onClick={() =>HandleWhishlist(pro._id)}>
                                 <FavoriteIcon fontSize="large"/>
@@ -150,7 +150,7 @@ export default function CategoryDisplay(props) {
                             </div>
                           </GridItem>) :(
                             <GridItem className="container" xs={12}>
-                            <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block", opacity:".6"}} src= {"https://limitless-lowlands-36879.herokuapp.com/" + pro.image} />
+                            <img style={{maxHeight: "43vh", maxWidth: "100%", marginLeft:"auto", marginRight:"auto", display:"block", opacity:".6"}} src= {"http://localhost:5000/" + pro.image} />
                             <div className="midd">
                               Out of Stock
                             </div>

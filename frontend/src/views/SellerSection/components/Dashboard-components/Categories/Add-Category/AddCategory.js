@@ -51,7 +51,7 @@ export default function FormDialog() {
         color: "red"
       })
     } else {
-      Axios.post("https://limitless-lowlands-36879.herokuapp.com/categories",{
+      Axios.post("http://localhost:5000/categories",{
         category : category
       },{
         headers: {

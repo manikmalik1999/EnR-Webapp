@@ -43,7 +43,7 @@ function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" style={{ margin: "auto 24px", position: "absolute", right: "12px", bottom: "6px" }}>
             {'Copyright © '}
-            <Link color="inherit" href="https://limitless-lowlands-36879.herokuapp.com/">
+            <Link color="inherit" href="http://localhost:5000/">
                 MECOM
       </Link>{' '}
             {new Date().getFullYear()}
@@ -191,7 +191,7 @@ const AllOrders = (props) => {
 
     const classes = useStyles();
     const token = cookies.get("Token");
-    const sellerToken = sessionStorage.getItem("TokenSeller");
+    const sellerToken = localStorage.getItem("TokenSeller");
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     //redirects nullified for now
@@ -238,7 +238,7 @@ const AllOrders = (props) => {
         // console.log(token) ;
         Axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/sellers/products",
+            url: "http://localhost:5000/sellers/products",
             headers: {
                 'Authorization': 'Bearer ' + sellerToken,
             }
@@ -249,17 +249,17 @@ const AllOrders = (props) => {
 
         Axios({
             method: 'get',
-            url: "https://limitless-lowlands-36879.herokuapp.com/sellers/myinfo",
+            url: "http://localhost:5000/sellers/myinfo",
             headers: {
                 'Authorization': 'Bearer ' + sellerToken,
             }
         }).then(res => {
             setName("Hi, " + res.data.sellers.name);
             setNameSeller(res.data.sellers.name);
-            sessionStorage.setItem('TokenSellerID', res.data.sellers._id);
+            localStorage.setItem('TokenSellerID', res.data.sellers._id);
         })
 
-        Axios.get("https://limitless-lowlands-36879.herokuapp.com/orders", {
+        Axios.get("http://localhost:5000/orders", {
             headers: {
                 "Authorization": "Bearer " + sellerToken
             }

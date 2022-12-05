@@ -185,7 +185,7 @@ export default function Orders(props) {
     categoryOptions = [all, ...others]
   }
   useEffect(() => {
-    Axios.get("https://limitless-lowlands-36879.herokuapp.com/categories")
+    Axios.get("http://localhost:5000/categories")
       .then(response => {
         setCategories({
           cat: response.data.categories
@@ -221,7 +221,7 @@ export default function Orders(props) {
   let seeMore = false;
   if (orders.orders !== "Loading...") {
     data = orders.orders.map((order, index) => {
-      return createData(index, setDate(order.date.split("T")[0]), order.product.name, order.userId.name, order.product.category, order.quantity, order.product.price, order.quantity * order.product.price,
+      return createData(index, order.date.split("T")[0], order.product.name, order.userId.name, order.product.category, order.quantity, order.product.price, order.quantity * order.product.price,
         order.userId.email, order.product._id, order.userId._id, order._id)
     })
     data.reverse();
@@ -239,10 +239,9 @@ export default function Orders(props) {
       let fromDate = new Date(from);
       let toDate = new Date(to);
       toDate.setDate(toDate.getDate()+1) ;
-      let orderDate = formatDate(row.date);
-      orderDate = new Date(orderDate);
+      let orderDate = new Date(row.date);
       orderDate.setDate(orderDate.getDate() + 1);
-      if (fromDate <= orderDate && orderDate < toDate) {
+      if (fromDate <= orderDate && orderDate <= toDate) {
         return <Row key={row.id} row={row} />
       }
     }

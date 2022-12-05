@@ -87,7 +87,7 @@ export default function Product(props) {
           <CardMedia
             className={classes.media}
             // style={{width:"100%"}}
-            image={"https://limitless-lowlands-36879.herokuapp.com/" + props.image} 
+            image={"http://localhost:5000/" + props.image} 
             title={props.title}
           />
           <CardContent>
